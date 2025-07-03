@@ -1,6 +1,0 @@
-[define]
-"process.env.NODE_ENV" = "\"production\""
-
-[target]
-format = ["esm", "cjs"]     # two artefacts in one run
-external = ["react", "react-dom", "react-router-dom"]
