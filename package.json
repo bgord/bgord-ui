@@ -15,8 +15,7 @@
   },
   "peerDependencies": {
     "react": "^19",
-    "react-dom": "^19",
-    "react-router-dom": "^7"
+    "react-dom": "^19"
   },
   "scripts": {
     "build:js": "bun build src/index.tsx --outdir dist",
@@ -27,5 +26,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6"
   }
 }
