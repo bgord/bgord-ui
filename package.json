@@ -18,7 +18,7 @@
     "react-dom": "^19"
   },
   "scripts": {
-    "build:js": "bun build src/index.tsx --outdir dist",
+    "build:js": "bun build src/index.ts --outdir dist",
     "build:types": "bunx tsc --emitDeclarationOnly",
     "build": "bun run build:js && bun run build:types",
     "test": "bun test",
