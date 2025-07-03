@@ -1,7 +1,6 @@
 {
   "name": "@bgord/ui",
   "version": "0.1.0",
-  "description": "Reusable headless UI primitives for React-Router-v7 apps",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
