@@ -7,9 +7,7 @@ type PatternConfigType = {
 };
 
 export class Form {
-  static pattern(
-    config: PatternConfigType,
-  ): React.JSX.IntrinsicElements["textarea"] & React.JSX.IntrinsicElements["input"] {
+  static inputPattern(config: PatternConfigType): React.ComponentPropsWithoutRef<"input"> {
     const required = config.required ?? true;
 
     if (config.min && !config.max) return { pattern: `.{${config.min}}`, required };
