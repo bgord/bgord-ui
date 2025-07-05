@@ -1,3 +1,3 @@
-export * as hooks from "./hooks";
-export * as Components from "./components";
-export * as Services from "./services";
+export * from "./hooks";
+export * from "./components";
+export * from "./services";
