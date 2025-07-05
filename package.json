@@ -13,7 +13,8 @@
   ],
   "peerDependencies": {
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-router-dom": "7.6.3"
   },
   "scripts": {
     "build:js": "bun build src/index.ts --format esm --outdir dist --packages external --external react --external react-dom --external react/jsx-runtime",
