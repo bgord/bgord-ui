@@ -17,7 +17,7 @@
     "react-router": "7.6.3"
   },
   "scripts": {
-    "build:js": "bun build src/index.ts --format esm --outdir dist --packages external --external react --external react-dom --external react/jsx-runtime",
+    "build:js": "bun build src/index.ts --format esm --outdir dist --packages external --external react --external react-dom --external react/jsx-runtime --external react-router",
     "build:types": "bunx tsc --emitDeclarationOnly",
     "build": "bun run build:js && bun run build:types"
   },
