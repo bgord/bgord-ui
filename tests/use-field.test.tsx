@@ -1,7 +1,7 @@
-import React from "react";
-import { MemoryRouter, Routes, Route } from "react-router-dom";
-import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { describe, expect, test } from "bun:test";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import React from "react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 
 import { useField, useFieldStrategyEnum } from "../src/hooks/use-field";
 
@@ -152,12 +152,7 @@ describe("useField in components", () => {
       return (
         <div>
           <label {...field.label.props}>Test Input</label>
-          <input
-            type="text"
-            {...field.input.props}
-            value={field.value}
-            onChange={field.handleChange}
-          />
+          <input type="text" {...field.input.props} value={field.value} onChange={field.handleChange} />
           <span data-testid="value">{field.currentValue}</span>
           <span data-testid="changed">{String(field.changed)}</span>
         </div>

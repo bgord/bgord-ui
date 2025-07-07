@@ -1,6 +1,6 @@
-import React from "react";
-import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { describe, expect, test } from "bun:test";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import React from "react";
 import { extractUseToggle, useToggle } from "../src/hooks/use-toggle";
 
 describe("useToggle", () => {
