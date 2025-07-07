@@ -115,6 +115,7 @@ describe("extractUseToggle", () => {
     expect(toggle).toEqual(hook.result.current);
 
     // Check rest props are correctly separated
+    // @ts-expect-error
     expect(rest).toEqual(extraProps);
 
     // Verify no toggle props leaked into rest
