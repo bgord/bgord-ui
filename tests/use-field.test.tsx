@@ -114,6 +114,8 @@ describe("useField", () => {
     expect(result.current.label.props.htmlFor).toBe("test-field");
     expect(result.current.input.props.id).toBe("test-field");
     expect(result.current.input.props.name).toBe("test-field");
+    expect(result.current.input.props.value).toBe("");
+    expect(result.current.input.props.onChange).toBeFunction();
   });
 
   test("should reflect param strategy from URL", () => {
@@ -152,7 +154,7 @@ describe("useField in components", () => {
       return (
         <div>
           <label {...field.label.props}>Test Input</label>
-          <input type="text" {...field.input.props} value={field.value} onChange={field.handleChange} />
+          <input type="text" {...field.input.props} />
           <span data-testid="value">{field.currentValue}</span>
           <span data-testid="changed">{String(field.changed)}</span>
         </div>

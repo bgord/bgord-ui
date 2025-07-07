@@ -54,7 +54,14 @@ export type useFieldReturnType<T extends FieldValueAllowedTypes> = {
   /** Props for field label */
   label: { props: { htmlFor: NewFieldNameType } };
   /** Props for field input */
-  input: { props: { id: NewFieldNameType; name: NewFieldNameType } };
+  input: {
+    props: {
+      id: NewFieldNameType;
+      name: NewFieldNameType;
+      value: NonNullable<T>;
+      onChange: (event: React.ChangeEvent<FieldElementType>) => void;
+    };
+  };
   /** Whether field value differs from default */
   changed: boolean;
   /** Whether field value equals default */
@@ -142,17 +149,21 @@ export function useField<T extends FieldValueAllowedTypes>(
     }
   }, [currentValue, params, setParams, config.name, strategy]);
 
+  const value = Field.isEmpty(currentValue) ? ("" as NonNullable<T>) : (currentValue as NonNullable<T>);
+
+  const onChange = (event: React.ChangeEvent<FieldElementType>) =>
+    setCurrentValue(event.currentTarget.value as T);
+
   return {
     strategy,
     defaultValue: defaultValue.get(),
     currentValue,
-    value: Field.isEmpty(currentValue) ? ("" as NonNullable<T>) : (currentValue as NonNullable<T>),
+    value,
     set: setCurrentValue,
-    handleChange: (event: React.ChangeEvent<FieldElementType>) =>
-      setCurrentValue(event.currentTarget.value as T),
+    handleChange: onChange,
     clear: () => setCurrentValue(defaultValue.get()),
     label: { props: { htmlFor: config.name } },
-    input: { props: { id: config.name, name: config.name } },
+    input: { props: { id: config.name, name: config.name, value, onChange } },
     changed: !Field.compare(currentValue, defaultValue.get()),
     unchanged: Field.compare(currentValue, defaultValue.get()),
     empty: Field.isEmpty(currentValue),
