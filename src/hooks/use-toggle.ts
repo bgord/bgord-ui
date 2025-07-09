@@ -31,27 +31,29 @@ export type UseToggleReturnType = {
 };
 
 export function useToggle({ name, defaultValue = false }: UseToggleConfigType): UseToggleReturnType {
-  const [on, setIsOn] = useState<UseToggleValueType>(defaultValue);
+  const [on, setOn] = useState<UseToggleValueType>(defaultValue);
 
-  const enable = useCallback(() => setIsOn(true), []);
-  const disable = useCallback(() => setIsOn(false), []);
-  const toggle = useCallback(() => setIsOn((v) => !v), []);
+  // tighter callbacks, defined inline
+  const enable = () => setOn(true);
+  const disable = () => setOn(false);
+  const toggle = () => setOn((v) => !v);
 
-  const off = useMemo(() => !on, [on]);
+  // simplify memoization: compute directly
+  const off = !on;
 
-  const props = useMemo(
-    () =>
-      ({
-        controller: {
-          "aria-expanded": on ? "true" : "false",
-          "aria-controls": name,
-          role: "button" as const,
-          tabIndex: 0,
-        },
-        target: { id: name, role: "region" as const, "aria-hidden": on ? "false" : "true" },
-      }) as UseToggleProps,
-    [on, name],
-  );
+  const props: UseToggleProps = {
+    controller: {
+      "aria-expanded": on ? "true" : "false",
+      "aria-controls": name,
+      role: "button",
+      tabIndex: 0,
+    },
+    target: {
+      id: name,
+      role: "region",
+      "aria-hidden": on ? "false" : "true",
+    },
+  };
 
   return { on, off, enable, disable, toggle, props };
 }
