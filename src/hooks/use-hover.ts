@@ -1,31 +1,44 @@
-import { useCallback, useEffect, useMemo, useRef } from "react";
-import { UseToggleReturnType, useToggle } from "./use-toggle";
+import { useCallback, useRef } from "react";
+import { useToggle } from "./use-toggle";
 
 type UseHoverConfigType = { enabled?: boolean };
 
-type UseHoverReturnType = { attach: { ref: React.RefObject<any> }; isHovering: UseToggleReturnType["on"] };
+export type UseHoverReturnType<T extends HTMLElement> = {
+  attach: { ref: React.RefCallback<T | null> };
+  isHovering: boolean;
+};
 
-export function useHover(config?: UseHoverConfigType): UseHoverReturnType {
-  const enabled = config?.enabled ?? true;
-  const ref = useRef<any>(null);
-  const isHovering = useToggle({ name: "is-hovering" });
+export function useHover<T extends HTMLElement = HTMLElement>({
+  enabled = true,
+}: UseHoverConfigType = {}): UseHoverReturnType<T> {
+  const { on: isOn, enable, disable } = useToggle({ name: "is-hovering" });
+  const nodeRef = useRef<T | null>(null);
 
-  const handleMouseEnter = useCallback(isHovering.enable, []);
-  const handleMouseLeave = useCallback(isHovering.disable, []);
+  const enterEvent =
+    typeof window !== "undefined" && "PointerEvent" in window ? "pointerenter" : "mouseenter";
+  const leaveEvent =
+    typeof window !== "undefined" && "PointerEvent" in window ? "pointerleave" : "mouseleave";
 
-  useEffect(() => {
-    const node = ref.current;
-    if (node && enabled) {
-      node.addEventListener("mouseenter", handleMouseEnter);
-      node.addEventListener("mouseleave", handleMouseLeave);
-    }
-    return () => {
-      if (node && enabled) {
-        node.removeEventListener("mouseenter", handleMouseEnter);
-        node.removeEventListener("mouseleave", handleMouseLeave);
+  const ref = useCallback(
+    (node: T | null) => {
+      const prev = nodeRef.current;
+      if (prev) {
+        prev.removeEventListener(enterEvent, enable);
+        prev.removeEventListener(leaveEvent, disable);
       }
-    };
-  }, [enabled, handleMouseEnter, handleMouseLeave]);
 
-  return useMemo(() => ({ attach: { ref }, isHovering: isHovering.on && enabled }), [isHovering.on, enabled]);
+      nodeRef.current = node;
+
+      if (node && enabled) {
+        node.addEventListener(enterEvent, enable);
+        node.addEventListener(leaveEvent, disable);
+      }
+    },
+    [enterEvent, leaveEvent, enabled, enable, disable],
+  );
+
+  return {
+    attach: { ref },
+    isHovering: isOn && enabled,
+  };
 }
