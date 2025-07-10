@@ -1,6 +1,16 @@
 import React from "react";
 
-type UseExitActionOptionsType = { actionFn: () => void; animation: string };
+type UseExitActionAnimationType = string;
+
+type UseExitActionOptionsType = { actionFn: () => void; animation: UseExitActionAnimationType };
+
+type UseExitActionReturnType = {
+  visible: boolean;
+  trigger: (event: React.MouseEvent) => void;
+  attach:
+    | { "data-exit": UseExitActionAnimationType; onAnimationEnd: (event: React.AnimationEvent) => void }
+    | undefined;
+};
 
 enum UseExitActionPhase {
   idle = "idle",
@@ -8,7 +18,7 @@ enum UseExitActionPhase {
   gone = "gone",
 }
 
-export function useExitAction(options: UseExitActionOptionsType) {
+export function useExitAction(options: UseExitActionOptionsType): UseExitActionReturnType {
   const [phase, setPhase] = React.useState<UseExitActionPhase>(UseExitActionPhase.idle);
 
   const trigger = (event: React.MouseEvent) => {
