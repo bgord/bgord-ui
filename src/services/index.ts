@@ -1,3 +1,4 @@
+export * from "./colorful";
 export * from "./field";
 export * from "./fields";
 export * from "./form";
