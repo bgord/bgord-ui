@@ -3,6 +3,9 @@
   "workspaces": {
     "": {
       "name": "@bgord/ui",
+      "dependencies": {
+        "polish-plurals": "^1.1.0",
+      },
       "devDependencies": {
         "@biomejs/biome": "2.0.6",
         "@commitlint/cli": "19.8.1",
@@ -668,6 +671,8 @@
     "pinkie": ["pinkie@2.0.4", "", {}, "sha512-MnUuEycAemtSaeFSjXKW/aroV7akBbY+Sv+RkyqFjgAe73F+MR0TBWKBRDkmfWq/HiFmdavfZ1G7h4SPZXaCSg=="],
 
     "pinkie-promise": ["pinkie-promise@2.0.1", "", { "dependencies": { "pinkie": "^2.0.0" } }, "sha512-0Gni6D4UcLTbv9c57DfxDGdr41XfgUjqWZu492f0cIGr16zDU06BWP/RAEvOuo7CQ0CNjHaLlM59YJJFm3NWlw=="],
+
+    "polish-plurals": ["polish-plurals@1.1.0", "", {}, "sha512-Sect6u4dScUC15pUZGhbfr7Q5o6CRAIpBj/KdkYf27EUa5Ls6+MkK5LXUH3PQL5aPAmFGnmJMXhdXzNLGc5V5A=="],
 
     "possible-typed-array-names": ["possible-typed-array-names@1.1.0", "", {}, "sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg=="],
 
