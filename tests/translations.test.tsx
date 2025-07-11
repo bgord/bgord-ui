@@ -2,7 +2,7 @@ import { describe, expect, spyOn, test } from "bun:test";
 import { render, renderHook, screen } from "@testing-library/react";
 import React from "react";
 import {
-  TranslationsContextProvider,
+  TranslationsContext,
   TranslationsContextValueType,
   useLanguage,
   useTranslations,
@@ -19,9 +19,9 @@ describe("Translations Context and Hooks", () => {
       };
 
       render(
-        <TranslationsContextProvider value={value}>
+        <TranslationsContext.Provider value={value}>
           <div>Child Component</div>
-        </TranslationsContextProvider>,
+        </TranslationsContext.Provider>,
       );
 
       screen.getByText("Child Component");
@@ -31,10 +31,10 @@ describe("Translations Context and Hooks", () => {
       const value = { translations: {}, language: "en" as const };
 
       render(
-        <TranslationsContextProvider value={value}>
+        <TranslationsContext.Provider value={value}>
           <div>First Child</div>
           <div>Second Child</div>
-        </TranslationsContextProvider>,
+        </TranslationsContext.Provider>,
       );
 
       screen.getByText("First Child");
@@ -44,7 +44,7 @@ describe("Translations Context and Hooks", () => {
 
   describe("useTranslations", () => {
     const wrapper = (props: { children: React.ReactNode; value: TranslationsContextValueType }) => (
-      <TranslationsContextProvider value={props.value}>{props.children}</TranslationsContextProvider>
+      <TranslationsContext.Provider value={props.value}>{props.children}</TranslationsContext.Provider>
     );
 
     test("returns translation for existing key", () => {
@@ -116,7 +116,7 @@ describe("Translations Context and Hooks", () => {
 
   describe("useLanguage", () => {
     const wrapper = (props: { children: React.ReactNode; value: TranslationsContextValueType }) => (
-      <TranslationsContextProvider value={props.value}>{props.children}</TranslationsContextProvider>
+      <TranslationsContext.Provider value={props.value}>{props.children}</TranslationsContext.Provider>
     );
 
     test("returns current language", () => {
@@ -166,9 +166,9 @@ describe("Translations Context and Hooks", () => {
       };
 
       render(
-        <TranslationsContextProvider value={value}>
+        <TranslationsContext.Provider value={value}>
           <TestComponent />
-        </TranslationsContextProvider>,
+        </TranslationsContext.Provider>,
       );
 
       expect(screen.getByTestId("translation")).toHaveTextContent("Welcome, Test!");

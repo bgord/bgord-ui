@@ -18,19 +18,10 @@ export type TranslationsContextValueType = {
   language: string;
 };
 
-const TranslationsContext = createContext<TranslationsContextValueType>({
+export const TranslationsContext = createContext<TranslationsContextValueType>({
   translations: {},
   language: "en",
 });
-
-type TranslationsContextPropsType = {
-  children: React.ReactNode;
-  value: TranslationsContextValueType;
-};
-
-export function TranslationsContextProvider(props: TranslationsContextPropsType) {
-  return <TranslationsContext.Provider value={props.value}>{props.children}</TranslationsContext.Provider>;
-}
 
 export function useTranslations() {
   const value = use(TranslationsContext);
