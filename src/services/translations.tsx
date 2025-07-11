@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext } from "react";
+import { createContext, use, useCallback } from "react";
 import { PluralizeOptionsType, pluralize } from "./pluralize";
 
 export type TranslationsKeyType = string;
@@ -33,7 +33,7 @@ export function TranslationsContextProvider(props: TranslationsContextPropsType)
 }
 
 export function useTranslations() {
-  const value = useContext(TranslationsContext);
+  const value = use(TranslationsContext);
 
   if (value === undefined) {
     throw new Error("useTranslations must be used within the TranslationsContext");
@@ -63,7 +63,7 @@ export function useTranslations() {
 }
 
 export function useLanguage(): TranslationsContextValueType["language"] {
-  const value = useContext(TranslationsContext);
+  const value = use(TranslationsContext);
 
   if (value === undefined) {
     throw new Error("useLanguage must be used within the TranslationsContext");
