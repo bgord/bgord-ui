@@ -8,7 +8,7 @@ import { useField, useFieldStrategyEnum } from "../src/hooks/use-field";
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter>
     <Routes>
-      <Route path="/" element={<>{children}</>} />
+      <Route path="/" element={children} />
     </Routes>
   </MemoryRouter>
 );
@@ -122,7 +122,7 @@ describe("useField", () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <MemoryRouter initialEntries={["/test?test-param=url-value"]}>
         <Routes>
-          <Route path="/test" element={<>{children}</>} />
+          <Route path="/test" element={children} />
         </Routes>
       </MemoryRouter>
     );
