@@ -1,0 +1,79 @@
+# Changelog
+- 2025-07-12 18:23 c9d262c **step: bump bgord/scripts**
+- 2025-07-12 18:23 3f58dbb **step: update packages**
+- 2025-07-11 18:19 7b74016 **feature: add colorful**
+- 2025-07-11 16:35 8ce2dc9 **refactor: remove TranslationsContextProvider**
+- 2025-07-11 16:34 44790af **refactor: replace useContext with use**
+- 2025-07-11 16:18 08ad6b6 **step: test translations**
+- 2025-07-11 16:17 ceedafa **feature: setup translations**
+- 2025-07-11 16:11 53d5910 **fix: biome errors**
+- 2025-07-11 16:04 7ba77a2 **fix: use-field test**
+- 2025-07-11 16:01 2b0d718 **feature: setup pluralize**
+- 2025-07-11 16:00 f22d844 **step: setup correct changelog file**
+- 2025-07-11 16:00 b9740fa **step: install polish plurals**
+- 2025-07-11 15:59 44ac2e2 **fix: infra/changelog**
+- 2025-07-10 22:55 22026e8 **step: setup infra/changelog**
+## 2025-07-10 22:54 v0.3.0
+- 2025-07-10 22:54 edb8bda **0.3.0**
+- 2025-07-10 22:53 18cb748 **step: update packages**
+- 2025-07-10 22:50 e9d79bf **step: add tests**
+- 2025-07-10 22:44 7046076 **step: add return types**
+- 2025-07-10 22:42 f62fc32 **feature: add use exit action**
+- 2025-07-10 20:55 dafeb6b **docs: generate CHANGELOG**
+- 2025-07-09 15:45 0df128d **refactor: improve use-toggle**
+- 2025-07-09 15:39 60bfa52 **refactor: improve use-hover**
+- 2025-07-09 15:19 dfae623 **step: add use-hover**
+- 2025-07-07 17:17 1088ef5 **refactor: extract services/fields**
+- 2025-07-07 17:02 16e3331 **feature: make input.props include value and onChange handler**
+## 2025-07-07 16:46 v0.2.0
+- 2025-07-07 16:46 43839f9 **0.2.0**
+- 2025-07-07 14:39 5beba34 **step: bump bgord/scripts**
+- 2025-07-07 14:01 410cbe3 **step: setup workflows**
+- 2025-07-07 14:01 0a1dc42 **step: update bun**
+- 2025-07-07 14:01 0088c16 **step: bump bgord/scripts**
+- 2025-07-07 14:00 352280c **step: setup lefthook**
+- 2025-07-07 13:57 ebf48d0 **step: setup dev packages**
+- 2025-07-07 13:57 a6eb7a4 **fix: formatting**
+- 2025-07-07 13:13 aa5a4ce **step: add use-field tests**
+- 2025-07-07 13:07 ef9ee66 **step: install user-event**
+- 2025-07-07 13:04 0214f25 **fix: test type errors**
+- 2025-07-07 12:59 ae806f3 **step: add use toggle tests**
+- 2025-07-07 12:58 bfce507 **step: add react testing library packages**
+- 2025-07-07 12:58 7e27444 **step: add tests/_setup file**
+- 2025-07-07 12:49 522d984 **step: setup tests**
+- 2025-07-07 12:45 8cea7eb **step: install bun types**
+- 2025-07-05 17:24 8d66fe9 **refactor: make react-router external**
+- 2025-07-05 17:23 0d7b236 **refactor: switch to react-router**
+- 2025-07-05 17:18 e6a9813 **feature: add use-field hook**
+- 2025-07-05 17:17 f6924cf **step: add field service**
+- 2025-07-05 17:17 7ac7e7c **step: install react-router-dom**
+- 2025-07-05 16:00 9a43d8a **step: add Form.textareaPattern**
+- 2025-07-05 16:00 67e35db **refactor: adjust Form.inputPattern**
+- 2025-07-05 16:00 1740817 **refactor: flatten exports**
+- 2025-07-04 18:18 225ea34 **feature: add form helpers**
+- 2025-07-04 18:11 e836ee8 **feature: setup rhythm service**
+## 2025-07-03 19:58 v0.1.2
+- 2025-07-03 19:58 ea9ec99 **0.1.2**
+- 2025-07-03 19:51 1ee8f03 **step: set format in build:js**
+- 2025-07-03 19:41 11666f3 **step: simplify package.json**
+- 2025-07-03 19:38 e44a80d **step: remove bunfig**
+- 2025-07-03 19:38 7ea1927 **step: update build script**
+## 2025-07-03 19:26 v0.1.1
+- 2025-07-03 19:26 a7ec7c9 **0.1.1**
+- 2025-07-03 19:26 0087b9a **fix: package.json files**
+- 2025-07-03 19:17 09fc940 **step: pinpoint packages**
+- 2025-07-03 19:16 c73e033 **step: setup bgord-scripts**
+- 2025-07-03 19:16 85009cd **refactor: improve package.json**
+- 2025-07-03 19:14 2dc2fea **refactor: remove index.ts**
+- 2025-07-03 19:14 0d97f10 **refactor: remove ai instructions**
+- 2025-07-03 19:11 f3c54f7 **step: remove unnecessary scripts**
+- 2025-07-03 19:09 7ea0330 **step: change src/index.tsx to src/index.ts**
+- 2025-07-03 19:08 f86411d **step: define button component**
+- 2025-07-03 19:06 1972044 **step: add use toggle hook**
+- 2025-07-03 19:04 6e6946e **step: install react types**
+- 2025-07-03 19:02 be15ddc **step: add bunfig**
+- 2025-07-03 19:02 7443212 **step: add packages**
+- 2025-07-03 19:02 354aeff **step: install packages**
+- 2025-07-03 19:00 fe63101 **step: setup project structure**
+- 2025-07-03 19:00 9b3462f **step: adjust tsconfig**
+- 2025-07-03 18:58 48b5f36 **step: setup project**
