@@ -1,6 +1,9 @@
 # Changelog
+## 2025-07-12 18:24 v0.4.0
+- 2025-07-12 18:24 54b1f0e **0.4.0**
 - 2025-07-12 18:23 c9d262c **step: bump bgord/scripts**
 - 2025-07-12 18:23 3f58dbb **step: update packages**
+- 2025-07-12 16:24 b239531 **docs: generate CHANGELOG**
 - 2025-07-11 18:19 7b74016 **feature: add colorful**
 - 2025-07-11 16:35 8ce2dc9 **refactor: remove TranslationsContextProvider**
 - 2025-07-11 16:34 44790af **refactor: replace useContext with use**
