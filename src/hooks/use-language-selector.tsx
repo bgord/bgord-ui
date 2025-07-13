@@ -1,7 +1,8 @@
+// cspell:disable
 import Cookies from "js-cookie";
 import { useCallback, useEffect } from "react";
+import { useRevalidator } from "react-router";
 import { Field } from "../services/field";
-import { getSafeWindow } from "../services/get-safe-window";
 import { useLanguage } from "../services/translations";
 import { useClientFilter, useClientFilterReturnType } from "./use-client-filter";
 
@@ -11,6 +12,7 @@ export function useLanguageSelector(
   supportedLanguages: Record<LanguageType, LanguageType>,
 ): useClientFilterReturnType<LanguageType> {
   const language = useLanguage();
+  const revalidator = useRevalidator();
 
   const field = useClientFilter<LanguageType>({
     enum: supportedLanguages,
@@ -19,13 +21,11 @@ export function useLanguageSelector(
   });
 
   const handleLanguageChange = useCallback(() => {
-    const safeWindow = getSafeWindow();
-    if (!safeWindow) return;
-
     const current = new Field(field.currentValue);
+
     if (!current.isEmpty() && field.changed) {
       Cookies.set("language", String(current.get()));
-      safeWindow.document.location.reload();
+      revalidator.revalidate();
     }
   }, [field.currentValue, field.changed]);
 
