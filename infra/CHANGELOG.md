@@ -1,7 +1,10 @@
 # Changelog
+## 2025-07-13 17:10 v0.4.1
+- 2025-07-13 17:10 a8179a4 **0.4.1**
 - 2025-07-13 17:09 f72ed4f **step: update packages**
 - 2025-07-13 17:09 c3f60be **step: adjust data-animation in use exit action**
 - 2025-07-13 15:17 2bad889 **step: add weak etag and etag**
+- 2025-07-13 15:10 4c06453 **docs: generate CHANGELOG**
 - 2025-07-13 15:09 6a7751b **docs: generate CHANGELOG**
 - 2025-07-13 15:09 68af31c **docs: generate readme**
 - 2025-07-12 18:47 a3b6a3b **step: add docs package workflow**
