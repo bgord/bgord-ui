@@ -1,10 +1,14 @@
 # Changelog
+- 2025-07-13 17:09 c3f60be **step: adjust data-animation in use exit action**
+- 2025-07-13 15:17 2bad889 **step: add weak etag and etag**
 - 2025-07-12 18:47 a3b6a3b **step: add docs package workflow**
 - 2025-07-12 18:46 4defe8d **step: bump bgord/scripts**
 ## 2025-07-12 18:24 v0.4.0
 - 2025-07-12 18:24 54b1f0e **0.4.0**
 - 2025-07-12 18:23 c9d262c **step: bump bgord/scripts**
 - 2025-07-12 18:23 3f58dbb **step: update packages**
+- 2025-07-12 16:47 b554a92 **docs: generate readme**
+- 2025-07-12 16:47 926ac6a **docs: generate CHANGELOG**
 - 2025-07-12 16:24 b239531 **docs: generate CHANGELOG**
 - 2025-07-12 16:24 997fc94 **docs: generate CHANGELOG**
 - 2025-07-11 18:19 7b74016 **feature: add colorful**
