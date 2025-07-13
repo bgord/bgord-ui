@@ -24,7 +24,7 @@ export function useLanguageSelector(
 
     const current = new Field(field.currentValue);
     if (!current.isEmpty() && field.changed) {
-      Cookies.set("accept-language", String(current.get()));
+      Cookies.set("language", String(current.get()));
       safeWindow.document.location.reload();
     }
   }, [field.currentValue, field.changed]);

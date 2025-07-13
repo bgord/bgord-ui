@@ -66,7 +66,7 @@ describe("useLanguageSelector", () => {
 
     // ── assert ───────────────────────────────────────────────────────
     expect(setSpy).toHaveBeenCalledTimes(1);
-    expect(setSpy).toHaveBeenCalledWith("accept-language", "pl");
+    expect(setSpy).toHaveBeenCalledWith("language", "pl");
     expect(reloadSpy).toHaveBeenCalledTimes(1);
   });
 
