@@ -8,7 +8,7 @@ type UseExitActionReturnType = {
   visible: boolean;
   trigger: (event: React.MouseEvent) => void;
   attach:
-    | { "data-exit": UseExitActionAnimationType; onAnimationEnd: (event: React.AnimationEvent) => void }
+    | { "data-animation": UseExitActionAnimationType; onAnimationEnd: (event: React.AnimationEvent) => void }
     | undefined;
 };
 
@@ -32,7 +32,7 @@ export function useExitAction(options: UseExitActionOptionsType): UseExitActionR
     setPhase(UseExitActionPhase.gone);
   };
 
-  const attach = phase === "exiting" ? { "data-exit": options.animation, onAnimationEnd } : undefined;
+  const attach = phase === "exiting" ? { "data-animation": options.animation, onAnimationEnd } : undefined;
 
   return { visible: phase !== "gone", attach, trigger };
 }

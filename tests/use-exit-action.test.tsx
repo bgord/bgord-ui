@@ -29,7 +29,7 @@ describe("useExitAction()", () => {
 
     expect(result.current.visible).toBe(true);
     expect(result.current.attach).toMatchObject({
-      "data-exit": ANIMATION,
+      "data-animation": ANIMATION,
       onAnimationEnd: expect.any(Function),
     });
   });
