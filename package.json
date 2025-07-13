@@ -25,17 +25,18 @@
     "access": "public"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.0.6",
+    "@commitlint/cli": "19.8.1",
+    "@commitlint/config-conventional": "19.8.1",
     "@happy-dom/global-registrator": "18.0.1",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "@types/bun": "1.2.18",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
-    "@biomejs/biome": "2.0.6",
-    "@commitlint/cli": "19.8.1",
-    "@commitlint/config-conventional": "19.8.1",
     "cspell": "9.1.5",
     "knip": "5.61.3",
     "lefthook": "1.12.2",
@@ -43,6 +44,7 @@
     "shellcheck": "3.1.0"
   },
   "dependencies": {
+    "js-cookie": "^3.0.5",
     "polish-plurals": "^1.1.0"
   }
 }
