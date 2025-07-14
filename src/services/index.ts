@@ -1,5 +1,6 @@
 export * from "./colorful";
 export * from "./etag";
+export * from "./exec";
 export * from "./field";
 export * from "./fields";
 export * from "./form";
