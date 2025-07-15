@@ -1,6 +1,10 @@
 # Changelog
+- 2025-07-15 17:53 b3a9bcd **Merge branch 'master' of github.com:bgord/bgord-ui**
 - 2025-07-15 17:53 5eeb80c **step: test use meta enter submt**
+- 2025-07-15 17:53 4774980 **0.5.0**
 - 2025-07-15 17:38 7819d5e **step: add use meta enter submit**
+- 2025-07-15 15:53 f0805a6 **docs: generate CHANGELOG**
+- 2025-07-15 15:53 b90a28d **docs: generate readme**
 - 2025-07-14 21:11 ae225d6 **feature: add use focus shortcut**
 - 2025-07-14 20:58 9b6b814 **feature: add use shortcuts**
 - 2025-07-14 20:57 32cda91 **step: install tinykeys**
