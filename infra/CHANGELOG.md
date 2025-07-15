@@ -1,10 +1,23 @@
 # Changelog
+- 2025-07-15 17:53 5eeb80c **step: test use meta enter submt**
+- 2025-07-15 17:38 7819d5e **step: add use meta enter submit**
+- 2025-07-14 21:11 ae225d6 **feature: add use focus shortcut**
+- 2025-07-14 20:58 9b6b814 **feature: add use shortcuts**
+- 2025-07-14 20:57 32cda91 **step: install tinykeys**
+- 2025-07-14 20:10 b40f37c **step: add exec**
+- 2025-07-13 22:30 abd5cf9 **refactor: adjust language switch**
+- 2025-07-13 21:40 f449867 **fix: cookie name**
+- 2025-07-13 21:28 35f69dd **feature: move use language selector**
+- 2025-07-13 21:24 e571198 **step: install js-cookie**
+- 2025-07-13 21:24 aaf6cf4 **step: add get safe window**
+- 2025-07-13 21:02 3dbb387 **feature: move use client filter**
 ## 2025-07-13 17:10 v0.4.1
 - 2025-07-13 17:10 a8179a4 **0.4.1**
 - 2025-07-13 17:09 f72ed4f **step: update packages**
 - 2025-07-13 17:09 c3f60be **step: adjust data-animation in use exit action**
 - 2025-07-13 15:17 2bad889 **step: add weak etag and etag**
 - 2025-07-13 15:10 4c06453 **docs: generate CHANGELOG**
+- 2025-07-13 15:10 131f7fb **docs: generate CHANGELOG**
 - 2025-07-13 15:09 6a7751b **docs: generate CHANGELOG**
 - 2025-07-13 15:09 68af31c **docs: generate readme**
 - 2025-07-12 18:47 a3b6a3b **step: add docs package workflow**
