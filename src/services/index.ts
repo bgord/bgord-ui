@@ -1,3 +1,4 @@
+export * from "./auth-guard";
 export * from "./colorful";
 export * from "./cookies";
 export * from "./etag";
