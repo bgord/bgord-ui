@@ -1,4 +1,11 @@
 # Changelog
+- 2025-07-27 15:22 8c24dd9 **step: add cookie tests**
+- 2025-07-27 15:19 5b2217a **step: update packages**
+- 2025-07-20 10:03 12275f3 **step: update packages**
+- 2025-07-17 15:27 740f054 **step: add auth guard**
+- 2025-07-17 15:26 d10ef7d **step: install better-auth**
+- 2025-07-17 15:21 e91cc3a **step: install cookies**
+- 2025-07-17 14:58 e417a09 **step: add cookies service**
 ## 2025-07-15 17:54 v0.5.1
 - 2025-07-15 17:54 f208633 **0.5.1**
 ## 2025-07-15 17:53 v0.5.0
@@ -7,6 +14,7 @@
 - 2025-07-15 17:53 4774980 **0.5.0**
 - 2025-07-15 17:38 7819d5e **step: add use meta enter submit**
 - 2025-07-15 15:54 ba1275d **docs: generate CHANGELOG**
+- 2025-07-15 15:54 a11f6d6 **docs: generate CHANGELOG**
 - 2025-07-15 15:53 f0805a6 **docs: generate CHANGELOG**
 - 2025-07-15 15:53 b90a28d **docs: generate readme**
 - 2025-07-14 21:11 ae225d6 **feature: add use focus shortcut**
