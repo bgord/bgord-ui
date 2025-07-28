@@ -1,8 +1,7 @@
 // Dialog.test.tsx
-import { describe, test, beforeAll, afterEach, expect, jest } from "bun:test";
-
+import { afterEach, beforeAll, describe, expect, jest, test } from "bun:test";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
-import { render, fireEvent, waitFor, cleanup } from "@testing-library/react";
 import { Dialog } from "../src/components/dialog";
 import * as hooks from "../src/hooks";
 
