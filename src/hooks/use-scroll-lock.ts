@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useScrollLock(enabled: boolean = true): void {
+export function useScrollLock(enabled = true): void {
   if (typeof document === "undefined") return;
 
   useEffect(() => {
