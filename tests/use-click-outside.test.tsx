@@ -1,62 +1,93 @@
+// useClickOutside.test.tsx
 import { afterEach, describe, expect, jest, test } from "bun:test";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import React, { useRef } from "react";
 import { useClickOutside } from "../src/hooks/use-click-outside";
 
-afterEach(() => cleanup());
-
-function DivWrapper({ onOutside }: { onOutside: () => void }) {
+function Box({ onOutside }: { onOutside: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   useClickOutside(ref, onOutside);
   return (
-    <div data-testid="box" ref={ref}>
-      content
+    <div data-testid="box" ref={ref} style={{ padding: 20 }}>
+      inner
     </div>
   );
 }
 
-function DialogWrapper({ onOutside }: { onOutside: () => void }) {
+function Dialog({ onOutside }: { onOutside: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
   useClickOutside(ref, onOutside);
-  return <dialog ref={ref}>dialog</dialog>;
+  return (
+    <dialog
+      data-testid="dlg"
+      ref={ref}
+      style={{
+        padding: 20,
+        position: "fixed",
+        top: "40%",
+        left: "40%",
+      }}
+    >
+      <div data-testid="dlg-inner">dialog-content</div>
+    </dialog>
+  );
 }
 
+afterEach(() => cleanup());
+
 describe("useClickOutside", () => {
-  test("calls handler on mousedown outside the element", () => {
-    const onOutside = jest.fn();
-    render(<DivWrapper onOutside={onOutside} />);
-
+  test("fires on outside click", () => {
+    const spy = jest.fn();
+    render(<Box onOutside={spy} />);
     fireEvent.mouseDown(document.body);
-
-    expect(onOutside).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
-  test("does NOT call handler when clicking inside the element", () => {
-    const onOutside = jest.fn();
-    const { getByTestId } = render(<DivWrapper onOutside={onOutside} />);
-
-    fireEvent.mouseDown(getByTestId("box"));
-
-    expect(onOutside).toHaveBeenCalledTimes(0);
+  test("ignores click on the element itself", () => {
+    const spy = jest.fn();
+    const { getByTestId } = render(<Box onOutside={spy} />);
+    fireEvent.mouseDown(getByTestId("box")); // inside the div
+    expect(spy).toHaveBeenCalledTimes(0);
   });
 
-  test("calls handler when backdrop (dialog itself) is clicked", () => {
-    const onOutside = jest.fn();
-    const { container } = render(<DialogWrapper onOutside={onOutside} />);
+  test("ignores click inside dialog content", () => {
+    const spy = jest.fn();
+    const { getByTestId } = render(<Dialog onOutside={spy} />);
+    fireEvent.mouseDown(getByTestId("dlg-inner")); // inside dialog
+    expect(spy).toHaveBeenCalledTimes(0);
+  });
 
-    const dlg = container.querySelector("dialog") as HTMLDialogElement;
-    fireEvent.mouseDown(dlg); // backdrop click → target === <dialog>
+  test("fires on dialog backdrop click (target === dialog, coords outside rect)", () => {
+    const spy = jest.fn();
+    const { getByTestId } = render(<Dialog onOutside={spy} />);
+    const dlg = getByTestId("dlg") as HTMLDialogElement;
 
-    expect(onOutside).toHaveBeenCalledTimes(1);
+    /*  Stub a realistic bounding-box so the hook can decide  */
+    Object.defineProperty(dlg, "getBoundingClientRect", {
+      value: () => ({
+        left: 100,
+        top: 100,
+        right: 300,
+        bottom: 300,
+        width: 200,
+        height: 200,
+        x: 100,
+        y: 100,
+        toJSON: () => {},
+      }),
+    });
+
+    /*  Click at (0,0) – outside the stubbed rect  */
+    fireEvent.mouseDown(dlg, { clientX: 0, clientY: 0, bubbles: true });
+
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 
   test("removes listeners on unmount", () => {
-    const onOutside = jest.fn();
-    const { unmount } = render(<DivWrapper onOutside={onOutside} />);
-
+    const spy = jest.fn();
+    const { unmount } = render(<Box onOutside={spy} />);
     unmount();
     fireEvent.mouseDown(document.body);
-
-    expect(onOutside).toHaveBeenCalledTimes(0);
+    expect(spy).toHaveBeenCalledTimes(0);
   });
 });
