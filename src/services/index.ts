@@ -1,5 +1,6 @@
 export * from "./auth-guard";
 export * from "./cookies";
+export * from "./credentials";
 export * from "./etag";
 export * from "./exec";
 export * from "./field";
