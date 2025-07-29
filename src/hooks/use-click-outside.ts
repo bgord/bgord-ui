@@ -4,9 +4,9 @@ export function useClickOutside<T extends HTMLElement>(
   ref: RefObject<T | null>,
   handler: (e: MouseEvent | TouchEvent) => void,
 ): void {
-  if (typeof document === "undefined") return; // SSR-guard
-
   useEffect(() => {
+    if (typeof document === "undefined") return; // SSR-guard
+
     function listener(event: MouseEvent | TouchEvent) {
       const el = ref.current;
       if (!el) return;

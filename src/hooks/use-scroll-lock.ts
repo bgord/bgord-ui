@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 
 export function useScrollLock(enabled = true): void {
-  if (typeof document === "undefined") return;
-
   useEffect(() => {
+    if (typeof document === "undefined") return;
+
     const originalOverflow = document.body.style.overflow;
 
     if (enabled) {

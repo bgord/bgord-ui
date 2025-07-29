@@ -23,8 +23,8 @@ function Harness({ defaultOpen = false }: { defaultOpen?: boolean }) {
 
   return (
     <>
-      <button data-testid="open" onClick={toggle.enable} />
-      <button data-testid="close" onClick={toggle.disable} />
+      <button type="button" data-testid="open" onClick={toggle.enable} />
+      <button type="button" data-testid="close" onClick={toggle.disable} />
       <Dialog {...toggle} data-testid="dlg" />
     </>
   );
