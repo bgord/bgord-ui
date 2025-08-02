@@ -1,4 +1,5 @@
 # Changelog
+- 2025-08-02 23:13 6f1cf6b **step: fix build in prod mode**
 ## 2025-08-02 22:21 v0.5.4
 ## 2025-08-02 22:21 v0.5.3
 - 2025-08-02 22:21 bfc1128 **0.5.4**
@@ -7,6 +8,7 @@
 - 2025-08-02 20:21 f663bd6 **docs: generate CHANGELOG**
 - 2025-08-02 20:21 8031836 **docs: generate CHANGELOG**
 - 2025-08-02 20:21 3dbf689 **docs: generate readme**
+- 2025-08-02 20:21 3d393c8 **docs: generate CHANGELOG**
 ## 2025-08-02 18:17 v0.5.2
 - 2025-08-02 18:17 30cd8fa **0.5.2**
 - 2025-08-02 18:16 3ab1e5b **fix: biome errors**
