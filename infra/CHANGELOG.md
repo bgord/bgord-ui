@@ -1,4 +1,7 @@
 # Changelog
+- 2025-08-02 18:16 3ab1e5b **fix: biome errors**
+- 2025-08-02 16:12 709bdd8 **docs: generate readme**
+- 2025-08-02 16:12 3583f93 **docs: generate CHANGELOG**
 - 2025-08-02 13:57 d96c7f0 **step: add noop**
 - 2025-08-02 13:57 a2b7a4e **feature: add copy to clipboard**
 - 2025-07-30 09:03 991f81a **step: update packages**
