@@ -12,3 +12,4 @@ export * from "./pluralize";
 export * from "./rhythm";
 export * from "./translations";
 export * from "./weak-etag";
+export * from "./copy-to-clipboard";
