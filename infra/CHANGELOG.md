@@ -1,6 +1,22 @@
 # Changelog
+- 2025-08-02 13:57 d96c7f0 **step: add noop**
+- 2025-08-02 13:57 a2b7a4e **feature: add copy to clipboard**
+- 2025-07-30 09:03 991f81a **step: update packages**
+- 2025-07-29 13:24 be1eb8d **step: fix biome errors**
+- 2025-07-28 22:35 0ec539a **step: change dialog backdrop**
+- 2025-07-28 16:46 a204461 **feature: add dialog**
+- 2025-07-28 16:32 cc24756 **fix: outside detection**
+- 2025-07-28 16:24 7624f8f **step: update use click outside**
+- 2025-07-28 16:06 abd420f **step: test use click outside**
+- 2025-07-28 16:01 83fb5aa **step: add use click outside**
+- 2025-07-28 14:54 bbc7ecc **step: test use scroll lock**
+- 2025-07-28 14:49 2e98dc5 **step: add use scroll lock**
+- 2025-07-28 11:41 e68fcfc **step: add credentials**
+- 2025-07-27 17:47 70b7c5b **refactor: remove colorful**
 - 2025-07-27 15:22 8c24dd9 **step: add cookie tests**
 - 2025-07-27 15:19 5b2217a **step: update packages**
+- 2025-07-27 13:23 f14c4e3 **docs: generate CHANGELOG**
+- 2025-07-27 13:23 7c4d464 **docs: generate readme**
 - 2025-07-20 10:03 12275f3 **step: update packages**
 - 2025-07-17 15:27 740f054 **step: add auth guard**
 - 2025-07-17 15:26 d10ef7d **step: install better-auth**
