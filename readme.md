@@ -26,7 +26,9 @@ Run the tests
 src/
 ├── components
 │   ├── button.tsx
+│   ├── dialog.tsx
 ├── hooks
+│   ├── use-click-outside.ts
 │   ├── use-client-filter.ts
 │   ├── use-exit-action.ts
 │   ├── use-field.ts
@@ -34,18 +36,21 @@ src/
 │   ├── use-hover.ts
 │   ├── use-language-selector.tsx
 │   ├── use-meta-enter-submit.tsx
+│   ├── use-scroll-lock.ts
 │   ├── use-shortcuts.ts
 │   └── use-toggle.ts
 └── services
     ├── auth-guard.ts
-    ├── colorful.ts
     ├── cookies.ts
+    ├── copy-to-clipboard.ts
+    ├── credentials.ts
     ├── etag.ts
     ├── exec.ts
     ├── field.ts
     ├── fields.ts
     ├── form.ts
     ├── get-safe-window.ts
+    ├── noop.ts
     ├── pluralize.ts
     ├── rhythm.ts
     ├── translations.tsx
