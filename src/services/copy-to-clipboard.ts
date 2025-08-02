@@ -5,6 +5,7 @@ type OnCopyToClipboardFailureType = (error?: unknown) => void;
 type OnCopyToClipboardSuccessType = VoidFunction;
 
 const defaultOnCopyToClipboardFailure: OnCopyToClipboardFailureType = () =>
+  /* biome-ignore lint: lint/suspicious/noConsole */
   console.warn("Copying to clipboard not supported");
 
 export type CopyToClipboardOptionsType = {

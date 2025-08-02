@@ -1,5 +1,6 @@
 export * from "./auth-guard";
 export * from "./cookies";
+export * from "./copy-to-clipboard";
 export * from "./credentials";
 export * from "./etag";
 export * from "./exec";
@@ -12,4 +13,3 @@ export * from "./pluralize";
 export * from "./rhythm";
 export * from "./translations";
 export * from "./weak-etag";
-export * from "./copy-to-clipboard";
