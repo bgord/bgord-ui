@@ -1,8 +1,10 @@
 # Changelog
+- 2025-08-02 22:19 6ef27f5 **step: add revalidate on focus**
 ## 2025-08-02 18:17 v0.5.2
 - 2025-08-02 18:17 30cd8fa **0.5.2**
 - 2025-08-02 18:16 3ab1e5b **fix: biome errors**
 - 2025-08-02 16:17 24ecc33 **docs: generate CHANGELOG**
+- 2025-08-02 16:17 077be94 **docs: generate CHANGELOG**
 - 2025-08-02 16:12 709bdd8 **docs: generate readme**
 - 2025-08-02 16:12 3583f93 **docs: generate CHANGELOG**
 - 2025-08-02 13:57 d96c7f0 **step: add noop**
