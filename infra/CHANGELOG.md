@@ -1,4 +1,5 @@
 # Changelog
+- 2025-08-13 22:25 c9d69c4 **step: update packages**
 ## 2025-08-02 23:14 v0.5.5
 - 2025-08-02 23:14 3422ce6 **0.5.5**
 - 2025-08-02 23:13 6f1cf6b **step: fix build in prod mode**
@@ -8,6 +9,7 @@
 - 2025-08-02 22:21 1a642d0 **0.5.3**
 - 2025-08-02 22:19 6ef27f5 **step: add revalidate on focus**
 - 2025-08-02 21:14 6926ea7 **docs: generate CHANGELOG**
+- 2025-08-02 21:14 0c1f109 **docs: generate CHANGELOG**
 - 2025-08-02 20:21 f663bd6 **docs: generate CHANGELOG**
 - 2025-08-02 20:21 8031836 **docs: generate CHANGELOG**
 - 2025-08-02 20:21 3dbf689 **docs: generate readme**
