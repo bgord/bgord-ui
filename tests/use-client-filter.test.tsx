@@ -1,6 +1,5 @@
 import { describe, expect, test } from "bun:test";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router";
 import { useClientFilter } from "../src/hooks/use-client-filter";
 

@@ -1,7 +1,6 @@
 // cspell:disable
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import { renderHook } from "@testing-library/react";
-
 import Cookies from "js-cookie";
 import * as RR from "react-router";
 import * as clientFilterHook from "../src/hooks/use-client-filter";
