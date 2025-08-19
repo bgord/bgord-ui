@@ -44,9 +44,9 @@ describe("useClientFilter", () => {
     });
 
     const filteredItems = items
-      // @ts-ignore
+      // @ts-expect-error
       .filter((item) => statusFilter.filterFn(item.status))
-      // @ts-ignore
+      // @ts-expect-error
       .filter((item) => priorityFilter.filterFn(item.priority));
 
     return (
@@ -211,7 +211,7 @@ describe("useClientFilter", () => {
       });
 
       const filteredItems = items.filter((item) =>
-        // @ts-ignore
+        // @ts-expect-error
         customFilter.value ? customFilter.filterFn(item.priority) : true,
       );
 
@@ -234,7 +234,7 @@ describe("useClientFilter", () => {
 });
 
 function createWrapper() {
-  // @ts-ignore
+  // @ts-expect-error
   return ({ children }) => (
     <MemoryRouter>
       <Routes>
