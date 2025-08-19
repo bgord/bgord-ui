@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import type React from "react";
+import { useEffect, useRef } from "react";
 import * as hooks from "../hooks";
 
 export type DialogPropsType = hooks.UseToggleReturnType & React.JSX.IntrinsicElements["dialog"];

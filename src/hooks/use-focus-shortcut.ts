@@ -1,4 +1,4 @@
-import { Ref, useCallback, useMemo, useRef } from "react";
+import { type Ref, useCallback, useMemo, useRef } from "react";
 import { useKeyboardShortcuts } from "./use-shortcuts";
 
 type FocusableElement = HTMLElement & { focus(): void };

@@ -4,7 +4,7 @@ import { useCallback, useEffect } from "react";
 import { useRevalidator } from "react-router";
 import { Field } from "../services/field";
 import { useLanguage } from "../services/translations";
-import { useClientFilter, useClientFilterReturnType } from "./use-client-filter";
+import { useClientFilter, type useClientFilterReturnType } from "./use-client-filter";
 
 type LanguageType = string;
 

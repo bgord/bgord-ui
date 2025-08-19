@@ -1,9 +1,9 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import { render, renderHook, screen } from "@testing-library/react";
-import React from "react";
+import type React from "react";
 import {
   TranslationsContext,
-  TranslationsContextValueType,
+  type TranslationsContextValueType,
   useLanguage,
   useTranslations,
 } from "../src/services/translations";

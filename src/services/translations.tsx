@@ -1,5 +1,5 @@
 import { createContext, use, useCallback } from "react";
-import { PluralizeOptionsType, pluralize } from "./pluralize";
+import { type PluralizeOptionsType, pluralize } from "./pluralize";
 
 export type TranslationsKeyType = string;
 
