@@ -1,5 +1,8 @@
 # Changelog
+- 2025-08-28 23:55 4c3b907 **step: pinpoint ersion**
+- 2025-08-28 23:54 91fe64d **step: update packages**
 - 2025-08-28 23:53 4c70a62 **step: bump bgord/scripts**
+- 2025-08-28 21:53 5bc3fa8 **docs: generate CHANGELOG**
 - 2025-08-21 16:38 94c7fe9 **step: update packages**
 - 2025-08-21 14:39 4f72ba9 **docs: generate CHANGELOG**
 - 2025-08-19 20:27 d468434 **step: use import type**
