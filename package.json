@@ -14,7 +14,7 @@
   "peerDependencies": {
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "react-router": "7.8.1"
+    "react-router": "7.8.2"
   },
   "scripts": {
     "build:js": "NODE_ENV=production bun build src/index.ts --minify --format esm --outdir dist --packages external --external react --external react-dom --external react/jsx-runtime --external react-router",
@@ -25,7 +25,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.0",
+    "@biomejs/biome": "2.2.2",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
     "@happy-dom/global-registrator": "18.0.1",
@@ -33,10 +33,10 @@
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
-    "@types/bun": "1.2.20",
+    "@types/bun": "1.2.21",
     "@types/js-cookie": "^3.0.6",
-    "@types/react": "19.1.10",
-    "@types/react-dom": "19.1.7",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
     "cspell": "9.2.0",
     "knip": "5.63.0",
     "lefthook": "1.12.3",
