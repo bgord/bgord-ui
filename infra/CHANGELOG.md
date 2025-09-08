@@ -1,8 +1,11 @@
 # Changelog
+## 2025-09-08 17:21 v0.5.9
+- 2025-09-08 17:21 692ec07 **0.5.9**
 - 2025-09-08 17:20 ae1900c **refactor: remove dependabot workflow**
 - 2025-09-08 17:20 9202fda **step: bump bgord/scripts**
 - 2025-09-08 17:10 7045674 **step: update packages**
 - 2025-09-08 17:09 235ccdf **step: bump bgord/scripts**
+- 2025-09-08 15:20 696c06a **docs: generate CHANGELOG**
 ## 2025-08-30 23:34 v0.5.8
 - 2025-08-30 23:34 ce675f2 **0.5.8**
 - 2025-08-30 21:34 a681663 **docs: generate CHANGELOG**
