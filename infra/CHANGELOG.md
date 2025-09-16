@@ -1,7 +1,9 @@
 # Changelog
+- 2025-09-16 09:43 9958913 **step: update packages**
 ## 2025-09-09 14:13 v0.5.10
 - 2025-09-09 14:13 a1cda8f **0.5.10**
 - 2025-09-09 14:12 e673096 **step: update packages**
+- 2025-09-09 12:13 aecb269 **docs: generate CHANGELOG**
 - 2025-09-09 12:13 086244b **docs: generate CHANGELOG**
 ## 2025-09-08 17:21 v0.5.9
 - 2025-09-08 17:21 692ec07 **0.5.9**
