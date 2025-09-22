@@ -1,5 +1,8 @@
 # Changelog
+## 2025-09-22 14:11 v0.5.12
+- 2025-09-22 14:11 0ddcff4 **0.5.12**
 - 2025-09-22 14:10 da33798 **step: update packages**
+- 2025-09-22 12:10 05af76a **docs: generate CHANGELOG**
 - 2025-09-16 19:35 069f1c1 **refactor: simplify if throw new**
 - 2025-09-16 17:36 c4efd7f **docs: generate CHANGELOG**
 ## 2025-09-16 11:49 v0.5.11
