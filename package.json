@@ -17,9 +17,8 @@
     "react-router": "7.9.1"
   },
   "scripts": {
-    "build:js": "NODE_ENV=production bun build src/index.ts --minify --format esm --outdir dist --packages external --external react --external react-dom --external react/jsx-runtime --external react-router",
-    "build:types": "bunx tsc --emitDeclarationOnly",
-    "build": "bun run build:js && bun run build:types"
+    "build": "bash scripts/package-build.sh",
+    "preinstall": "bunx only-allow bun"
   },
   "publishConfig": {
     "access": "public"
