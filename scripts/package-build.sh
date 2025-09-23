@@ -6,11 +6,11 @@ setup_base_config
 
 OUTPUT_DIRECTORY="dist"
 
-info "Clearing output directory..."
+step_start "Directory clear"
 rm -rf $OUTPUT_DIRECTORY
-success "Output directory cleared"
+step_end "Directory clear"
 
-info "Building package..."
+step_start "Package build"
 NODE_ENV=production bun build src/index.ts \
   --minify \
   --format esm \
@@ -20,6 +20,8 @@ NODE_ENV=production bun build src/index.ts \
   --external react-dom \
   --external react/jsx-runtime \
   --external react-router
-info "Building types..."
+step_end "Package build"
+
+step_start "Types build"
 bunx tsc --emitDeclarationOnly
-success "Package built correctly!"
+step_end "Types build"
