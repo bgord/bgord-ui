@@ -1,9 +1,13 @@
 # Changelog
+- 2025-09-26 11:32 390ba33 **step: update packages**
+- 2025-09-26 11:32 345cebe **step: update packages**
+- 2025-09-23 12:20 41088c6 **step: bump bgord/scripts**
 - 2025-09-23 12:13 2bb8049 **step: bump bgord/scripts**
 - 2025-09-23 11:53 a8d59a0 **refactor: unify package-build script**
 - 2025-09-23 11:48 ff24e00 **step: bump bgord/scripts**
 - 2025-09-23 11:00 79cf53e **step: update packages**
 - 2025-09-23 10:58 e7639ba **refactor: unify package-build script**
+- 2025-09-23 10:14 d2fd502 **docs: generate CHANGELOG**
 - 2025-09-23 09:00 2b0cc89 **docs: generate CHANGELOG**
 ## 2025-09-22 22:34 v0.5.13
 - 2025-09-22 22:34 67113b8 **0.5.13**
