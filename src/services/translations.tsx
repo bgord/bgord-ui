@@ -16,11 +16,13 @@ type TranslationVariableType = Record<TranslationPlaceholderType, TranslationPla
 export type TranslationsContextValueType = {
   translations: TranslationsType;
   language: string;
+  supportedLanguages: Record<string, string>;
 };
 
 export const TranslationsContext = createContext<TranslationsContextValueType>({
   translations: {},
   language: "en",
+  supportedLanguages: { en: "en" },
 });
 
 export function useTranslations() {
