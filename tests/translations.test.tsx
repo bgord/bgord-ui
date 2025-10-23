@@ -5,81 +5,49 @@ import {
   TranslationsContext,
   type TranslationsContextValueType,
   useLanguage,
+  useSupportedLanguages,
   useTranslations,
 } from "../src/services/translations";
 
-describe("Translations Context and Hooks", () => {
+const value = {
+  translations: {
+    hello: "Hello",
+    welcome: "Hello, {{name}}! You have {{count}} messages.",
+    count: "Count: {{number}}",
+    missing: "Hello, {{name}}!",
+  },
+  language: "en" as const,
+  supportedLanguages: { en: "en" },
+};
+
+const wrapper = (props: { children: React.ReactNode; value: TranslationsContextValueType }) => (
+  <TranslationsContext.Provider value={props.value}>{props.children}</TranslationsContext.Provider>
+);
+
+describe("Translations", () => {
   const mockWarn = spyOn(console, "warn");
 
-  describe("TranslationsContextProvider", () => {
-    test("renders children with provided value", () => {
-      const value = {
-        translations: { hello: "Hello" },
-        language: "en" as const,
-      };
-
-      render(
-        <TranslationsContext.Provider value={value}>
-          <div>Child Component</div>
-        </TranslationsContext.Provider>,
-      );
-
-      screen.getByText("Child Component");
-    });
-
-    test("renders multiple children", () => {
-      const value = { translations: {}, language: "en" as const };
-
-      render(
-        <TranslationsContext.Provider value={value}>
-          <div>First Child</div>
-          <div>Second Child</div>
-        </TranslationsContext.Provider>,
-      );
-
-      screen.getByText("First Child");
-      screen.getByText("Second Child");
-    });
-  });
-
   describe("useTranslations", () => {
-    const wrapper = (props: { children: React.ReactNode; value: TranslationsContextValueType }) => (
-      <TranslationsContext.Provider value={props.value}>{props.children}</TranslationsContext.Provider>
-    );
-
-    test("returns translation for existing key", () => {
-      const value = {
-        translations: { greeting: "Hello" },
-        language: "en" as const,
-      };
-
+    test("existing key", () => {
       const { result } = renderHook(() => useTranslations(), {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current("greeting")).toBe("Hello");
+      expect(result.current("hello")).toBe("Hello");
     });
 
-    test("returns key and warns when translation is missing", () => {
-      const value = { translations: {}, language: "en" as const };
-
+    test("returns key and warns for missing translation", () => {
       const { result } = renderHook(() => useTranslations(), {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
       const missingKey = "missing.key";
+
       expect(result.current(missingKey)).toBe(missingKey);
       expect(mockWarn).toHaveBeenCalledWith(expect.stringContaining(missingKey));
     });
 
-    test("replaces variables in translation", () => {
-      const value = {
-        translations: {
-          welcome: "Hello, {{name}}! You have {{count}} messages.",
-        },
-        language: "en" as const,
-      };
-
+    test("replaces variables", () => {
       const { result } = renderHook(() => useTranslations(), {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
@@ -87,12 +55,7 @@ describe("Translations Context and Hooks", () => {
       expect(result.current("welcome", { name: "John", count: 5 })).toBe("Hello, John! You have 5 messages.");
     });
 
-    test("handles numeric variable values", () => {
-      const value = {
-        translations: { count: "Count: {{number}}" },
-        language: "en" as const,
-      };
-
+    test("numeric variable", () => {
       const { result } = renderHook(() => useTranslations(), {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
@@ -100,79 +63,72 @@ describe("Translations Context and Hooks", () => {
       expect(result.current("count", { number: 42 })).toBe("Count: 42");
     });
 
-    test("handles missing variables gracefully", () => {
-      const value = {
-        translations: { test: "Hello, {{name}}!" },
-        language: "en" as const,
-      };
-
+    test("missing variable", () => {
       const { result } = renderHook(() => useTranslations(), {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current("test")).toBe("Hello, {{name}}!");
+      expect(result.current("missing")).toBe("Hello, {{name}}!");
     });
   });
 
   describe("useLanguage", () => {
-    const wrapper = (props: { children: React.ReactNode; value: TranslationsContextValueType }) => (
-      <TranslationsContext.Provider value={props.value}>{props.children}</TranslationsContext.Provider>
-    );
-
-    test("returns current language", () => {
-      const value = { translations: {}, language: "fr" as const };
-
+    test("happy path", () => {
       const { result } = renderHook(() => useLanguage(), {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current).toBe("fr");
+      expect(result.current).toBe("en");
     });
 
-    test("updates when language changes", () => {
-      const initialValue = { translations: {}, language: "en" as const };
-
+    test("updated language", () => {
       const { result, rerender } = renderHook(() => useLanguage(), {
-        wrapper: ({ children }) => wrapper({ children, value: initialValue }),
+        wrapper: ({ children }) => wrapper({ children, value }),
       });
 
       expect(result.current).toBe("en");
 
-      const newValue = { translations: {}, language: "es" as const };
-
       rerender();
-      wrapper({ children: result.current, value: newValue });
+
+      wrapper({
+        children: result.current,
+        value: { translations: {}, language: "es", supportedLanguages: { es: "es" } },
+      });
+
       expect(result.current).toBe("en");
     });
   });
 
-  describe("Integration Tests", () => {
-    test("works in a component context", () => {
-      function TestComponent() {
-        const translate = useTranslations();
-        const language = useLanguage();
+  describe("useSupportedLanguages", () => {
+    test("happy path", () => {
+      const { result } = renderHook(() => useSupportedLanguages(), {
+        wrapper: ({ children }) => wrapper({ children, value }),
+      });
 
-        return (
-          <div>
-            <span data-testid="translation">{translate("welcome", { name: "Test" })}</span>
-            <span data-testid="language">{language}</span>
-          </div>
-        );
-      }
-
-      const value = {
-        translations: { welcome: "Welcome, {{name}}!" },
-        language: "en" as const,
-      };
-
-      render(
-        <TranslationsContext.Provider value={value}>
-          <TestComponent />
-        </TranslationsContext.Provider>,
-      );
-
-      expect(screen.getByTestId("translation")).toHaveTextContent("Welcome, Test!");
-      expect(screen.getByTestId("language")).toHaveTextContent("en");
+      expect(result.current).toBe(value.supportedLanguages);
     });
+  });
+
+  test("component integration test", () => {
+    function TestComponent() {
+      const t = useTranslations();
+      const language = useLanguage();
+
+      return (
+        <div>
+          <span data-testid="translation">{t("hello")}</span>
+          <span data-testid="language">{language}</span>
+        </div>
+      );
+    }
+
+    render(
+      <TranslationsContext.Provider value={value}>
+        <TestComponent />
+      </TranslationsContext.Provider>,
+    );
+
+    expect(screen.getByTestId("translation")).toHaveTextContent("Hello");
+    expect(screen.getByTestId("language")).toHaveTextContent("en");
   });
 });
