@@ -62,6 +62,15 @@ export function useLanguage(): TranslationsContextValueType["language"] {
   return value.language;
 }
 
+export function useSupportedLanguages(): TranslationsContextValueType["supportedLanguages"] {
+  const value = use(TranslationsContext);
+
+  if (value === undefined) {
+    throw new Error("useSupportedLanguages must be used within the TranslationsContext");
+  }
+  return value.supportedLanguages;
+}
+
 export function usePluralize() {
   const language = useLanguage();
 
