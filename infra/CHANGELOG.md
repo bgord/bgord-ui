@@ -1,8 +1,11 @@
 # Changelog
+## 2025-10-23 16:25 v0.6.1
+- 2025-10-23 16:25 121d476 **0.6.1**
 - 2025-10-23 16:24 abedefd **step: update packages**
 - 2025-10-23 16:23 3f4215b **refactor: unify translations tests**
 - 2025-10-23 16:23 104d0ea **step: add use supported languages hook**
 - 2025-10-23 16:12 41c5993 **fix: ajdust translations context value**
+- 2025-10-23 14:24 5e0502e **docs: generate CHANGELOG**
 ## 2025-10-16 15:29 v0.6.0
 - 2025-10-16 15:29 f6c31fd **0.6.0**
 - 2025-10-16 15:29 f3ac8a5 **step: update packages**
