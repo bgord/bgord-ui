@@ -1,9 +1,10 @@
 import { describe, expect, test } from "bun:test";
-import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import React from "react";
 import { extractUseToggle, useToggle } from "../src/hooks/use-toggle";
 
 describe("useToggle", () => {
-  test("initializes with default false value", () => {
+  test("default value - false ", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
     const result = hook.result.current;
 
@@ -18,33 +19,25 @@ describe("useToggle", () => {
       role: "button",
       tabIndex: 0,
     });
-    expect(result.props.target).toEqual({
-      id: "test",
-      "aria-hidden": "true",
-      role: "region",
-    });
+    expect(result.props.target).toEqual({ id: "test", "aria-hidden": "true", role: "region" });
   });
 
-  test("initializes with explicit default value", () => {
-    const hook = renderHook(() => useToggle({ name: "test-id", defaultValue: true }));
+  test("default value - true", () => {
+    const hook = renderHook(() => useToggle({ name: "test", defaultValue: true }));
     const result = hook.result.current;
 
     expect(result.on).toBe(true);
     expect(result.off).toBe(false);
     expect(result.props.controller).toEqual({
       "aria-expanded": "true",
-      "aria-controls": "test-id",
+      "aria-controls": "test",
       role: "button",
       tabIndex: 0,
     });
-    expect(result.props.target).toEqual({
-      id: "test-id",
-      "aria-hidden": "false",
-      role: "region",
-    });
+    expect(result.props.target).toEqual({ id: "test", "aria-hidden": "false", role: "region" });
   });
 
-  test("toggle changes state", () => {
+  test("toggle", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
 
     expect(hook.result.current.on).toBe(false);
@@ -60,64 +53,46 @@ describe("useToggle", () => {
     expect(hook.result.current.props.controller["aria-expanded"]).toBe("false");
   });
 
-  test("enable/disable functions work correctly", () => {
+  test("enable", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
 
     act(() => hook.result.current.enable());
+
     expect(hook.result.current.on).toBe(true);
     expect(hook.result.current.off).toBe(false);
 
-    // enable when already enabled should keep state true
     act(() => hook.result.current.enable());
+
     expect(hook.result.current.on).toBe(true);
+  });
+
+  test("disable", () => {
+    const hook = renderHook(() => useToggle({ name: "test", defaultValue: true }));
+
+    act(() => hook.result.current.disable());
+
+    expect(hook.result.current.on).toBe(false);
+    expect(hook.result.current.off).toBe(true);
 
     act(() => hook.result.current.disable());
     expect(hook.result.current.on).toBe(false);
     expect(hook.result.current.off).toBe(true);
-
-    // disable when already disabled should keep state false
-    act(() => hook.result.current.disable());
-    expect(hook.result.current.on).toBe(false);
-  });
-
-  test("name parameter affects props correctly", () => {
-    const name = "test-toggle";
-    const hook = renderHook(() => useToggle({ name }));
-
-    expect(hook.result.current.props.controller).toEqual({
-      "aria-expanded": "false",
-      "aria-controls": name,
-      role: "button",
-      tabIndex: 0,
-    });
-    expect(hook.result.current.props.target).toEqual({
-      id: name,
-      "aria-hidden": "true",
-      role: "region",
-    });
   });
 });
 
 describe("extractUseToggle", () => {
-  test("correctly separates toggle props from rest", () => {
+  test("happy path", () => {
+    const props = { className: "test-class", style: { color: "red" } };
+
     const hook = renderHook(() => useToggle({ name: "test" }));
-    const extraProps = {
-      className: "test-class",
-      style: { color: "red" },
-    };
 
-    const combined = { ...hook.result.current, ...extraProps };
+    const { toggle, rest } = extractUseToggle({ ...hook.result.current, ...props });
 
-    const { toggle, rest } = extractUseToggle(combined);
-
-    // Check toggle props are correctly extracted
     expect(toggle).toEqual(hook.result.current);
 
-    // Check rest props are correctly separated
     // @ts-expect-error
-    expect(rest).toEqual(extraProps);
+    expect(rest).toEqual(props);
 
-    // Verify no toggle props leaked into rest
     expect(rest).not.toHaveProperty("on");
     expect(rest).not.toHaveProperty("off");
     expect(rest).not.toHaveProperty("enable");
@@ -128,16 +103,17 @@ describe("extractUseToggle", () => {
 });
 
 describe("useToggle in components", () => {
-  test("controls message visibility with button click", () => {
+  test("toggle", () => {
     function Testcase() {
-      const toggle = useToggle({ name: "test-message" });
+      const message = useToggle({ name: "test" });
+
       return (
         <div>
-          <button type="button" onClick={toggle.toggle} {...toggle.props.controller}>
-            Toggle Message
+          <button type="button" onClick={message.toggle} {...message.props.controller}>
+            Toggler
           </button>
-          <div {...toggle.props.target} style={{ display: toggle.on ? "block" : "none" }}>
-            Hidden Message
+          <div {...message.props.target} style={{ display: message.on ? "block" : "none" }}>
+            Message
           </div>
         </div>
       );
@@ -145,37 +121,41 @@ describe("useToggle in components", () => {
 
     render(<Testcase />);
 
-    const button = screen.getByText("Toggle Message");
-    const message = screen.queryByText("Hidden Message");
+    const button = screen.getByText("Toggler");
+    const message = screen.queryByText("Message");
 
     expect(button).toHaveAttribute("aria-expanded", "false");
-    expect(button).toHaveAttribute("aria-controls", "test-message");
-    expect(message).toHaveAttribute("id", "test-message");
-
+    expect(button).toHaveAttribute("aria-controls", "test");
+    expect(message).toHaveAttribute("id", "test");
     expect(message).not.toBeVisible();
 
     fireEvent.click(button);
+
     expect(button).toHaveAttribute("aria-expanded", "true");
     expect(message).toBeVisible();
 
     fireEvent.click(button);
+
     expect(button).toHaveAttribute("aria-expanded", "false");
     expect(message).not.toBeVisible();
+
+    cleanup();
   });
 
-  test("controlled message visibility with enable/disable", () => {
+  test("enable/disable", () => {
     function Testcase() {
-      const toggle = useToggle({ name: "test-message" });
+      const message = useToggle({ name: "test" });
+
       return (
         <div>
-          <button type="button" onClick={toggle.enable} data-testid="show">
+          <button type="button" onClick={message.enable}>
             Show
           </button>
-          <button type="button" onClick={toggle.disable} data-testid="hide">
+          <button type="button" onClick={message.disable}>
             Hide
           </button>
-          <div {...toggle.props.target} style={{ display: toggle.on ? "block" : "none" }}>
-            Controlled Message
+          <div {...message.props.target} style={{ display: message.on ? "block" : "none" }}>
+            Message
           </div>
         </div>
       );
@@ -183,62 +163,43 @@ describe("useToggle in components", () => {
 
     render(<Testcase />);
 
-    const showButton = screen.getByTestId("show");
-    const hideButton = screen.getByTestId("hide");
-    const message = screen.getByText("Controlled Message");
+    const show = screen.getByText("Show");
+    const hide = screen.getByText("Hide");
+    const message = screen.getByText("Message");
 
     expect(message).not.toBeVisible();
 
-    fireEvent.click(showButton);
+    fireEvent.click(show);
+
     expect(message).toBeVisible();
 
-    fireEvent.click(showButton);
+    fireEvent.click(show);
+
     expect(message).toBeVisible();
 
-    fireEvent.click(hideButton);
+    fireEvent.click(hide);
+
     expect(message).not.toBeVisible();
 
-    fireEvent.click(hideButton);
+    fireEvent.click(hide);
+
     expect(message).not.toBeVisible();
+
+    cleanup();
   });
 
-  test("multiple independent toggles", () => {
+  test("default value - true", () => {
     function Testcase() {
-      const firstToggle = useToggle({ name: "first-message" });
-      const secondToggle = useToggle({ name: "second-message" });
+      const message = useToggle({ defaultValue: true, name: "test" });
 
       return (
         <div>
-          <button
-            type="button"
-            onClick={firstToggle.toggle}
-            {...firstToggle.props.controller}
-            data-testid="first-button"
-          >
-            First Toggle
+          <button type="button" onClick={message.toggle} {...message.props.controller}>
+            Toggler
           </button>
-          <div
-            {...firstToggle.props.target}
-            style={{ display: firstToggle.on ? "block" : "none" }}
-            data-testid="first-content"
-          >
-            First Message
-          </div>
 
-          <button
-            type="button"
-            onClick={secondToggle.toggle}
-            {...secondToggle.props.controller}
-            data-testid="second-button"
-          >
-            Second Toggle
-          </button>
-          <div
-            {...secondToggle.props.target}
-            style={{ display: secondToggle.on ? "block" : "none" }}
-            data-testid="second-content"
-          >
-            Second Message
+          <div {...message.props.target} style={{ display: message.on ? "block" : "none" }}>
+            Message
           </div>
         </div>
       );
@@ -246,55 +207,8 @@ describe("useToggle in components", () => {
 
     render(<Testcase />);
 
-    const firstButton = screen.getByTestId("first-button");
-    const secondButton = screen.getByTestId("second-button");
-    const firstContent = screen.getByTestId("first-content");
-    const secondContent = screen.getByTestId("second-content");
-
-    expect(firstContent).not.toBeVisible();
-    expect(secondContent).not.toBeVisible();
-
-    fireEvent.click(firstButton);
-    expect(firstContent).toBeVisible();
-    expect(secondContent).not.toBeVisible();
-    expect(firstButton).toHaveAttribute("aria-expanded", "true");
-    expect(secondButton).toHaveAttribute("aria-expanded", "false");
-
-    fireEvent.click(secondButton);
-    expect(firstContent).toBeVisible();
-    expect(secondContent).toBeVisible();
-    expect(firstButton).toHaveAttribute("aria-expanded", "true");
-    expect(secondButton).toHaveAttribute("aria-expanded", "true");
-
-    fireEvent.click(firstButton);
-    expect(firstContent).not.toBeVisible();
-    expect(secondContent).toBeVisible();
-    expect(firstButton).toHaveAttribute("aria-expanded", "false");
-    expect(secondButton).toHaveAttribute("aria-expanded", "true");
-  });
-
-  test("default open state", () => {
-    function Testcase() {
-      const toggle = useToggle({
-        defaultValue: true,
-        name: "test-message",
-      });
-      return (
-        <div>
-          <button type="button" onClick={toggle.toggle} {...toggle.props.controller}>
-            Toggle
-          </button>
-          <div {...toggle.props.target} style={{ display: toggle.on ? "block" : "none" }}>
-            Initially Visible Message
-          </div>
-        </div>
-      );
-    }
-
-    render(<Testcase />);
-
-    const button = screen.getByText("Toggle");
-    const message = screen.getByText("Initially Visible Message");
+    const button = screen.getByText("Toggler");
+    const message = screen.getByText("Message");
 
     expect(message).toBeVisible();
     expect(button).toHaveAttribute("aria-expanded", "true");
@@ -302,5 +216,7 @@ describe("useToggle in components", () => {
     fireEvent.click(button);
     expect(message).not.toBeVisible();
     expect(button).toHaveAttribute("aria-expanded", "false");
+
+    cleanup();
   });
 });

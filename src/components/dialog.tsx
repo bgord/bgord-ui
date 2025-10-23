@@ -9,11 +9,8 @@ export function Dialog(props: DialogPropsType) {
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    if (props.on) {
-      ref.current?.showModal();
-    } else {
-      ref.current?.close();
-    }
+    if (props.on) ref.current?.showModal();
+    else ref.current?.close();
   }, [props.on]);
 
   hooks.useKeyboardShortcuts({ Escape: dialog.disable });
