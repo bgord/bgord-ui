@@ -2,7 +2,7 @@ import React from "react";
 
 type UseExitActionAnimationType = string;
 
-type UseExitActionOptionsType = { actionFn: () => void; animation: UseExitActionAnimationType };
+type UseExitActionOptionsType = { action: () => void; animation: UseExitActionAnimationType };
 
 type UseExitActionReturnType = {
   visible: boolean;
@@ -28,7 +28,7 @@ export function useExitAction(options: UseExitActionOptionsType): UseExitActionR
 
   const onAnimationEnd = (event: React.AnimationEvent) => {
     if (event.animationName !== options.animation) return;
-    options.actionFn();
+    options.action();
     setPhase(UseExitActionPhase.gone);
   };
 
