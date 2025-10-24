@@ -5,25 +5,18 @@ interface UseShortcutsConfigType {
   [keybinding: string]: (event: KeyboardEvent) => void;
 }
 
-type UseShortcutsOptionsType = {
-  enabled?: boolean;
-};
+type UseShortcutsOptionsType = { enabled?: boolean };
 
-export function useShortcuts(config: UseShortcutsConfigType, options?: UseShortcutsOptionsType): void {
+export function useShortcuts(_config: UseShortcutsConfigType, options?: UseShortcutsOptionsType): void {
   const enabled = options?.enabled ?? true;
 
-  // Memoize config to prevent unnecessary effect triggers
   // biome-ignore lint: lint/correctness/useExhaustiveDependencies
-  const memoizedConfig = useMemo(
-    () => config,
-    // Using JSON.stringify as a stable way to compare config objects
-    [JSON.stringify(Object.keys(config))],
-  );
+  const config = useMemo(() => _config, [JSON.stringify(Object.keys(_config))]);
 
   useEffect(() => {
     if (!enabled) return;
 
-    const unsubscribe = tinykeys(window, memoizedConfig);
+    const unsubscribe = tinykeys(window, config);
     return () => unsubscribe();
-  }, [memoizedConfig, enabled]);
+  }, [config, enabled]);
 }
