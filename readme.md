@@ -25,9 +25,7 @@ Run the tests
 ```
 src/
 ├── components
-│   ├── button.tsx
 │   ├── dialog.tsx
-│   └── revalidate-on-focus.tsx
 ├── hooks
 │   ├── use-click-outside.ts
 │   ├── use-client-filter.ts
