@@ -3,7 +3,7 @@ import JsCookie from "js-cookie";
 import { Cookies } from "../src/services/cookies";
 
 describe("Cookies", () => {
-  test("extracts cookie header from Response", () => {
+  test("extractFrom", () => {
     const request = new Request("exapmle.com", { headers: { cookie: "example" } });
 
     expect(Cookies.extractFrom(request)).toEqual("example");
