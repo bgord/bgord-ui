@@ -33,16 +33,14 @@ src/
 │   ├── use-field.ts
 │   ├── use-focus-shortcut.ts
 │   ├── use-hover.ts
-│   ├── use-language-selector.tsx
 │   ├── use-meta-enter-submit.tsx
 │   ├── use-scroll-lock.ts
 │   ├── use-shortcuts.ts
 │   └── use-toggle.ts
 └── services
-    ├── auth-guard.ts
+    ├── autocomplete.ts
+    ├── clipboard.ts
     ├── cookies.ts
-    ├── copy-to-clipboard.ts
-    ├── credentials.ts
     ├── etag.ts
     ├── exec.ts
     ├── field.ts
