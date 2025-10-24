@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import { render, renderHook, screen } from "@testing-library/react";
 import type React from "react";
 import {
@@ -25,8 +25,6 @@ const wrapper = (props: { children: React.ReactNode; value: TranslationsContextV
 );
 
 describe("Translations", () => {
-  const mockWarn = spyOn(console, "warn");
-
   describe("useTranslations", () => {
     test("existing key", () => {
       const { result } = renderHook(() => useTranslations(), {
@@ -37,6 +35,8 @@ describe("Translations", () => {
     });
 
     test("returns key and warns for missing translation", () => {
+      const mockWarn = spyOn(console, "warn").mockImplementation(jest.fn());
+
       const { result } = renderHook(() => useTranslations(), {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
