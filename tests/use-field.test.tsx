@@ -24,13 +24,13 @@ describe("useField", () => {
       { wrapper },
     );
 
-    expect(result.current.strategy).toBe(useFieldStrategyEnum.local);
-    expect(result.current.defaultValue).toBe("default value");
-    expect(result.current.currentValue).toBe("default value");
-    expect(result.current.value).toBe("default value");
-    expect(result.current.changed).toBe(false);
-    expect(result.current.unchanged).toBe(true);
-    expect(result.current.empty).toBe(false);
+    expect(result.current.strategy).toEqual(useFieldStrategyEnum.local);
+    expect(result.current.defaultValue).toEqual("default value");
+    expect(result.current.currentValue).toEqual("default value");
+    expect(result.current.value).toEqual("default value");
+    expect(result.current.changed).toEqual(false);
+    expect(result.current.unchanged).toEqual(true);
+    expect(result.current.empty).toEqual(false);
   });
 
   test("should update value with set function", () => {
@@ -48,10 +48,10 @@ describe("useField", () => {
       result.current.set("new value");
     });
 
-    expect(result.current.currentValue).toBe("new value");
-    expect(result.current.value).toBe("new value");
-    expect(result.current.changed).toBe(true);
-    expect(result.current.unchanged).toBe(false);
+    expect(result.current.currentValue).toEqual("new value");
+    expect(result.current.value).toEqual("new value");
+    expect(result.current.changed).toEqual(true);
+    expect(result.current.unchanged).toEqual(false);
   });
 
   test("should clear value to default", () => {
@@ -73,8 +73,8 @@ describe("useField", () => {
       result.current.clear();
     });
 
-    expect(result.current.currentValue).toBe("default value");
-    expect(result.current.value).toBe("default value");
+    expect(result.current.currentValue).toEqual("default value");
+    expect(result.current.value).toEqual("default value");
   });
 
   test("should handle change event", () => {
@@ -96,7 +96,7 @@ describe("useField", () => {
       result.current.handleChange(event);
     });
 
-    expect(result.current.currentValue).toBe("change value");
+    expect(result.current.currentValue).toEqual("change value");
   });
 
   test("should provide correct label and input props", () => {
@@ -110,10 +110,10 @@ describe("useField", () => {
       { wrapper },
     );
 
-    expect(result.current.label.props.htmlFor).toBe("test-field");
-    expect(result.current.input.props.id).toBe("test-field");
-    expect(result.current.input.props.name).toBe("test-field");
-    expect(result.current.input.props.value).toBe("");
+    expect(result.current.label.props.htmlFor).toEqual("test-field");
+    expect(result.current.input.props.id).toEqual("test-field");
+    expect(result.current.input.props.name).toEqual("test-field");
+    expect(result.current.input.props.value).toEqual("");
     expect(result.current.input.props.onChange).toBeFunction();
   });
 
@@ -136,8 +136,8 @@ describe("useField", () => {
       { wrapper },
     );
 
-    expect(result.current.strategy).toBe(useFieldStrategyEnum.params);
-    expect(result.current.currentValue).toBe("url-value");
+    expect(result.current.strategy).toEqual(useFieldStrategyEnum.params);
+    expect(result.current.currentValue).toEqual("url-value");
   });
 });
 
@@ -166,14 +166,14 @@ describe("useField in components", () => {
     const valueSpan = screen.getByTestId("value");
     const changedSpan = screen.getByTestId("changed");
 
-    expect(input.value).toBe("start");
-    expect(valueSpan.textContent).toBe("start");
-    expect(changedSpan.textContent).toBe("false");
+    expect(input.value).toEqual("start");
+    expect(valueSpan.textContent).toEqual("start");
+    expect(changedSpan.textContent).toEqual("false");
 
     fireEvent.change(input, { target: { value: "end" } });
 
-    expect(input.value).toBe("end");
-    expect(valueSpan.textContent).toBe("end");
-    expect(changedSpan.textContent).toBe("true");
+    expect(input.value).toEqual("end");
+    expect(valueSpan.textContent).toEqual("end");
+    expect(changedSpan.textContent).toEqual("true");
   });
 });

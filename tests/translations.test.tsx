@@ -31,7 +31,7 @@ describe("Translations", () => {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current("hello")).toBe("Hello");
+      expect(result.current("hello")).toEqual("Hello");
     });
 
     test("returns key and warns for missing translation", () => {
@@ -43,7 +43,7 @@ describe("Translations", () => {
 
       const missingKey = "missing.key";
 
-      expect(result.current(missingKey)).toBe(missingKey);
+      expect(result.current(missingKey)).toEqual(missingKey);
       expect(mockWarn).toHaveBeenCalledWith(expect.stringContaining(missingKey));
     });
 
@@ -52,7 +52,9 @@ describe("Translations", () => {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current("welcome", { name: "John", count: 5 })).toBe("Hello, John! You have 5 messages.");
+      expect(result.current("welcome", { name: "John", count: 5 })).toEqual(
+        "Hello, John! You have 5 messages.",
+      );
     });
 
     test("numeric variable", () => {
@@ -60,7 +62,7 @@ describe("Translations", () => {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current("count", { number: 42 })).toBe("Count: 42");
+      expect(result.current("count", { number: 42 })).toEqual("Count: 42");
     });
 
     test("missing variable", () => {
@@ -68,7 +70,7 @@ describe("Translations", () => {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current("missing")).toBe("Hello, {{name}}!");
+      expect(result.current("missing")).toEqual("Hello, {{name}}!");
     });
   });
 
@@ -78,7 +80,7 @@ describe("Translations", () => {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current).toBe("en");
+      expect(result.current).toEqual("en");
     });
 
     test("updated language", () => {
@@ -86,7 +88,7 @@ describe("Translations", () => {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current).toBe("en");
+      expect(result.current).toEqual("en");
 
       rerender();
 
@@ -95,7 +97,7 @@ describe("Translations", () => {
         value: { translations: {}, language: "es", supportedLanguages: { es: "es" } },
       });
 
-      expect(result.current).toBe("en");
+      expect(result.current).toEqual("en");
     });
   });
 
@@ -105,7 +107,7 @@ describe("Translations", () => {
         wrapper: ({ children }) => wrapper({ children, value }),
       });
 
-      expect(result.current).toBe(value.supportedLanguages);
+      expect(result.current).toEqual(value.supportedLanguages);
     });
   });
 

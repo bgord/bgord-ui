@@ -41,7 +41,7 @@ describe("Dialog component", () => {
     fireEvent.click(getByTestId("close")); // trigger toggle.disable()
 
     await waitFor(() => expect(closeSpy).toHaveBeenCalledTimes(1));
-    expect(getByTestId("dlg").dataset.disp).toBe("none");
+    expect(getByTestId("dlg").dataset.disp).toEqual("none");
   });
 
   test("ESC key closes the dialog", async () => {
@@ -50,7 +50,7 @@ describe("Dialog component", () => {
 
     await waitFor(() => {
       expect(closeSpy).toHaveBeenCalledTimes(1);
-      expect(getByTestId("dlg").dataset.disp).toBe("none");
+      expect(getByTestId("dlg").dataset.disp).toEqual("none");
     });
   });
 
@@ -60,16 +60,16 @@ describe("Dialog component", () => {
 
     await waitFor(() => {
       expect(closeSpy).toHaveBeenCalledTimes(1);
-      expect(getByTestId("dlg").dataset.disp).toBe("none");
+      expect(getByTestId("dlg").dataset.disp).toEqual("none");
     });
   });
 
   test("body scroll locked on open and released on close", async () => {
     const { getByTestId } = render(<Harness defaultOpen={true} />);
-    expect(document.body.style.overflow).toBe("hidden");
+    expect(document.body.style.overflow).toEqual("hidden");
 
     fireEvent.click(getByTestId("close"));
 
-    await waitFor(() => expect(document.body.style.overflow).toBe(""));
+    await waitFor(() => expect(document.body.style.overflow).toEqual(""));
   });
 });

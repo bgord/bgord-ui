@@ -8,11 +8,11 @@ describe("useToggle", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
     const result = hook.result.current;
 
-    expect(result.on).toBe(false);
-    expect(result.off).toBe(true);
-    expect(typeof result.enable).toBe("function");
-    expect(typeof result.disable).toBe("function");
-    expect(typeof result.toggle).toBe("function");
+    expect(result.on).toEqual(false);
+    expect(result.off).toEqual(true);
+    expect(typeof result.enable).toEqual("function");
+    expect(typeof result.disable).toEqual("function");
+    expect(typeof result.toggle).toEqual("function");
     expect(result.props.controller).toEqual({
       "aria-expanded": "false",
       "aria-controls": "test",
@@ -26,8 +26,8 @@ describe("useToggle", () => {
     const hook = renderHook(() => useToggle({ name: "test", defaultValue: true }));
     const result = hook.result.current;
 
-    expect(result.on).toBe(true);
-    expect(result.off).toBe(false);
+    expect(result.on).toEqual(true);
+    expect(result.off).toEqual(false);
     expect(result.props.controller).toEqual({
       "aria-expanded": "true",
       "aria-controls": "test",
@@ -40,40 +40,40 @@ describe("useToggle", () => {
   test("toggle", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
 
-    expect(hook.result.current.on).toBe(false);
+    expect(hook.result.current.on).toEqual(false);
 
     act(() => hook.result.current.toggle());
-    expect(hook.result.current.on).toBe(true);
-    expect(hook.result.current.off).toBe(false);
-    expect(hook.result.current.props.controller["aria-expanded"]).toBe("true");
+    expect(hook.result.current.on).toEqual(true);
+    expect(hook.result.current.off).toEqual(false);
+    expect(hook.result.current.props.controller["aria-expanded"]).toEqual("true");
 
     act(() => hook.result.current.toggle());
-    expect(hook.result.current.on).toBe(false);
-    expect(hook.result.current.off).toBe(true);
-    expect(hook.result.current.props.controller["aria-expanded"]).toBe("false");
+    expect(hook.result.current.on).toEqual(false);
+    expect(hook.result.current.off).toEqual(true);
+    expect(hook.result.current.props.controller["aria-expanded"]).toEqual("false");
   });
 
   test("enable", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
 
     act(() => hook.result.current.enable());
-    expect(hook.result.current.on).toBe(true);
-    expect(hook.result.current.off).toBe(false);
+    expect(hook.result.current.on).toEqual(true);
+    expect(hook.result.current.off).toEqual(false);
 
     act(() => hook.result.current.enable());
-    expect(hook.result.current.on).toBe(true);
+    expect(hook.result.current.on).toEqual(true);
   });
 
   test("disable", () => {
     const hook = renderHook(() => useToggle({ name: "test", defaultValue: true }));
 
     act(() => hook.result.current.disable());
-    expect(hook.result.current.on).toBe(false);
-    expect(hook.result.current.off).toBe(true);
+    expect(hook.result.current.on).toEqual(false);
+    expect(hook.result.current.off).toEqual(true);
 
     act(() => hook.result.current.disable());
-    expect(hook.result.current.on).toBe(false);
-    expect(hook.result.current.off).toBe(true);
+    expect(hook.result.current.on).toEqual(false);
+    expect(hook.result.current.off).toEqual(true);
   });
 
   test("extractUseToggle", () => {

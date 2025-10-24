@@ -19,7 +19,7 @@ describe("useMetaEnterSubmit", () => {
     rerender(<TestComponent />);
 
     // Handler should be stable across rerenders
-    expect(handlers[0]).toBe(handlers[1]);
+    expect(handlers[0]).toEqual(handlers[1]);
   });
 
   test("submits form on Meta+Enter", () => {

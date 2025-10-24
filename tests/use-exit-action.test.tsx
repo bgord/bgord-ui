@@ -17,8 +17,8 @@ describe("useExitAction()", () => {
     const actionFn = jest.fn();
     const { result } = renderHook(() => useExitAction({ actionFn, animation: ANIMATION }));
 
-    expect(result.current.visible).toBe(true);
-    expect(result.current.attach).toBeUndefined();
+    expect(result.current.visible).toEqual(true);
+    expect(result.current.attach).toEqual(undefined);
   });
 
   test("moves to 'exiting' after trigger() and sets attach props", () => {
@@ -27,7 +27,7 @@ describe("useExitAction()", () => {
 
     act(() => result.current.trigger(fakeMouseEvent()));
 
-    expect(result.current.visible).toBe(true);
+    expect(result.current.visible).toEqual(true);
     expect(result.current.attach).toMatchObject({
       "data-animation": ANIMATION,
       onAnimationEnd: expect.any(Function),
@@ -42,7 +42,7 @@ describe("useExitAction()", () => {
     act(() => result.current.attach?.onAnimationEnd(fakeAnimEvent("otherAnim")));
 
     expect(actionFn).not.toHaveBeenCalled();
-    expect(result.current.visible).toBe(true); // still on screen
+    expect(result.current.visible).toEqual(true); // still on screen
   });
 
   test("calls actionFn and hides element after the matching animation ends", () => {
@@ -53,8 +53,8 @@ describe("useExitAction()", () => {
     act(() => result.current.attach?.onAnimationEnd(fakeAnimEvent(ANIMATION)));
 
     expect(actionFn).toHaveBeenCalledTimes(1);
-    expect(result.current.visible).toBe(false);
-    expect(result.current.attach).toBeUndefined();
+    expect(result.current.visible).toEqual(false);
+    expect(result.current.attach).toEqual(undefined);
   });
 
   test("does not re-trigger once exiting", () => {
@@ -65,7 +65,7 @@ describe("useExitAction()", () => {
     act(() => result.current.trigger(fakeMouseEvent())); // second click
 
     // still exiting, not gone yet
-    expect(result.current.visible).toBe(true);
+    expect(result.current.visible).toEqual(true);
     expect(actionFn).not.toHaveBeenCalled();
   });
 
@@ -96,6 +96,6 @@ describe("useExitAction()", () => {
     fireEvent.animationEnd(screen.getByTestId("card"), { animationName: ANIMATION });
 
     expect(actionFn).toHaveBeenCalledTimes(1);
-    expect(screen.queryByTestId("card")).toBeNull();
+    expect(screen.queryByTestId("card")).toEqual(null);
   });
 });

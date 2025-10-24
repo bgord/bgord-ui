@@ -18,7 +18,7 @@ describe("useHover", () => {
 
     render(<TestComponent />);
     const el = screen.getByTestId("hoverable");
-    expect(el.textContent).toBe("false");
+    expect(el.textContent).toEqual("false");
   });
 
   test("pointerenter and pointerleave toggle hover state", () => {
@@ -60,10 +60,10 @@ describe("useHover", () => {
     const el = screen.getByTestId("hoverable");
 
     // Always false even when events fire
-    expect(el.textContent).toBe("false");
+    expect(el.textContent).toEqual("false");
     fireEvent.pointerEnter(el);
-    expect(el.textContent).toBe("false");
+    expect(el.textContent).toEqual("false");
     fireEvent.pointerLeave(el);
-    expect(el.textContent).toBe("false");
+    expect(el.textContent).toEqual("false");
   });
 });
