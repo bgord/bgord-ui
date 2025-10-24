@@ -28,9 +28,7 @@ export const TranslationsContext = createContext<TranslationsContextValueType>({
 export function useTranslations() {
   const value = use(TranslationsContext);
 
-  if (value === undefined) {
-    throw new Error("useTranslations must be used within the TranslationsContext");
-  }
+  if (value === undefined) throw new Error("useTranslations must be used within the TranslationsContext");
 
   const translate = useCallback(
     (key: TranslationsKeyType, variables?: TranslationVariableType) => {
@@ -45,8 +43,7 @@ export function useTranslations() {
       if (!variables) return translation;
 
       return Object.entries(variables).reduce((result, [placeholder, value]) => {
-        const regex = new RegExp(`{{${placeholder}}}`, "g");
-        return result.replace(regex, String(value));
+        return result.replace(new RegExp(`{{${placeholder}}}`, "g"), String(value));
       }, translation);
     },
     [value.translations],
