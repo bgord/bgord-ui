@@ -1,6 +1,5 @@
-// Dialog.test.tsx
 import { afterEach, beforeAll, describe, expect, jest, test } from "bun:test";
-import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { Dialog } from "../src/components/dialog";
 import * as hooks from "../src/hooks";
 
@@ -11,65 +10,65 @@ beforeAll(() => {
   Object.assign(HTMLDialogElement.prototype, { showModal: showSpy, close: closeSpy });
 });
 
+function Testcase(props: { defaultValue?: boolean }) {
+  const defaultValue = props.defaultValue ?? false;
+  const toggle = hooks.useToggle({ name: "demo", defaultValue });
+
+  return (
+    <>
+      <button type="button" onClick={toggle.enable}>
+        Open
+      </button>
+      <button type="button" onClick={toggle.disable}>
+        Close
+      </button>
+      <Dialog {...toggle} data-testid="dialog" />
+    </>
+  );
+}
 afterEach(() => {
   cleanup();
   showSpy.mockClear();
   closeSpy.mockClear();
 });
 
-function Harness({ defaultOpen = false }: { defaultOpen?: boolean }) {
-  const toggle = hooks.useToggle({ name: "demo", defaultValue: defaultOpen });
-
-  return (
-    <>
-      <button type="button" data-testid="open" onClick={toggle.enable} />
-      <button type="button" data-testid="close" onClick={toggle.disable} />
-      <Dialog {...toggle} data-testid="dlg" />
-    </>
-  );
-}
-
 describe("Dialog component", () => {
-  test("calls showModal() once when opened", () => {
-    render(<Harness defaultOpen={true} />);
+  test("open", () => {
+    render(<Testcase defaultValue={true} />);
     expect(showSpy).toHaveBeenCalledTimes(1);
   });
 
-  test("calls close() when closed programmatically via toggle.disable", async () => {
-    const { getByTestId } = render(<Harness defaultOpen={true} />);
+  test("close", async () => {
+    render(<Testcase defaultValue={true} />);
 
-    fireEvent.click(getByTestId("close")); // trigger toggle.disable()
+    fireEvent.click(screen.getByText("Close"));
 
-    await waitFor(() => expect(closeSpy).toHaveBeenCalledTimes(1));
-    expect(getByTestId("dlg").dataset.disp).toEqual("none");
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId("dialog").dataset.disp).toEqual("none");
   });
 
-  test("ESC key closes the dialog", async () => {
-    const { getByTestId } = render(<Harness defaultOpen={true} />);
+  test("close - ESC", async () => {
+    const { getByTestId } = render(<Testcase defaultValue={true} />);
     fireEvent.keyDown(document, { key: "Escape" });
 
-    await waitFor(() => {
-      expect(closeSpy).toHaveBeenCalledTimes(1);
-      expect(getByTestId("dlg").dataset.disp).toEqual("none");
-    });
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+    expect(getByTestId("dialog").dataset.disp).toEqual("none");
   });
 
-  test("clicking outside closes the dialog", async () => {
-    const { getByTestId } = render(<Harness defaultOpen={true} />);
+  test("close - click outside", async () => {
+    render(<Testcase defaultValue={true} />);
     fireEvent.mouseDown(document.body);
 
-    await waitFor(() => {
-      expect(closeSpy).toHaveBeenCalledTimes(1);
-      expect(getByTestId("dlg").dataset.disp).toEqual("none");
-    });
+    expect(closeSpy).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId("dialog").dataset.disp).toEqual("none");
   });
 
-  test("body scroll locked on open and released on close", async () => {
-    const { getByTestId } = render(<Harness defaultOpen={true} />);
+  test("body scroll lock", async () => {
+    render(<Testcase defaultValue={true} />);
+
     expect(document.body.style.overflow).toEqual("hidden");
 
-    fireEvent.click(getByTestId("close"));
-
-    await waitFor(() => expect(document.body.style.overflow).toEqual(""));
+    fireEvent.click(screen.getByText("Close"));
+    expect(document.body.style.overflow).toEqual("");
   });
 });
