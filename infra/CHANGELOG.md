@@ -1,6 +1,38 @@
 # Changelog
+- 2025-10-24 12:47 a31ca89 **step: update packages**
+- 2025-10-24 12:44 76eb5da **refactor: add use focus shortcut**
+- 2025-10-24 12:26 6e66eb9 **refactor: simplify dialog tests**
+- 2025-10-24 12:20 3883c7b **refactor: simplify use click outside tests**
+- 2025-10-24 12:10 d9df427 **refactor: simplify use click outside**
+- 2025-10-24 12:09 240d366 **refactor: improve translations tests**
+- 2025-10-24 12:05 3e3eb04 **refactor: simplify use shortcuts**
+- 2025-10-24 12:04 52b9494 **refactor: improve use exit action component**
+- 2025-10-24 11:58 efd0f16 **refactor: improve us exit action**
+- 2025-10-24 11:52 c480894 **refactor: improve fields**
+- 2025-10-24 11:51 601fd84 **refactor: improve field**
+- 2025-10-24 11:49 4e82588 **refactor: improve use-meta-enter-submit implementation**
+- 2025-10-24 11:39 d050031 **refactor: improve use-hover implementation**
+- 2025-10-24 11:37 462e4bf **refactor: improve use-hover**
+- 2025-10-24 11:26 b565424 **refactor: remove use language selector**
+- 2025-10-24 11:25 82bbbe5 **refactor: tobe to toequal**
+- 2025-10-24 11:20 5258c8d **refactor: improve rhythm**
+- 2025-10-24 11:17 bc9be11 **refactor: improve pluralize**
+- 2025-10-24 11:14 a879a98 **refactor: improve form**
+- 2025-10-24 11:08 a430090 **refactor: remove auth guard**
+- 2025-10-24 11:06 9122e7c **refactor: improve clipboard**
+- 2025-10-24 11:01 b8e2214 **refactor: improve autocomplete**
+- 2025-10-24 10:57 29a8aa9 **step: add exec tests**
+- 2025-10-24 10:49 ef3879d **step: test use shortcuts**
+- 2025-10-24 10:39 ee7127c **step: add before each restore all mocks**
+- 2025-10-24 10:19 ec7af0b **refactor: change use shortcuts**
+- 2025-10-24 10:19 9ac2382 **refactor: improve use shortcuts**
+- 2025-10-24 10:14 a614f90 **step: improve translations**
+- 2025-10-24 10:08 959be47 **refactor: improve use toggle tests**
+- 2025-10-24 10:05 358160c **refactor: improve use scroll lock**
 - 2025-10-24 09:45 422fccf **step: update packages**
 - 2025-10-24 09:45 03254ec **step: add Cookies.set**
+- 2025-10-24 07:46 7c61b9b **docs: generate readme**
+- 2025-10-24 07:46 05d1ad1 **docs: generate CHANGELOG**
 - 2025-10-23 22:39 f681d2b **refactor: remove unused component**
 - 2025-10-23 21:49 b30b50d **refactor: improve use toggle**
 ## 2025-10-23 16:25 v0.6.1
