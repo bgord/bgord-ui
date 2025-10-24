@@ -43,7 +43,9 @@ export function useTranslations() {
       if (!variables) return translation;
 
       return Object.entries(variables).reduce((result, [placeholder, value]) => {
-        return result.replace(new RegExp(`{{${placeholder}}}`, "g"), String(value));
+        const replacer = new RegExp(`{{${placeholder}}}`, "g");
+
+        return result.replace(replacer, String(value));
       }, translation);
     },
     [value.translations],

@@ -25,93 +25,85 @@ const wrapper = (props: { children: React.ReactNode; value: TranslationsContextV
 );
 
 describe("Translations", () => {
-  describe("useTranslations", () => {
-    test("existing key", () => {
-      const { result } = renderHook(() => useTranslations(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
-
-      expect(result.current("hello")).toEqual("Hello");
+  test("useTranslations - existing key", () => {
+    const { result } = renderHook(() => useTranslations(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
     });
 
-    test("returns key and warns for missing translation", () => {
-      const mockWarn = spyOn(console, "warn").mockImplementation(jest.fn());
-
-      const { result } = renderHook(() => useTranslations(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
-
-      const missingKey = "missing.key";
-
-      expect(result.current(missingKey)).toEqual(missingKey);
-      expect(mockWarn).toHaveBeenCalledWith(expect.stringContaining(missingKey));
-    });
-
-    test("replaces variables", () => {
-      const { result } = renderHook(() => useTranslations(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
-
-      expect(result.current("welcome", { name: "John", count: 5 })).toEqual(
-        "Hello, John! You have 5 messages.",
-      );
-    });
-
-    test("numeric variable", () => {
-      const { result } = renderHook(() => useTranslations(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
-
-      expect(result.current("count", { number: 42 })).toEqual("Count: 42");
-    });
-
-    test("missing variable", () => {
-      const { result } = renderHook(() => useTranslations(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
-
-      expect(result.current("missing")).toEqual("Hello, {{name}}!");
-    });
+    expect(result.current("hello")).toEqual("Hello");
   });
 
-  describe("useLanguage", () => {
-    test("happy path", () => {
-      const { result } = renderHook(() => useLanguage(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
+  test("useTranslations - returns key and warns for missing translation", () => {
+    const missingKey = "missing.key";
 
-      expect(result.current).toEqual("en");
+    const mockWarn = spyOn(console, "warn").mockImplementation(jest.fn());
+
+    const { result } = renderHook(() => useTranslations(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
     });
 
-    test("updated language", () => {
-      const { result, rerender } = renderHook(() => useLanguage(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
-
-      expect(result.current).toEqual("en");
-
-      rerender();
-
-      wrapper({
-        children: result.current,
-        value: { translations: {}, language: "es", supportedLanguages: { es: "es" } },
-      });
-
-      expect(result.current).toEqual("en");
-    });
+    expect(result.current(missingKey)).toEqual(missingKey);
+    expect(mockWarn).toHaveBeenCalledWith(expect.stringContaining(missingKey));
   });
 
-  describe("useSupportedLanguages", () => {
-    test("happy path", () => {
-      const { result } = renderHook(() => useSupportedLanguages(), {
-        wrapper: ({ children }) => wrapper({ children, value }),
-      });
-
-      expect(result.current).toEqual(value.supportedLanguages);
+  test("useTranslations - replaces variables", () => {
+    const { result } = renderHook(() => useTranslations(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
     });
+
+    expect(result.current("welcome", { name: "John", count: 5 })).toEqual(
+      "Hello, John! You have 5 messages.",
+    );
   });
 
-  test("component integration test", () => {
+  test("useTranslations - numeric variable", () => {
+    const { result } = renderHook(() => useTranslations(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
+    });
+
+    expect(result.current("count", { number: 42 })).toEqual("Count: 42");
+  });
+
+  test("useTranslations - missing variable", () => {
+    const { result } = renderHook(() => useTranslations(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
+    });
+
+    expect(result.current("missing")).toEqual("Hello, {{name}}!");
+  });
+
+  test("useLanguage - happy path", () => {
+    const { result } = renderHook(() => useLanguage(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
+    });
+
+    expect(result.current).toEqual("en");
+  });
+
+  test("useLanguage - updated language", () => {
+    const { result, rerender } = renderHook(() => useLanguage(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
+    });
+
+    expect(result.current).toEqual("en");
+
+    rerender();
+    wrapper({
+      children: result.current,
+      value: { translations: {}, language: "es", supportedLanguages: { es: "es" } },
+    });
+    expect(result.current).toEqual("en");
+  });
+
+  test("useSupportedLanguages - happy path", () => {
+    const { result } = renderHook(() => useSupportedLanguages(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
+    });
+
+    expect(result.current).toEqual(value.supportedLanguages);
+  });
+
+  test("integration", () => {
     function TestComponent() {
       const t = useTranslations();
       const language = useLanguage();
