@@ -5,40 +5,41 @@ type UseHoverConfigType = { enabled?: boolean };
 
 export type UseHoverReturnType<T extends HTMLElement> = {
   attach: { ref: React.RefCallback<T | null> };
-  isHovering: boolean;
+  hovering: boolean;
 };
 
-export function useHover<T extends HTMLElement = HTMLElement>({
-  enabled = true,
-}: UseHoverConfigType = {}): UseHoverReturnType<T> {
-  const { on: isOn, enable, disable } = useToggle({ name: "is-hovering" });
-  const nodeRef = useRef<T | null>(null);
+export function useHover<T extends HTMLElement = HTMLElement>(
+  config?: UseHoverConfigType,
+): UseHoverReturnType<T> {
+  const enabled = config?.enabled ?? true;
+  const toggle = useToggle({ name: "_internal" });
+
+  const element = useRef<T | null>(null);
 
   const enterEvent =
     typeof window !== "undefined" && "PointerEvent" in window ? "pointerenter" : "mouseenter";
+
   const leaveEvent =
     typeof window !== "undefined" && "PointerEvent" in window ? "pointerleave" : "mouseleave";
 
   const ref = useCallback(
     (node: T | null) => {
-      const prev = nodeRef.current;
-      if (prev) {
-        prev.removeEventListener(enterEvent, enable);
-        prev.removeEventListener(leaveEvent, disable);
+      const previous = element.current;
+
+      if (previous) {
+        previous.removeEventListener(enterEvent, toggle.enable);
+        previous.removeEventListener(leaveEvent, toggle.disable);
       }
 
-      nodeRef.current = node;
+      element.current = node;
 
       if (node && enabled) {
-        node.addEventListener(enterEvent, enable);
-        node.addEventListener(leaveEvent, disable);
+        node.addEventListener(enterEvent, toggle.enable);
+        node.addEventListener(leaveEvent, toggle.disable);
       }
     },
-    [enterEvent, leaveEvent, enabled, enable, disable],
+    [enterEvent, leaveEvent, enabled, toggle.enable, toggle.disable],
   );
 
-  return {
-    attach: { ref },
-    isHovering: isOn && enabled,
-  };
+  return { attach: { ref }, hovering: toggle.on && enabled };
 }
