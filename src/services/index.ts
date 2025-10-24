@@ -1,4 +1,3 @@
-export * from "./auth-guard";
 export * from "./autocomplete";
 export * from "./clipboard";
 export * from "./cookies";
