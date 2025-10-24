@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { tinykeys } from "tinykeys";
 
 interface UseShortcutsConfigType {
@@ -7,11 +7,8 @@ interface UseShortcutsConfigType {
 
 type UseShortcutsOptionsType = { enabled?: boolean };
 
-export function useShortcuts(_config: UseShortcutsConfigType, options?: UseShortcutsOptionsType): void {
+export function useShortcuts(config: UseShortcutsConfigType, options?: UseShortcutsOptionsType): void {
   const enabled = options?.enabled ?? true;
-
-  // biome-ignore lint: lint/correctness/useExhaustiveDependencies
-  const config = useMemo(() => _config, [JSON.stringify(Object.keys(_config))]);
 
   useEffect(() => {
     if (!enabled) return;
