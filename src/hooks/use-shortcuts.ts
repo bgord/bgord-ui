@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { tinykeys } from "tinykeys";
 
-interface UseShortcutsConfigType {
-  [keybinding: string]: (event: KeyboardEvent) => void;
-}
+type UseShortcutsConfigType = { [key: string]: (event: KeyboardEvent) => void };
 
 type UseShortcutsOptionsType = { enabled?: boolean };
 
