@@ -3,83 +3,87 @@ import { act, fireEvent, render, renderHook, screen } from "@testing-library/rea
 import type React from "react";
 import { useExitAction } from "../src/hooks/use-exit-action";
 
-function fakeMouseEvent(): any {
+function mouseEvent(): any {
   return { preventDefault: jest.fn() } as unknown as React.MouseEvent;
 }
-function fakeAnimEvent(name: string): any {
+
+function animationEvent(name: string): any {
   return { animationName: name } as unknown as React.AnimationEvent;
 }
 
-const ANIMATION = "fadeSlideUp";
+const animation = "fade";
 
-describe("useExitAction()", () => {
-  test("starts in 'idle': visible=true and no attach props", () => {
-    const actionFn = jest.fn();
-    const { result } = renderHook(() => useExitAction({ actionFn, animation: ANIMATION }));
+describe("useExitAction", () => {
+  test("idle", () => {
+    const action = jest.fn();
+    const { result } = renderHook(() => useExitAction({ action, animation }));
 
     expect(result.current.visible).toEqual(true);
     expect(result.current.attach).toEqual(undefined);
+    expect(action).not.toHaveBeenCalled();
   });
 
-  test("moves to 'exiting' after trigger() and sets attach props", () => {
-    const actionFn = jest.fn();
-    const { result } = renderHook(() => useExitAction({ actionFn, animation: ANIMATION }));
+  test("exitting", () => {
+    const action = jest.fn();
+    const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(fakeMouseEvent()));
+    act(() => result.current.trigger(mouseEvent()));
 
     expect(result.current.visible).toEqual(true);
     expect(result.current.attach).toMatchObject({
-      "data-animation": ANIMATION,
+      "data-animation": animation,
       onAnimationEnd: expect.any(Function),
     });
+    expect(action).not.toHaveBeenCalled();
   });
 
-  test("ignores unrelated animation names", () => {
-    const actionFn = jest.fn();
-    const { result } = renderHook(() => useExitAction({ actionFn, animation: ANIMATION }));
+  test("gone", () => {
+    const action = jest.fn();
+    const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(fakeMouseEvent()));
-    act(() => result.current.attach?.onAnimationEnd(fakeAnimEvent("otherAnim")));
+    act(() => result.current.trigger(mouseEvent()));
+    act(() => result.current.attach?.onAnimationEnd(animationEvent(animation)));
 
-    expect(actionFn).not.toHaveBeenCalled();
-    expect(result.current.visible).toEqual(true); // still on screen
-  });
-
-  test("calls actionFn and hides element after the matching animation ends", () => {
-    const actionFn = jest.fn();
-    const { result } = renderHook(() => useExitAction({ actionFn, animation: ANIMATION }));
-
-    act(() => result.current.trigger(fakeMouseEvent()));
-    act(() => result.current.attach?.onAnimationEnd(fakeAnimEvent(ANIMATION)));
-
-    expect(actionFn).toHaveBeenCalledTimes(1);
+    expect(action).toHaveBeenCalledTimes(1);
     expect(result.current.visible).toEqual(false);
     expect(result.current.attach).toEqual(undefined);
   });
 
-  test("does not re-trigger once exiting", () => {
-    const actionFn = jest.fn();
-    const { result } = renderHook(() => useExitAction({ actionFn, animation: ANIMATION }));
+  test("ignores unrelated animations", () => {
+    const action = jest.fn();
+    const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(fakeMouseEvent())); // first click
-    act(() => result.current.trigger(fakeMouseEvent())); // second click
+    act(() => result.current.trigger(mouseEvent()));
+    act(() => result.current.attach?.onAnimationEnd(animationEvent("unrelated")));
 
-    // still exiting, not gone yet
+    expect(action).not.toHaveBeenCalled();
     expect(result.current.visible).toEqual(true);
-    expect(actionFn).not.toHaveBeenCalled();
   });
 
-  test("works inside a real component: click → animate → removed", () => {
-    const actionFn = jest.fn();
+  test("runs only once", () => {
+    const action = jest.fn();
+    const { result } = renderHook(() => useExitAction({ action, animation }));
+
+    act(() => result.current.trigger(mouseEvent()));
+    act(() => result.current.attach?.onAnimationEnd(animationEvent(animation)));
+    act(() => result.current.trigger(mouseEvent()));
+    act(() => result.current.attach?.onAnimationEnd(animationEvent(animation)));
+
+    expect(result.current.visible).toEqual(false);
+    expect(action).toHaveBeenCalledTimes(1);
+  });
+
+  test("integration", () => {
+    const action = jest.fn();
 
     function Card() {
-      const { visible, attach, trigger } = useExitAction({ actionFn, animation: ANIMATION });
+      const exit = useExitAction({ action, animation });
 
-      if (!visible) return null;
+      if (!exit.visible) return null;
 
       return (
-        <div data-testid="card" {...attach}>
-          <button type="button" onClick={trigger}>
+        <div data-testid="card" {...exit.attach}>
+          <button type="button" onClick={exit.trigger}>
             Delete
           </button>
         </div>
@@ -93,9 +97,9 @@ describe("useExitAction()", () => {
     fireEvent.click(screen.getByText("Delete"));
     expect(screen.getByTestId("card")).toBeInTheDocument();
 
-    fireEvent.animationEnd(screen.getByTestId("card"), { animationName: ANIMATION });
+    fireEvent.animationEnd(screen.getByTestId("card"), { animationName: animation });
 
-    expect(actionFn).toHaveBeenCalledTimes(1);
+    expect(action).toHaveBeenCalledTimes(1);
     expect(screen.queryByTestId("card")).toEqual(null);
   });
 });
