@@ -1,18 +1,15 @@
 import { useEffect, useMemo } from "react";
 import { tinykeys } from "tinykeys";
 
-interface UseKeyboardShortcutsConfigType {
+interface UseShortcutsConfigType {
   [keybinding: string]: (event: KeyboardEvent) => void;
 }
 
-type UseKeyboardShortcutsOptionsType = {
+type UseShortcutsOptionsType = {
   enabled?: boolean;
 };
 
-export function useKeyboardShortcuts(
-  config: UseKeyboardShortcutsConfigType,
-  options?: UseKeyboardShortcutsOptionsType,
-): void {
+export function useShortcuts(config: UseShortcutsConfigType, options?: UseShortcutsOptionsType): void {
   const enabled = options?.enabled ?? true;
 
   // Memoize config to prevent unnecessary effect triggers

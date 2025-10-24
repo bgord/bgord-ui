@@ -1,5 +1,5 @@
 import { type Ref, useCallback, useMemo, useRef } from "react";
-import { useKeyboardShortcuts } from "./use-shortcuts";
+import { useShortcuts } from "./use-shortcuts";
 
 type FocusableElement = HTMLElement & { focus(): void };
 
@@ -14,7 +14,7 @@ export function useFocusKeyboardShortcut<T extends FocusableElement = HTMLInputE
     }
   }, []);
 
-  useKeyboardShortcuts({ [shortcut]: handleFocus });
+  useShortcuts({ [shortcut]: handleFocus });
 
   return useMemo(() => ({ ref }), []);
 }

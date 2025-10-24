@@ -13,7 +13,7 @@ export function Dialog(props: DialogPropsType) {
     else ref.current?.close();
   }, [props.on]);
 
-  hooks.useKeyboardShortcuts({ Escape: dialog.disable });
+  hooks.useShortcuts({ Escape: dialog.disable });
   hooks.useScrollLock(props.on);
   hooks.useClickOutside(ref, dialog.disable);
 
