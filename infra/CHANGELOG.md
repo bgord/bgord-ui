@@ -1,4 +1,6 @@
 # Changelog
+## 2025-10-24 12:49 v0.6.2
+- 2025-10-24 12:49 69962f3 **0.6.2**
 - 2025-10-24 12:47 a31ca89 **step: update packages**
 - 2025-10-24 12:44 76eb5da **refactor: add use focus shortcut**
 - 2025-10-24 12:26 6e66eb9 **refactor: simplify dialog tests**
@@ -23,6 +25,8 @@
 - 2025-10-24 11:01 b8e2214 **refactor: improve autocomplete**
 - 2025-10-24 10:57 29a8aa9 **step: add exec tests**
 - 2025-10-24 10:49 ef3879d **step: test use shortcuts**
+- 2025-10-24 10:47 ba71e50 **docs: generate readme**
+- 2025-10-24 10:47 b7e10dc **docs: generate CHANGELOG**
 - 2025-10-24 10:39 ee7127c **step: add before each restore all mocks**
 - 2025-10-24 10:19 ec7af0b **refactor: change use shortcuts**
 - 2025-10-24 10:19 9ac2382 **refactor: improve use shortcuts**
