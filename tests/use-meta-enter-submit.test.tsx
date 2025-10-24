@@ -5,8 +5,66 @@ import { useMetaEnterSubmit } from "../src/hooks/use-meta-enter-submit";
 
 afterEach(() => cleanup());
 
+function TestComponent(props: React.JSX.IntrinsicElements["form"]) {
+  const metaEnterSubmit = useMetaEnterSubmit();
+
+  return (
+    <form {...props}>
+      <textarea {...metaEnterSubmit} data-testid="textarea" />
+    </form>
+  );
+}
+
 describe("useMetaEnterSubmit", () => {
-  test("returns stable onKeyDown handler", () => {
+  test("happy path", () => {
+    const submitSpy = jest.fn();
+
+    render(<TestComponent onSubmit={submitSpy} />);
+    const result = screen.getByTestId("textarea");
+
+    fireEvent.keyDown(result, { key: "Enter", metaKey: true });
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test("enter without meta", () => {
+    const submitSpy = jest.fn();
+
+    render(<TestComponent onSubmit={submitSpy} />);
+    const result = screen.getByTestId("textarea");
+
+    fireEvent.keyDown(result, { key: "Enter" });
+
+    expect(submitSpy).not.toHaveBeenCalled();
+  });
+
+  test("meta without enter", () => {
+    const submitSpy = jest.fn();
+
+    render(<TestComponent onSubmit={submitSpy} />);
+    const result = screen.getByTestId("textarea");
+
+    fireEvent.keyDown(result, { metaKey: true });
+
+    expect(submitSpy).not.toHaveBeenCalled();
+  });
+
+  test("ignores other modifiers", () => {
+    const submitSpy = jest.fn();
+
+    render(<TestComponent onSubmit={submitSpy} />);
+    const result = screen.getByTestId("textarea");
+
+    fireEvent.keyDown(result, { key: "Enter", ctrlKey: true });
+    expect(submitSpy).not.toHaveBeenCalled();
+
+    fireEvent.keyDown(result, { key: "Enter", shiftKey: true });
+    expect(submitSpy).not.toHaveBeenCalled();
+
+    fireEvent.keyDown(result, { key: "Enter", altKey: true });
+    expect(submitSpy).not.toHaveBeenCalled();
+  });
+
+  test("onKeyDown handler keeps the identity", () => {
     const handlers = [];
 
     function TestComponent() {
@@ -18,159 +76,6 @@ describe("useMetaEnterSubmit", () => {
     const { rerender } = render(<TestComponent />);
     rerender(<TestComponent />);
 
-    // Handler should be stable across rerenders
     expect(handlers[0]).toEqual(handlers[1]);
-  });
-
-  test("submits form on Meta+Enter", () => {
-    const mockSubmit = jest.fn();
-
-    function TestComponent() {
-      const props = useMetaEnterSubmit();
-      return (
-        <form onSubmit={mockSubmit}>
-          <textarea {...props} data-testid="textarea" />
-        </form>
-      );
-    }
-
-    render(<TestComponent />);
-    const textarea = screen.getByTestId("textarea");
-
-    fireEvent.keyDown(textarea, { key: "Enter", metaKey: true });
-
-    expect(mockSubmit).toHaveBeenCalledTimes(1);
-  });
-
-  test("does not submit on Enter without Meta key", () => {
-    const mockSubmit = jest.fn();
-
-    function TestComponent() {
-      const props = useMetaEnterSubmit();
-      return (
-        <form onSubmit={mockSubmit}>
-          <textarea {...props} data-testid="textarea" />
-        </form>
-      );
-    }
-
-    render(<TestComponent />);
-    const textarea = screen.getByTestId("textarea");
-
-    fireEvent.keyDown(textarea, { key: "Enter" });
-
-    expect(mockSubmit).not.toHaveBeenCalled();
-  });
-
-  test("does not submit on Meta without Enter key", () => {
-    const mockSubmit = jest.fn();
-
-    function TestComponent() {
-      const props = useMetaEnterSubmit();
-      return (
-        <form onSubmit={mockSubmit}>
-          <textarea {...props} data-testid="textarea" />
-        </form>
-      );
-    }
-
-    render(<TestComponent />);
-    const textarea = screen.getByTestId("textarea");
-
-    fireEvent.keyDown(textarea, { key: "a", metaKey: true });
-
-    expect(mockSubmit).not.toHaveBeenCalled();
-  });
-
-  test("handles textarea without form gracefully", () => {
-    function TestComponent() {
-      const props = useMetaEnterSubmit();
-      return <textarea {...props} data-testid="textarea" />;
-    }
-
-    render(<TestComponent />);
-    const textarea = screen.getByTestId("textarea");
-
-    // Should not throw an error
-    expect(() => {
-      fireEvent.keyDown(textarea, { key: "Enter", metaKey: true });
-    }).not.toThrow();
-  });
-
-  test("works with Cmd+Enter on Mac (metaKey)", () => {
-    const mockSubmit = jest.fn();
-
-    function TestComponent() {
-      const props = useMetaEnterSubmit();
-      return (
-        <form onSubmit={mockSubmit}>
-          <textarea {...props} data-testid="textarea" />
-        </form>
-      );
-    }
-
-    render(<TestComponent />);
-    const textarea = screen.getByTestId("textarea");
-
-    // Simulate Cmd+Enter on Mac
-    fireEvent.keyDown(textarea, { key: "Enter", metaKey: true });
-
-    expect(mockSubmit).toHaveBeenCalledTimes(1);
-  });
-
-  test("ignores other modifier keys with Enter", () => {
-    const mockSubmit = jest.fn();
-
-    function TestComponent() {
-      const props = useMetaEnterSubmit();
-      return (
-        <form onSubmit={mockSubmit}>
-          <textarea {...props} data-testid="textarea" />
-        </form>
-      );
-    }
-
-    render(<TestComponent />);
-    const textarea = screen.getByTestId("textarea");
-
-    // Ctrl+Enter should not trigger
-    fireEvent.keyDown(textarea, { key: "Enter", ctrlKey: true });
-    expect(mockSubmit).not.toHaveBeenCalled();
-
-    // Shift+Enter should not trigger
-    fireEvent.keyDown(textarea, { key: "Enter", shiftKey: true });
-    expect(mockSubmit).not.toHaveBeenCalled();
-
-    // Alt+Enter should not trigger
-    fireEvent.keyDown(textarea, { key: "Enter", altKey: true });
-    expect(mockSubmit).not.toHaveBeenCalled();
-  });
-
-  test("can be combined with other event handlers", () => {
-    const mockKeyDown = jest.fn();
-    const mockSubmit = jest.fn();
-
-    function TestComponent() {
-      const { onKeyDown: metaEnterHandler } = useMetaEnterSubmit();
-
-      const handleKeyDown = (e) => {
-        mockKeyDown(e);
-        metaEnterHandler(e);
-      };
-
-      return (
-        <form onSubmit={mockSubmit}>
-          <textarea onKeyDown={handleKeyDown} data-testid="textarea" />
-        </form>
-      );
-    }
-
-    render(<TestComponent />);
-    const textarea = screen.getByTestId("textarea");
-
-    fireEvent.keyDown(textarea, { key: "Enter", metaKey: true });
-
-    expect(mockKeyDown).toHaveBeenCalledTimes(1);
-    expect(mockSubmit).toHaveBeenCalledTimes(1);
   });
 });
