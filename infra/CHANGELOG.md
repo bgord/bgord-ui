@@ -1,10 +1,13 @@
 # Changelog
+- 2025-10-25 16:02 006b378 **step: add integration test**
 - 2025-10-25 15:46 3ea4274 **step: export use file**
 - 2025-10-25 15:46 1942896 **step: update packages**
 - 2025-10-25 15:45 9fade6b **refactor: rename use meta enter submit**
 - 2025-10-25 15:44 1b92c18 **feature: add mime validation support to use-file**
 - 2025-10-25 15:34 e6ae00b **refactor: simplify use file**
 - 2025-10-25 15:27 849a74c **feature: add use file hook**
+- 2025-10-25 13:47 3533ab1 **docs: generate CHANGELOG**
+- 2025-10-25 13:47 02e78a8 **docs: generate readme**
 ## 2025-10-24 12:49 v0.6.2
 - 2025-10-24 12:49 69962f3 **0.6.2**
 - 2025-10-24 12:47 a31ca89 **step: update packages**
