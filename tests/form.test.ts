@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { Form } from "../src/services/form";
 
+const date = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+
 describe("Form", () => {
   test("input -default value", () => {
     expect(Form.input({})).toEqual({ pattern: undefined, required: true });
@@ -80,5 +82,13 @@ describe("Form", () => {
 
   test("exact - non required", () => {
     expect(Form.exact({ text: "delete", required: false })).toEqual({ pattern: "delete", required: false });
+  });
+
+  test("date - min", () => {
+    expect(date.test(Form.date.min.today())).toEqual(true);
+  });
+
+  test("date - max", () => {
+    expect(date.test(Form.date.max.today())).toEqual(true);
   });
 });

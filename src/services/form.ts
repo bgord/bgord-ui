@@ -35,4 +35,9 @@ export class Form {
 
     return { pattern: config.text, required };
   }
+
+  static date = {
+    min: { today: () => new Date().toISOString().split("T")[0] },
+    max: { today: () => new Date().toISOString().split("T")[0] },
+  };
 }
