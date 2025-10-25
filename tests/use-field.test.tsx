@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import type React from "react";
 import { useField } from "../src/hooks/use-field";
 
 function changeEvent(value: string | number) {
@@ -61,5 +62,35 @@ describe("useField", () => {
     expect(result.current.changed).toEqual(false);
     expect(result.current.unchanged).toEqual(true);
     expect(result.current.empty).toEqual(true);
+  });
+
+  test("integration", async () => {
+    const value = "abc";
+
+    function Testcase() {
+      const field = useField<string>({ name: "field" });
+
+      return (
+        <div>
+          <label {...field.label.props}>
+            <input data-testid="field" type="text" {...field.input.props} />
+          </label>
+
+          <button type="button" onClick={field.clear}>
+            Clear
+          </button>
+        </div>
+      );
+    }
+
+    render(<Testcase />);
+
+    expect(screen.getByTestId("field")).toHaveValue("");
+
+    act(() => fireEvent.change(screen.getByTestId("field"), { target: { value } }));
+    expect(screen.getByTestId("field")).toHaveValue(value);
+
+    act(() => fireEvent.click(screen.getByText("Clear")));
+    expect(screen.getByTestId("field")).toHaveValue("");
   });
 });
