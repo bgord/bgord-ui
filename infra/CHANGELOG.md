@@ -1,4 +1,14 @@
 # Changelog
+- 2025-10-25 20:21 d267ec9 **step: add integration test for number**
+- 2025-10-25 20:15 098963a **step: add integration test**
+- 2025-10-25 20:02 03ad84d **step: add handle change and clear tests**
+- 2025-10-25 19:57 0f4c031 **step: setup use field tests**
+- 2025-10-25 19:55 4b9133d **refactor: replace current value**
+- 2025-10-25 19:44 c29b3a1 **feature: restore proper use field**
+- 2025-10-25 19:40 c90f404 **step: remove use client filter**
+- 2025-10-25 19:37 ff7b957 **feature: add dialog locked**
+- 2025-10-25 19:32 93e6a85 **step: add form date min/max**
+- 2025-10-25 19:26 5dc58b1 **refactor: remove autocomplete types**
 ## 2025-10-25 16:03 v0.6.3
 - 2025-10-25 16:03 ad32612 **0.6.3**
 - 2025-10-25 16:02 006b378 **step: add integration test**
@@ -8,6 +18,7 @@
 - 2025-10-25 15:44 1b92c18 **feature: add mime validation support to use-file**
 - 2025-10-25 15:34 e6ae00b **refactor: simplify use file**
 - 2025-10-25 15:27 849a74c **feature: add use file hook**
+- 2025-10-25 14:04 0637212 **docs: generate CHANGELOG**
 - 2025-10-25 14:03 720c952 **docs: generate CHANGELOG**
 - 2025-10-25 13:47 3533ab1 **docs: generate CHANGELOG**
 - 2025-10-25 13:47 02e78a8 **docs: generate readme**
