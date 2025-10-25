@@ -2,6 +2,10 @@ import { describe, expect, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useField } from "../src/hooks/use-field";
 
+function changeEvent(value: string | number) {
+  return { currentTarget: { value } } as unknown as React.ChangeEvent<HTMLInputElement>;
+}
+
 describe("useField", () => {
   test("idle", () => {
     const { result } = renderHook(() => useField<string>({ name: "field" }));
@@ -32,5 +36,30 @@ describe("useField", () => {
     expect(result.current.changed).toEqual(false);
     expect(result.current.unchanged).toEqual(true);
     expect(result.current.empty).toEqual(false);
+  });
+
+  test("handleChange / clear", () => {
+    const value = "abc";
+    const { result } = renderHook(() => useField<string>({ name: "field" }));
+
+    act(() => result.current.handleChange(changeEvent(value)));
+
+    // @ts-expect-error
+    expect(result.current.defaultValue).toEqual(undefined);
+    expect(result.current.value).toEqual(value);
+    expect(result.current.input.props.value).toEqual(value);
+    expect(result.current.changed).toEqual(true);
+    expect(result.current.unchanged).toEqual(false);
+    expect(result.current.empty).toEqual(false);
+
+    act(() => result.current.clear());
+
+    // @ts-expect-error
+    expect(result.current.defaultValue).toEqual(undefined);
+    expect(result.current.value).toEqual("");
+    expect(result.current.input.props.value).toEqual("");
+    expect(result.current.changed).toEqual(false);
+    expect(result.current.unchanged).toEqual(true);
+    expect(result.current.empty).toEqual(true);
   });
 });
