@@ -1,5 +1,4 @@
 export * from "./use-click-outside";
-export * from "./use-client-filter";
 export * from "./use-exit-action";
 export * from "./use-field";
 export * from "./use-file";
