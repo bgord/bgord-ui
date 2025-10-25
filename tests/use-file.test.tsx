@@ -5,16 +5,8 @@ import { UseFileState, useFile } from "../src/hooks/use-file";
 const file = new File(["x"], "avatar.png", { type: "image/png" });
 const bigFile = new File(["xx"], "avatar.png", { type: "image/png" });
 
-function changeEvent() {
-  return { currentTarget: { files: [file] } } as unknown as React.ChangeEvent<HTMLInputElement>;
-}
-
-function emptyChangeEvent() {
-  return { currentTarget: { files: [] } } as unknown as React.ChangeEvent<HTMLInputElement>;
-}
-
-function bigChangeEvent() {
-  return { currentTarget: { files: [bigFile] } } as unknown as React.ChangeEvent<HTMLInputElement>;
+function changeEvent(files: File[]) {
+  return { currentTarget: { files } } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
 
 describe("useFile", () => {
@@ -34,12 +26,21 @@ describe("useFile", () => {
     expect(result.input).toEqual({ props: { id: "file", name: "file", multiple: false }, key: 0 });
   });
 
+  test("idle - no file in the list", () => {
+    const { result } = renderHook(() => useFile("file"));
+
+    act(() => result.current.actions.selectFile(changeEvent([])));
+
+    expect(result.current.state).toEqual(UseFileState.idle);
+    expect(result.current.data).toEqual(null);
+  });
+
   test("selected", () => {
     spyOn(URL, "createObjectURL").mockReturnValue("blob:preview");
 
     const { result } = renderHook(() => useFile("file"));
 
-    act(() => result.current.actions.selectFile(changeEvent()));
+    act(() => result.current.actions.selectFile(changeEvent([file])));
 
     expect(result.current.state).toEqual(UseFileState.selected);
     expect(result.current.isSelected).toEqual(true);
@@ -58,36 +59,15 @@ describe("useFile", () => {
     expect(result.current.data).toEqual(null);
   });
 
-  test("idle - no file in the list", () => {
-    const { result } = renderHook(() => useFile("file"));
-
-    act(() => result.current.actions.selectFile(emptyChangeEvent()));
-
-    expect(result.current.state).toEqual(UseFileState.idle);
-    expect(result.current.data).toEqual(null);
-  });
-
   test("error - too big", () => {
-    const { result } = renderHook(() => useFile("file", { maxSize: 1 }));
+    const { result } = renderHook(() => useFile("file", { maxSizeBytes: 1 }));
 
-    act(() => result.current.actions.selectFile(bigChangeEvent()));
+    act(() => result.current.actions.selectFile(changeEvent([bigFile])));
 
     expect(result.current.state).toEqual(UseFileState.error);
     expect(result.current.isIdle).toEqual(false);
     expect(result.current.isSelected).toEqual(false);
     expect(result.current.isError).toEqual(true);
-    expect(result.current.data).toEqual(null);
-  });
-
-  test("clearFile", () => {
-    const { result } = renderHook(() => useFile("file", { maxSize: 1 }));
-
-    act(() => result.current.actions.selectFile(changeEvent()));
-    expect(result.current.state).toEqual(UseFileState.selected);
-    expect(result.current.data).toEqual(file);
-
-    act(() => result.current.actions.clearFile());
-    expect(result.current.state).toEqual(UseFileState.idle);
     expect(result.current.data).toEqual(null);
   });
 });

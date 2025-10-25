@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 type UseFileNameType = string;
 
-export type UseFileConfigType = { maxSize?: number };
+export type UseFileConfigType = { maxSizeBytes?: number };
 
 export enum UseFileState {
   idle = "idle",
@@ -10,77 +10,57 @@ export enum UseFileState {
   error = "error",
 }
 
+type UseFileLabelType = { props: { htmlFor: UseFileNameType } };
+type UseFileInputType = {
+  props: { id: UseFileNameType; name: UseFileNameType; multiple: false };
+  key: React.Key;
+};
+type UseFileActionsType = {
+  selectFile(event: React.ChangeEvent<HTMLInputElement>): File | undefined;
+  clearFile: VoidFunction;
+};
+
 type UseFileIdle = {
-  state: UseFileState.idle;
-  matches: (states: UseFileState[]) => boolean;
+  actions: UseFileActionsType;
+  data: null;
+  input: UseFileInputType;
+  isError: false;
   isIdle: true;
   isSelected: false;
-  isError: false;
-  data: null;
-  actions: {
-    selectFile(event: React.ChangeEvent<HTMLInputElement>): File | undefined;
-    clearFile: VoidFunction;
-  };
-  label: { props: { htmlFor: UseFileNameType } };
-  input: {
-    props: {
-      id: UseFileNameType;
-      name: UseFileNameType;
-      multiple: false;
-    };
-    key: React.Key;
-  };
+  label: UseFileLabelType;
+  matches: (states: UseFileState[]) => boolean;
+  state: UseFileState.idle;
 };
 
 type UseFileSelected = {
-  state: UseFileState.selected;
-  matches: (states: UseFileState[]) => boolean;
+  actions: UseFileActionsType;
   data: File;
+  input: UseFileInputType;
+  isError: false;
   isIdle: false;
   isSelected: true;
-  isError: false;
-  actions: {
-    selectFile(event: React.ChangeEvent<HTMLInputElement>): File | undefined;
-    clearFile: VoidFunction;
-  };
+  label: UseFileLabelType;
+  matches: (states: UseFileState[]) => boolean;
   preview: ReturnType<typeof URL.createObjectURL> | undefined;
-  label: { props: { htmlFor: UseFileNameType } };
-  input: {
-    props: {
-      id: UseFileNameType;
-      name: UseFileNameType;
-      multiple: false;
-    };
-    key: React.Key;
-  };
+  state: UseFileState.selected;
 };
 
 type UseFileError = {
-  state: UseFileState.error;
-  matches: (states: UseFileState[]) => boolean;
+  actions: UseFileActionsType;
   data: null;
+  input: UseFileInputType;
+  isError: true;
   isIdle: false;
   isSelected: false;
-  isError: true;
-  actions: {
-    selectFile(event: React.ChangeEvent<HTMLInputElement>): File | undefined;
-    clearFile: VoidFunction;
-  };
-  label: { props: { htmlFor: UseFileNameType } };
-  input: {
-    props: {
-      id: UseFileNameType;
-      name: UseFileNameType;
-      multiple: false;
-    };
-    key: React.Key;
-  };
+  label: UseFileLabelType;
+  matches: (states: UseFileState[]) => boolean;
+  state: UseFileState.error;
 };
 
 export type UseFileReturnType = UseFileIdle | UseFileSelected | UseFileError;
 
 export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseFileReturnType {
-  const maxSize = config?.maxSize ?? Number.POSITIVE_INFINITY;
+  const maxSizeBytes = config?.maxSizeBytes ?? Number.POSITIVE_INFINITY;
 
   const [key, setKey] = useState(0);
   const [state, setState] = useState<UseFileState>(UseFileState.idle);
@@ -93,7 +73,10 @@ export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseF
 
     const file = files[0];
 
-    if (file.size > maxSize) return setState(UseFileState.error);
+    if (file.size > maxSizeBytes) {
+      setState(UseFileState.error);
+      return;
+    }
 
     setFile(file);
     setState(UseFileState.selected);
@@ -113,44 +96,20 @@ export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseF
     return states.some((given) => given === state);
   }
 
+  const props = {
+    actions: { selectFile, clearFile },
+    input: { props: { id: name, name, multiple: false }, key },
+    label: { props: { htmlFor: name } },
+    matches,
+  } as const;
+
   if (state === UseFileState.idle) {
-    return {
-      state,
-      matches,
-      isIdle: true,
-      isSelected: false,
-      isError: false,
-      data: null,
-      actions: { selectFile, clearFile },
-      label: { props: { htmlFor: name } },
-      input: { props: { id: name, name, multiple: false }, key },
-    };
+    return { data: null, isError: false, isIdle: true, isSelected: false, state, ...props };
   }
 
   if (state === UseFileState.selected) {
-    return {
-      state,
-      matches,
-      data: file as File,
-      isIdle: false,
-      isSelected: true,
-      isError: false,
-      actions: { selectFile, clearFile },
-      preview,
-      label: { props: { htmlFor: name } },
-      input: { props: { id: name, name, multiple: false }, key },
-    };
+    return { data: file as File, isError: false, isIdle: false, isSelected: true, preview, state, ...props };
   }
 
-  return {
-    state,
-    matches,
-    data: null,
-    isIdle: false,
-    isSelected: false,
-    isError: true,
-    actions: { selectFile, clearFile },
-    label: { props: { htmlFor: name } },
-    input: { props: { id: name, name, multiple: false }, key },
-  };
+  return { data: null, isError: true, isIdle: false, isSelected: false, state, ...props };
 }
