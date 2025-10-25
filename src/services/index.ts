@@ -7,6 +7,7 @@ export * from "./fields";
 export * from "./form";
 export * from "./get-safe-window";
 export * from "./noop";
+export * from "./number-field";
 export * from "./pluralize";
 export * from "./rhythm";
 export * from "./text-field";
