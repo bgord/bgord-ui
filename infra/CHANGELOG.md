@@ -1,4 +1,8 @@
 # Changelog
+## 2025-10-25 22:46 v0.6.4
+- 2025-10-25 22:46 991cee4 **0.6.4**
+- 2025-10-25 20:46 4c7eeb5 **docs: generate CHANGELOG**
+- 2025-10-25 20:46 265d53b **docs: generate readme**
 - 2025-10-25 20:21 d267ec9 **step: add integration test for number**
 - 2025-10-25 20:15 098963a **step: add integration test**
 - 2025-10-25 20:02 03ad84d **step: add handle change and clear tests**
