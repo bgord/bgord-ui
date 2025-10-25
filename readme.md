@@ -28,7 +28,6 @@ src/
 │   ├── dialog.tsx
 ├── hooks
 │   ├── use-click-outside.ts
-│   ├── use-client-filter.ts
 │   ├── use-exit-action.ts
 │   ├── use-field.ts
 │   ├── use-file.ts
