@@ -1,11 +1,12 @@
-import { describe, expect, test } from "bun:test";
-import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
-import type React from "react";
+import { afterEach, describe, expect, test } from "bun:test";
+import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useField } from "../src/hooks/use-field";
 
 function changeEvent(value: string | number) {
   return { currentTarget: { value } } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
+
+afterEach(() => cleanup());
 
 describe("useField", () => {
   test("idle", () => {
@@ -64,7 +65,7 @@ describe("useField", () => {
     expect(result.current.empty).toEqual(true);
   });
 
-  test("integration", async () => {
+  test("integration - string", async () => {
     const value = "abc";
 
     function Testcase() {
@@ -92,5 +93,35 @@ describe("useField", () => {
 
     act(() => fireEvent.click(screen.getByText("Clear")));
     expect(screen.getByTestId("field")).toHaveValue("");
+  });
+
+  test("integration - number", async () => {
+    const value = 1;
+
+    function Testcase() {
+      const field = useField<number>({ name: "field" });
+
+      return (
+        <div>
+          <label {...field.label.props}>
+            <input data-testid="field" type="number" {...field.input.props} />
+          </label>
+
+          <button type="button" onClick={field.clear}>
+            Clear
+          </button>
+        </div>
+      );
+    }
+
+    render(<Testcase />);
+
+    expect(screen.getByTestId("field").nodeValue).toEqual(null);
+
+    act(() => fireEvent.change(screen.getByTestId("field"), { target: { value } }));
+    expect(screen.getByTestId("field")).toHaveValue(value);
+
+    act(() => fireEvent.click(screen.getByText("Clear")));
+    expect(screen.getByTestId("field").nodeValue).toEqual(null);
   });
 });
