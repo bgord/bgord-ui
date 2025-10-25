@@ -2,13 +2,13 @@ import { afterEach, describe, expect, test } from "bun:test";
 import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useTextField } from "../src/hooks/use-text-field";
 
-function changeEvent(value: string | number) {
+function changeEvent(value: string) {
   return { currentTarget: { value } } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
 
 afterEach(() => cleanup());
 
-describe("useField", () => {
+describe("useTextField", () => {
   test("idle", () => {
     const { result } = renderHook(() => useTextField({ name: "field" }));
 
@@ -29,7 +29,7 @@ describe("useField", () => {
 
   test("idle - defaultValue", () => {
     const defaultValue = "abc";
-    const { result } = renderHook(() => useTextField<string>({ name: "field", defaultValue }));
+    const { result } = renderHook(() => useTextField({ name: "field", defaultValue }));
 
     expect(result.current.defaultValue).toEqual(defaultValue);
     expect(result.current.value).toEqual(defaultValue);
@@ -41,7 +41,7 @@ describe("useField", () => {
 
   test("handleChange / clear", () => {
     const value = "abc";
-    const { result } = renderHook(() => useTextField<string>({ name: "field" }));
+    const { result } = renderHook(() => useTextField({ name: "field" }));
 
     act(() => result.current.handleChange(changeEvent(value)));
 
@@ -62,11 +62,11 @@ describe("useField", () => {
     expect(result.current.empty).toEqual(true);
   });
 
-  test.only("integration", async () => {
+  test("integration", async () => {
     const value = "abc";
 
     function Testcase() {
-      const field = useTextField<string>({ name: "field" });
+      const field = useTextField({ name: "field" });
 
       return (
         <div>
