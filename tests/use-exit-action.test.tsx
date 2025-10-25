@@ -92,12 +92,14 @@ describe("useExitAction", () => {
 
     render(<Card />);
 
-    expect(screen.getByTestId("card")).toBeInTheDocument();
+    const card = screen.getByTestId("card");
+
+    expect(card).toBeInTheDocument();
 
     fireEvent.click(screen.getByText("Delete"));
-    expect(screen.getByTestId("card")).toBeInTheDocument();
+    expect(card).toBeInTheDocument();
 
-    fireEvent.animationEnd(screen.getByTestId("card"), { animationName: animation });
+    fireEvent.animationEnd(card, { animationName: animation });
 
     expect(action).toHaveBeenCalledTimes(1);
     expect(screen.queryByTestId("card")).toEqual(null);

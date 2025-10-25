@@ -82,13 +82,14 @@ describe("useTextField", () => {
     }
 
     render(<Testcase />);
+    const input = screen.getByTestId("field");
 
-    expect(screen.getByTestId("field")).toHaveValue("");
+    expect(input).toHaveValue("");
 
-    act(() => fireEvent.change(screen.getByTestId("field"), { target: { value } }));
-    expect(screen.getByTestId("field")).toHaveValue(value);
+    act(() => fireEvent.change(input, { target: { value } }));
+    expect(input).toHaveValue(value);
 
     act(() => fireEvent.click(screen.getByText("Clear")));
-    expect(screen.getByTestId("field")).toHaveValue("");
+    expect(input).toHaveValue("");
   });
 });
