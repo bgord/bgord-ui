@@ -1,6 +1,9 @@
-import { describe, expect, spyOn, test } from "bun:test";
-import { act, renderHook } from "@testing-library/react";
+import { afterEach, describe, expect, spyOn, test } from "bun:test";
+import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import type React from "react";
 import { UseFileState, useFile } from "../src/hooks/use-file";
+
+afterEach(() => cleanup());
 
 const mimeTypes = ["image/png"];
 
@@ -87,5 +90,40 @@ describe("useFile", () => {
     expect(result.current.isSelected).toEqual(false);
     expect(result.current.isError).toEqual(true);
     expect(result.current.data).toEqual(null);
+  });
+
+  test("integration", async () => {
+    function Testcase() {
+      const file = useFile("file", { mimeTypes });
+
+      return (
+        <div>
+          <label {...file.label.props}>
+            <input
+              data-testid="file-input"
+              type="file"
+              onChange={file.actions.selectFile}
+              {...file.input.props}
+            />
+          </label>
+
+          {file.isSelected && <output>{file.data.name}</output>}
+
+          <button type="button" onClick={file.actions.clearFile}>
+            Clear
+          </button>
+        </div>
+      );
+    }
+
+    render(<Testcase />);
+
+    expect(screen.queryByText(png.name)).toBeNull();
+
+    act(() => fireEvent.change(screen.getByTestId("file-input"), { target: { files: [png] } }));
+    await screen.findByText(png.name);
+
+    act(() => fireEvent.click(screen.getByText("Clear")));
+    expect(screen.queryByText(png.name)).toBeNull();
   });
 });
