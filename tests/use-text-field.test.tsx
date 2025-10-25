@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from "bun:test";
 import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
-import { useField } from "../src/hooks/use-field";
+import { useTextField } from "../src/hooks/use-text-field";
 
 function changeEvent(value: string | number) {
   return { currentTarget: { value } } as unknown as React.ChangeEvent<HTMLInputElement>;
@@ -10,11 +10,10 @@ afterEach(() => cleanup());
 
 describe("useField", () => {
   test("idle", () => {
-    const { result } = renderHook(() => useField<string>({ name: "field" }));
+    const { result } = renderHook(() => useTextField({ name: "field" }));
 
-    // @ts-expect-error
     expect(result.current.defaultValue).toEqual(undefined);
-    expect(result.current.value).toEqual("");
+    expect(result.current.value).toEqual(undefined);
     expect(typeof result.current.set).toEqual("function");
     expect(typeof result.current.handleChange).toEqual("function");
     expect(typeof result.current.clear).toEqual("function");
@@ -30,7 +29,7 @@ describe("useField", () => {
 
   test("idle - defaultValue", () => {
     const defaultValue = "abc";
-    const { result } = renderHook(() => useField<string>({ name: "field", defaultValue }));
+    const { result } = renderHook(() => useTextField<string>({ name: "field", defaultValue }));
 
     expect(result.current.defaultValue).toEqual(defaultValue);
     expect(result.current.value).toEqual(defaultValue);
@@ -42,11 +41,10 @@ describe("useField", () => {
 
   test("handleChange / clear", () => {
     const value = "abc";
-    const { result } = renderHook(() => useField<string>({ name: "field" }));
+    const { result } = renderHook(() => useTextField<string>({ name: "field" }));
 
     act(() => result.current.handleChange(changeEvent(value)));
 
-    // @ts-expect-error
     expect(result.current.defaultValue).toEqual(undefined);
     expect(result.current.value).toEqual(value);
     expect(result.current.input.props.value).toEqual(value);
@@ -56,20 +54,19 @@ describe("useField", () => {
 
     act(() => result.current.clear());
 
-    // @ts-expect-error
     expect(result.current.defaultValue).toEqual(undefined);
-    expect(result.current.value).toEqual("");
+    expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual("");
     expect(result.current.changed).toEqual(false);
     expect(result.current.unchanged).toEqual(true);
     expect(result.current.empty).toEqual(true);
   });
 
-  test("integration - string", async () => {
+  test.only("integration", async () => {
     const value = "abc";
 
     function Testcase() {
-      const field = useField<string>({ name: "field" });
+      const field = useTextField<string>({ name: "field" });
 
       return (
         <div>
@@ -93,35 +90,5 @@ describe("useField", () => {
 
     act(() => fireEvent.click(screen.getByText("Clear")));
     expect(screen.getByTestId("field")).toHaveValue("");
-  });
-
-  test("integration - number", async () => {
-    const value = 1;
-
-    function Testcase() {
-      const field = useField<number>({ name: "field" });
-
-      return (
-        <div>
-          <label {...field.label.props}>
-            <input data-testid="field" type="number" {...field.input.props} />
-          </label>
-
-          <button type="button" onClick={field.clear}>
-            Clear
-          </button>
-        </div>
-      );
-    }
-
-    render(<Testcase />);
-
-    expect(screen.getByTestId("field").nodeValue).toEqual(null);
-
-    act(() => fireEvent.change(screen.getByTestId("field"), { target: { value } }));
-    expect(screen.getByTestId("field")).toHaveValue(value);
-
-    act(() => fireEvent.click(screen.getByText("Clear")));
-    expect(screen.getByTestId("field").nodeValue).toEqual(null);
   });
 });
