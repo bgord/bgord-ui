@@ -3,12 +3,12 @@ export type TextFieldValueType<T extends string = string> = T | undefined;
 export class TextField<T extends string = string> {
   // Empty value is `undefined` here instead of `null`,
   // because HTML elements accept it as an empty value.
-  static readonly emptyValue = undefined;
+  static readonly EMPTY = undefined;
 
-  private readonly value: TextFieldValueType<T> = TextField.emptyValue;
+  private readonly value: TextFieldValueType<T> = TextField.EMPTY;
 
   constructor(value: TextFieldValueType<T>) {
-    this.value = TextField.isEmpty(value) ? TextField.emptyValue : value;
+    this.value = TextField.isEmpty(value) ? TextField.EMPTY : value;
   }
 
   get(): TextFieldValueType<T> {

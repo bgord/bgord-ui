@@ -3,16 +3,23 @@ import { TextField } from "../src/services/text-field";
 
 describe("TextField", () => {
   test("create - empty value", () => {
-    const result = new TextField(TextField.emptyValue);
+    const result = new TextField(TextField.EMPTY);
 
-    expect(result.get()).toEqual(TextField.emptyValue);
+    expect(result.get()).toEqual(TextField.EMPTY);
+    expect(result.isEmpty()).toEqual(true);
+  });
+
+  test("create - undefined", () => {
+    const result = new TextField(undefined);
+
+    expect(result.get()).toEqual(TextField.EMPTY);
     expect(result.isEmpty()).toEqual(true);
   });
 
   test("create - empty string", () => {
     const result = new TextField("");
 
-    expect(result.get()).toEqual(TextField.emptyValue);
+    expect(result.get()).toEqual(TextField.EMPTY);
     expect(result.isEmpty()).toEqual(true);
   });
 
@@ -24,11 +31,11 @@ describe("TextField", () => {
   });
 
   test("compare - empty and empty", () => {
-    expect(TextField.compare(undefined, undefined)).toEqual(true);
+    expect(TextField.compare(TextField.EMPTY, TextField.EMPTY)).toEqual(true);
   });
 
   test("compare - empty and non-empty", () => {
-    expect(TextField.compare(undefined, "abc")).toEqual(false);
+    expect(TextField.compare(TextField.EMPTY, "abc")).toEqual(false);
   });
 
   test("compare - non-empty and non-empty", () => {
