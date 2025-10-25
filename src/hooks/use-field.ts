@@ -5,9 +5,9 @@ type FieldNameType = string;
 
 export type FieldElementType = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
-export type useFieldConfigType<T extends FieldValueAllowedTypes> = { name: FieldNameType; defaultValue?: T };
+export type UseFieldConfigType<T extends FieldValueAllowedTypes> = { name: FieldNameType; defaultValue?: T };
 
-export type useFieldReturnType<T extends FieldValueAllowedTypes> = {
+export type UseFieldReturnType<T extends FieldValueAllowedTypes> = {
   defaultValue: T;
   value: NonNullable<T>;
   set: (value: T) => void;
@@ -28,8 +28,8 @@ export type useFieldReturnType<T extends FieldValueAllowedTypes> = {
 };
 
 export function useField<T extends FieldValueAllowedTypes>(
-  config: useFieldConfigType<T>,
-): useFieldReturnType<T> {
+  config: UseFieldConfigType<T>,
+): UseFieldReturnType<T> {
   const defaultValue = new Field<T>(config.defaultValue as T);
   const [internal, setInternal] = useState<T>(defaultValue.get());
 
