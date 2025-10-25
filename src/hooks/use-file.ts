@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 type UseFileNameType = string;
 
-export type UseFileConfigType = { maxSizeBytes?: number };
+export type UseFileConfigType = { mimeTypes: string[]; maxSizeBytes?: number };
 
 export enum UseFileState {
   idle = "idle",
@@ -12,7 +12,12 @@ export enum UseFileState {
 
 type UseFileLabelType = { props: { htmlFor: UseFileNameType } };
 type UseFileInputType = {
-  props: { id: UseFileNameType; name: UseFileNameType; multiple: false };
+  props: {
+    id: UseFileNameType;
+    name: UseFileNameType;
+    multiple: false;
+    accept: React.JSX.IntrinsicElements["input"]["accept"];
+  };
   key: React.Key;
 };
 type UseFileActionsType = {
@@ -59,7 +64,7 @@ type UseFileError = {
 
 export type UseFileReturnType = UseFileIdle | UseFileSelected | UseFileError;
 
-export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseFileReturnType {
+export function useFile(name: UseFileNameType, config: UseFileConfigType): UseFileReturnType {
   const maxSizeBytes = config?.maxSizeBytes ?? Number.POSITIVE_INFINITY;
 
   const [key, setKey] = useState(0);
@@ -74,6 +79,11 @@ export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseF
     const file = files[0];
 
     if (file.size > maxSizeBytes) {
+      setState(UseFileState.error);
+      return;
+    }
+
+    if (!config.mimeTypes.includes(file.type)) {
       setState(UseFileState.error);
       return;
     }
@@ -98,7 +108,7 @@ export function useFile(name: UseFileNameType, config?: UseFileConfigType): UseF
 
   const props = {
     actions: { selectFile, clearFile },
-    input: { props: { id: name, name, multiple: false }, key },
+    input: { props: { id: name, name, multiple: false, accept: config.mimeTypes.join(",") }, key },
     label: { props: { htmlFor: name } },
     matches,
   } as const;

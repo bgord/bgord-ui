@@ -2,8 +2,11 @@ import { describe, expect, spyOn, test } from "bun:test";
 import { act, renderHook } from "@testing-library/react";
 import { UseFileState, useFile } from "../src/hooks/use-file";
 
-const file = new File(["x"], "avatar.png", { type: "image/png" });
-const bigFile = new File(["xx"], "avatar.png", { type: "image/png" });
+const mimeTypes = ["image/png"];
+
+const png = new File(["x"], "avatar.png", { type: "image/png" });
+const jpeg = new File(["x"], "avatar.png", { type: "image/jpeg" });
+const bigPng = new File(["xx"], "avatar.png", { type: "image/png" });
 
 function changeEvent(files: File[]) {
   return { currentTarget: { files } } as unknown as React.ChangeEvent<HTMLInputElement>;
@@ -11,7 +14,7 @@ function changeEvent(files: File[]) {
 
 describe("useFile", () => {
   test("idle", () => {
-    const hook = renderHook(() => useFile("file"));
+    const hook = renderHook(() => useFile("file", { mimeTypes }));
     const result = hook.result.current;
 
     expect(result.state).toEqual(UseFileState.idle);
@@ -23,11 +26,14 @@ describe("useFile", () => {
     expect(typeof result.actions.selectFile).toEqual("function");
     expect(typeof result.actions.clearFile).toEqual("function");
     expect(result.label).toEqual({ props: { htmlFor: "file" } });
-    expect(result.input).toEqual({ props: { id: "file", name: "file", multiple: false }, key: 0 });
+    expect(result.input).toEqual({
+      props: { id: "file", name: "file", multiple: false, accept: mimeTypes[0] },
+      key: 0,
+    });
   });
 
   test("idle - no file in the list", () => {
-    const { result } = renderHook(() => useFile("file"));
+    const { result } = renderHook(() => useFile("file", { mimeTypes }));
 
     act(() => result.current.actions.selectFile(changeEvent([])));
 
@@ -38,15 +44,15 @@ describe("useFile", () => {
   test("selected", () => {
     spyOn(URL, "createObjectURL").mockReturnValue("blob:preview");
 
-    const { result } = renderHook(() => useFile("file"));
+    const { result } = renderHook(() => useFile("file", { mimeTypes }));
 
-    act(() => result.current.actions.selectFile(changeEvent([file])));
+    act(() => result.current.actions.selectFile(changeEvent([png])));
 
     expect(result.current.state).toEqual(UseFileState.selected);
     expect(result.current.isSelected).toEqual(true);
     expect(result.current.isIdle).toEqual(false);
     expect(result.current.isError).toEqual(false);
-    expect(result.current.data).toEqual(file);
+    expect(result.current.data).toEqual(png);
     // @ts-expect-error
     expect(result.current.preview).toEqual("blob:preview");
 
@@ -60,9 +66,21 @@ describe("useFile", () => {
   });
 
   test("error - too big", () => {
-    const { result } = renderHook(() => useFile("file", { maxSizeBytes: 1 }));
+    const { result } = renderHook(() => useFile("file", { maxSizeBytes: 1, mimeTypes }));
 
-    act(() => result.current.actions.selectFile(changeEvent([bigFile])));
+    act(() => result.current.actions.selectFile(changeEvent([bigPng])));
+
+    expect(result.current.state).toEqual(UseFileState.error);
+    expect(result.current.isIdle).toEqual(false);
+    expect(result.current.isSelected).toEqual(false);
+    expect(result.current.isError).toEqual(true);
+    expect(result.current.data).toEqual(null);
+  });
+
+  test("error - invalid mime", () => {
+    const { result } = renderHook(() => useFile("file", { maxSizeBytes: 1, mimeTypes }));
+
+    act(() => result.current.actions.selectFile(changeEvent([jpeg])));
 
     expect(result.current.state).toEqual(UseFileState.error);
     expect(result.current.isIdle).toEqual(false);
