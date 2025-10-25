@@ -3,7 +3,7 @@ import { TextField, type TextFieldValueType } from "../services/text-field";
 
 type TextFieldNameType = string;
 
-export type FieldElementType = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+export type TextFieldElementType = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 export type UseTextFieldConfigType<T extends string = string> = {
   name: TextFieldNameType;
@@ -14,7 +14,7 @@ export type UseTextFieldReturnType<T extends string = string> = {
   defaultValue: TextFieldValueType<T>;
   value: TextFieldValueType<T>;
   set: (value: TextFieldValueType<T>) => void;
-  handleChange: (event: React.ChangeEvent<FieldElementType>) => void;
+  handleChange: (event: React.ChangeEvent<TextFieldElementType>) => void;
   clear: () => void;
   label: { props: { htmlFor: TextFieldNameType } };
   input: {
@@ -22,7 +22,7 @@ export type UseTextFieldReturnType<T extends string = string> = {
       id: TextFieldNameType;
       name: TextFieldNameType;
       value: string;
-      onChange: (event: React.ChangeEvent<FieldElementType>) => void;
+      onChange: (event: React.ChangeEvent<TextFieldElementType>) => void;
     };
   };
   changed: boolean;
@@ -39,7 +39,7 @@ export function useTextField<T extends string = string>(
 
   const setCurrentValue = (next: TextFieldValueType<T>) => setValue(new TextField<T>(next).get());
 
-  const onChange = (event: React.ChangeEvent<FieldElementType>) =>
+  const onChange = (event: React.ChangeEvent<TextFieldElementType>) =>
     setCurrentValue(event.currentTarget.value as T);
 
   return {
