@@ -31,9 +31,10 @@ src/
 │   ├── use-client-filter.ts
 │   ├── use-exit-action.ts
 │   ├── use-field.ts
+│   ├── use-file.ts
 │   ├── use-focus-shortcut.ts
 │   ├── use-hover.ts
-│   ├── use-meta-enter-submit.tsx
+│   ├── use-meta-enter-submit.ts
 │   ├── use-scroll-lock.ts
 │   ├── use-shortcuts.ts
 │   └── use-toggle.ts
