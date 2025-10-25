@@ -10,8 +10,9 @@ beforeAll(() => {
   Object.assign(HTMLDialogElement.prototype, { showModal: showSpy, close: closeSpy });
 });
 
-function Testcase(props: { defaultValue?: boolean }) {
+function Testcase(props: { defaultValue?: boolean; locked?: boolean }) {
   const defaultValue = props.defaultValue ?? false;
+  const locked = props.locked ?? false;
   const toggle = hooks.useToggle({ name: "demo", defaultValue });
 
   return (
@@ -22,7 +23,7 @@ function Testcase(props: { defaultValue?: boolean }) {
       <button type="button" onClick={toggle.disable}>
         Close
       </button>
-      <Dialog {...toggle} data-testid="dialog" />
+      <Dialog {...toggle} data-testid="dialog" locked={locked} />
     </>
   );
 }
@@ -55,12 +56,28 @@ describe("Dialog component", () => {
     expect(getByTestId("dialog").dataset.disp).toEqual("none");
   });
 
+  test("close - ESC - locked", async () => {
+    const { getByTestId } = render(<Testcase defaultValue={true} locked={true} />);
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    expect(closeSpy).toHaveBeenCalledTimes(0);
+    expect(getByTestId("dialog").dataset.disp).toEqual("flex");
+  });
+
   test("close - click outside", async () => {
     render(<Testcase defaultValue={true} />);
     fireEvent.mouseDown(document.body);
 
     expect(closeSpy).toHaveBeenCalledTimes(1);
     expect(screen.getByTestId("dialog").dataset.disp).toEqual("none");
+  });
+
+  test("close - click outside - locked", async () => {
+    render(<Testcase defaultValue={true} locked={true} />);
+    fireEvent.mouseDown(document.body);
+
+    expect(closeSpy).toHaveBeenCalledTimes(0);
+    expect(screen.getByTestId("dialog").dataset.disp).toEqual("flex");
   });
 
   test("body scroll lock", async () => {

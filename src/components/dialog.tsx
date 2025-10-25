@@ -1,10 +1,14 @@
 import type React from "react";
 import { useEffect, useRef } from "react";
 import * as hooks from "../hooks";
+import { noop } from "../services/noop";
 
-export type DialogPropsType = hooks.UseToggleReturnType & React.JSX.IntrinsicElements["dialog"];
+export type DialogPropsType = hooks.UseToggleReturnType &
+  React.JSX.IntrinsicElements["dialog"] & { locked?: boolean };
 
 export function Dialog(props: DialogPropsType) {
+  const locked = props.locked ?? false;
+
   const { toggle: dialog, rest } = hooks.extractUseToggle(props);
   const ref = useRef<HTMLDialogElement>(null);
 
@@ -13,9 +17,9 @@ export function Dialog(props: DialogPropsType) {
     else ref.current?.close();
   }, [props.on]);
 
-  hooks.useShortcuts({ Escape: dialog.disable });
+  hooks.useShortcuts({ Escape: locked ? noop : dialog.disable });
   hooks.useScrollLock(props.on);
-  hooks.useClickOutside(ref, dialog.disable);
+  hooks.useClickOutside(ref, locked ? noop : dialog.disable);
 
   return (
     <dialog
