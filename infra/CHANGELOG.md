@@ -1,7 +1,11 @@
 # Changelog
+- 2025-10-26 09:44 c1d9b3c **Merge branch 'master' of github.com:bgord/bgord-ui**
+- 2025-10-26 09:44 4125209 **0.7.0**
 - 2025-10-26 09:43 5ae0bfd **step: remove react-router**
 - 2025-10-26 09:43 5080df8 **step: remove better-auth**
 - 2025-10-26 09:43 18c2e67 **step: update packages**
+- 2025-10-26 08:44 ae91d15 **docs: generate readme**
+- 2025-10-26 08:44 88ef31d **docs: generate CHANGELOG**
 - 2025-10-26 01:17 a4db38e **step: add tests for use number field**
 - 2025-10-26 01:12 d36aed2 **refactor: simplify tests**
 - 2025-10-26 00:48 c6f8960 **feature: add use number field**
