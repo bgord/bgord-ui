@@ -37,7 +37,35 @@ export class Form {
   }
 
   static date = {
-    min: { today: () => new Date().toISOString().split("T")[0] },
-    max: { today: () => new Date().toISOString().split("T")[0] },
+    min: {
+      today: () => new Date().toISOString().split("T")[0],
+      tomorrow: () => {
+        const today = new Date();
+        const tomorrow = new Date(today.setDate(today.getDate() + 1));
+
+        return tomorrow.toISOString().split("T")[0];
+      },
+      yesterday: () => {
+        const today = new Date();
+        const yesterday = new Date(today.setDate(today.getDate() - 1));
+
+        return yesterday.toISOString().split("T")[0];
+      },
+    },
+    max: {
+      today: () => new Date().toISOString().split("T")[0],
+      tomorrow: () => {
+        const today = new Date();
+        const tomorrow = new Date(today.setDate(today.getDate() + 1));
+
+        return tomorrow.toISOString().split("T")[0];
+      },
+      yesterday: () => {
+        const today = new Date();
+        const yesterday = new Date(today.setDate(today.getDate() - 1));
+
+        return yesterday.toISOString().split("T")[0];
+      },
+    },
   };
 }

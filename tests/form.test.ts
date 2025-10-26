@@ -84,11 +84,27 @@ describe("Form", () => {
     expect(Form.exact({ text: "delete", required: false })).toEqual({ pattern: "delete", required: false });
   });
 
-  test("date - min", () => {
+  test("date - min - today", () => {
     expect(date.test(Form.date.min.today())).toEqual(true);
   });
 
-  test("date - max", () => {
+  test("date - max - today", () => {
     expect(date.test(Form.date.max.today())).toEqual(true);
+  });
+
+  test("date - min - tomorrow", () => {
+    expect(date.test(Form.date.min.tomorrow())).toEqual(true);
+  });
+
+  test("date - max - tomorrow", () => {
+    expect(date.test(Form.date.max.tomorrow())).toEqual(true);
+  });
+
+  test("date - min - yesterday", () => {
+    expect(date.test(Form.date.min.yesterday())).toEqual(true);
+  });
+
+  test("date - max - yesterday", () => {
+    expect(date.test(Form.date.max.yesterday())).toEqual(true);
   });
 });

@@ -1,5 +1,3 @@
-export type DateFieldElementType = HTMLInputElement;
-
 export type DateFieldValueType<T extends string = string> = T | undefined;
 
 export class DateField<T extends string = string> {
