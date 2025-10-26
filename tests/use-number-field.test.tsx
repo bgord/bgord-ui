@@ -103,7 +103,6 @@ describe("useNumberField", () => {
 
   test("integration", async () => {
     const value = "123";
-    const valueAsNumber = 123;
 
     function Testcase() {
       const field = useNumberField({ name: "field" });
@@ -127,8 +126,8 @@ describe("useNumberField", () => {
     expect(input).toHaveDisplayValue("");
 
     // handleChange/clear
-    await userEvent.type(input, "123");
-    expect(input).toHaveDisplayValue("123");
+    await userEvent.type(input, value);
+    expect(input).toHaveDisplayValue(value);
 
     await userEvent.click(screen.getByText("Clear"));
     await waitFor(() => expect(input).toHaveDisplayValue(""));

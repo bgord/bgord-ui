@@ -1,4 +1,5 @@
 export * from "./use-click-outside";
+export * from "./use-date-field";
 export * from "./use-exit-action";
 export * from "./use-file";
 export * from "./use-focus-shortcut";
