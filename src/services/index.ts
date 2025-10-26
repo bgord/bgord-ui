@@ -12,5 +12,6 @@ export * from "./number-field";
 export * from "./pluralize";
 export * from "./rhythm";
 export * from "./text-field";
+export * from "./time-zone-offset";
 export * from "./translations";
 export * from "./weak-etag";
