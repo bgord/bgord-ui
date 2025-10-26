@@ -1,4 +1,5 @@
 # Changelog
+- 2025-10-26 11:25 8425891 **feature: add time zone offset**
 ## 2025-10-26 11:04 v0.7.2
 - 2025-10-26 11:04 2f2bd3a **0.7.2**
 - 2025-10-26 11:02 5467236 **feature: add form date min/max tomorrow and yesterday**
@@ -8,6 +9,7 @@
 - 2025-10-26 10:05 a812948 **feature: add date field**
 - 2025-10-26 10:04 cc7722f **docs: generate readme**
 - 2025-10-26 10:04 0c69861 **docs: generate CHANGELOG**
+- 2025-10-26 10:04 035b280 **docs: generate CHANGELOG**
 ## 2025-10-26 09:45 v0.7.1
 - 2025-10-26 09:45 b1fd60b **0.7.1**
 ## 2025-10-26 09:44 v0.7.0
