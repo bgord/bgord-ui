@@ -48,15 +48,21 @@ export function useNumberField<T extends number = number>(
   };
 
   const onChange = (event: React.ChangeEvent<NumberFieldElementType>) => {
-    setDom(event.currentTarget.value);
+    const element = event.currentTarget;
+    const dom = element.value;
 
-    if (event.currentTarget.value === "") return setValue(NumberField.EMPTY);
+    setDom(dom);
+
+    if (dom === "") return setValue(NumberField.EMPTY);
 
     // Validating before setting the state value
     // to avoid undefined when typing 1. when trying to input 1.5
-    const number = event.currentTarget.valueAsNumber;
+    const value = element.valueAsNumber;
 
-    if (Number.isFinite(number)) setValue(number as T);
+    if (!Number.isFinite(value)) return;
+    if (!event.currentTarget.validity.valid) return;
+
+    setValue(value as T);
   };
 
   return {

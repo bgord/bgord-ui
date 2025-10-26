@@ -5,9 +5,9 @@ import { useNumberField } from "../src/hooks/use-number-field";
 
 afterEach(() => cleanup());
 
-function changeEvent(value: string, valueAsNumber: number) {
+function changeEvent(value: string, valueAsNumber: number, valid = true) {
   return {
-    currentTarget: { value, valueAsNumber },
+    currentTarget: { value, valueAsNumber, validity: { valid } },
   } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
 
@@ -46,7 +46,7 @@ describe("useNumberField", () => {
     const value = 123;
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent(value.toString(), value)));
+    act(() => result.current.handleChange(changeEvent(value.toString(), value, true)));
 
     expect(result.current.defaultValue).toEqual(undefined);
     expect(result.current.value).toEqual(value);
@@ -111,7 +111,7 @@ describe("useNumberField", () => {
       return (
         <div>
           <label {...field.label.props}>
-            <input data-testid="field" type="number" min={0} {...field.input.props} />
+            <input data-testid="field" type="number" min={-2} step={0.1} {...field.input.props} />
           </label>
 
           <button type="button" onClick={field.clear}>
@@ -124,13 +124,48 @@ describe("useNumberField", () => {
     render(<Testcase />);
 
     const input = screen.getByTestId("field");
-
     expect(input).toHaveDisplayValue("");
 
+    // handleChange/clear
     await userEvent.type(input, "123");
     expect(input).toHaveDisplayValue("123");
 
     await userEvent.click(screen.getByText("Clear"));
     await waitFor(() => expect(input).toHaveDisplayValue(""));
+
+    // Fractions
+    await userEvent.type(input, "1");
+    expect(input).toHaveDisplayValue("1");
+    await userEvent.type(input, ".");
+    expect(input).toHaveDisplayValue("1");
+    await userEvent.type(input, "5");
+    expect(input).toHaveDisplayValue("1.5");
+
+    await userEvent.click(screen.getByText("Clear"));
+    await waitFor(() => expect(input).toHaveDisplayValue(""));
+
+    // Negative fractions
+    await userEvent.type(input, "-");
+    expect(input).toHaveDisplayValue("");
+    await userEvent.type(input, "1");
+    expect(input).toHaveDisplayValue("-1");
+    await userEvent.type(input, ".");
+    expect(input).toHaveDisplayValue("-1");
+    await userEvent.type(input, "5");
+    expect(input).toHaveDisplayValue("-1.5");
+
+    await userEvent.click(screen.getByText("Clear"));
+    await waitFor(() => expect(input).toHaveDisplayValue(""));
+
+    // Invalid value
+    await userEvent.type(input, "-");
+    expect(input).toHaveDisplayValue("");
+    await userEvent.type(input, "2");
+    expect(input).toHaveDisplayValue("-2");
+    await userEvent.type(input, ".");
+    expect(input).toHaveDisplayValue("-2");
+    await userEvent.type(input, "5");
+    expect(input).toHaveDisplayValue("-2.5");
+    expect(input.validity.valid).toEqual(false);
   });
 });
