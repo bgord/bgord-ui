@@ -1,6 +1,19 @@
 # Changelog
+- 2025-10-26 09:43 5ae0bfd **step: remove react-router**
+- 2025-10-26 09:43 5080df8 **step: remove better-auth**
+- 2025-10-26 09:43 18c2e67 **step: update packages**
+- 2025-10-26 01:17 a4db38e **step: add tests for use number field**
+- 2025-10-26 01:12 d36aed2 **refactor: simplify tests**
+- 2025-10-26 00:48 c6f8960 **feature: add use number field**
+- 2025-10-26 00:22 5e844ad **refactor: adjust use text field element types**
+- 2025-10-26 00:20 b9dd5e9 **feature: add number field**
+- 2025-10-26 00:15 72c1889 **refactor: adjust empty naming**
+- 2025-10-25 23:58 d90f4b7 **refactor: rename use text field**
+- 2025-10-25 23:53 3bda18e **refactor: change field to text field**
+- 2025-10-25 22:50 42a544d **refactor: adjust types**
 ## 2025-10-25 22:46 v0.6.4
 - 2025-10-25 22:46 991cee4 **0.6.4**
+- 2025-10-25 20:46 4cb392f **docs: generate CHANGELOG**
 - 2025-10-25 20:46 4c7eeb5 **docs: generate CHANGELOG**
 - 2025-10-25 20:46 265d53b **docs: generate readme**
 - 2025-10-25 20:21 d267ec9 **step: add integration test for number**
