@@ -1,4 +1,6 @@
 # Changelog
+## 2025-10-26 11:26 v0.7.3
+- 2025-10-26 11:26 f051dbf **0.7.3**
 - 2025-10-26 11:25 8425891 **feature: add time zone offset**
 ## 2025-10-26 11:04 v0.7.2
 - 2025-10-26 11:04 2f2bd3a **0.7.2**
@@ -6,6 +8,8 @@
 - 2025-10-26 10:54 b42e2fa **step: add use date field tests**
 - 2025-10-26 10:46 d29e041 **feature: add use date field hook**
 - 2025-10-26 10:31 6696c85 **step: test validity.valid in use number**
+- 2025-10-26 10:26 c8a1618 **docs: generate readme**
+- 2025-10-26 10:26 b0e885f **docs: generate CHANGELOG**
 - 2025-10-26 10:05 a812948 **feature: add date field**
 - 2025-10-26 10:04 cc7722f **docs: generate readme**
 - 2025-10-26 10:04 0c69861 **docs: generate CHANGELOG**
