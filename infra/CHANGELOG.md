@@ -1,4 +1,9 @@
 # Changelog
+- 2025-10-26 11:02 5467236 **feature: add form date min/max tomorrow and yesterday**
+- 2025-10-26 10:54 b42e2fa **step: add use date field tests**
+- 2025-10-26 10:46 d29e041 **feature: add use date field hook**
+- 2025-10-26 10:31 6696c85 **step: test validity.valid in use number**
+- 2025-10-26 10:05 a812948 **feature: add date field**
 ## 2025-10-26 09:45 v0.7.1
 - 2025-10-26 09:45 b1fd60b **0.7.1**
 ## 2025-10-26 09:44 v0.7.0
@@ -7,6 +12,7 @@
 - 2025-10-26 09:43 5ae0bfd **step: remove react-router**
 - 2025-10-26 09:43 5080df8 **step: remove better-auth**
 - 2025-10-26 09:43 18c2e67 **step: update packages**
+- 2025-10-26 08:45 d03686b **docs: generate CHANGELOG**
 - 2025-10-26 08:44 ae91d15 **docs: generate readme**
 - 2025-10-26 08:44 88ef31d **docs: generate CHANGELOG**
 - 2025-10-26 08:44 385c38e **docs: generate CHANGELOG**
