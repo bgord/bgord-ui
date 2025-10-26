@@ -29,13 +29,14 @@ src/
 ├── hooks
 │   ├── use-click-outside.ts
 │   ├── use-exit-action.ts
-│   ├── use-field.ts
 │   ├── use-file.ts
 │   ├── use-focus-shortcut.ts
 │   ├── use-hover.ts
 │   ├── use-meta-enter-submit.ts
+│   ├── use-number-field.ts
 │   ├── use-scroll-lock.ts
 │   ├── use-shortcuts.ts
+│   ├── use-text-field.ts
 │   └── use-toggle.ts
 └── services
     ├── autocomplete.ts
@@ -43,13 +44,14 @@ src/
     ├── cookies.ts
     ├── etag.ts
     ├── exec.ts
-    ├── field.ts
     ├── fields.ts
     ├── form.ts
     ├── get-safe-window.ts
     ├── noop.ts
+    ├── number-field.ts
     ├── pluralize.ts
     ├── rhythm.ts
+    ├── text-field.ts
     ├── translations.tsx
     └── weak-etag.ts
 ```
