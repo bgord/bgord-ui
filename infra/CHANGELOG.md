@@ -1,6 +1,9 @@
 # Changelog
+## 2025-10-27 11:22 v0.7.4
+- 2025-10-27 11:22 9512391 **0.7.4**
 - 2025-10-27 11:22 93a689c **step: update packages**
 - 2025-10-27 11:21 3bfd98a **refactor: make use exit action async**
+- 2025-10-27 10:22 40118e1 **docs: generate CHANGELOG**
 ## 2025-10-26 11:26 v0.7.3
 - 2025-10-26 11:26 f051dbf **0.7.3**
 - 2025-10-26 11:25 8425891 **feature: add time zone offset**
