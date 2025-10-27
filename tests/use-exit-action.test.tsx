@@ -37,37 +37,37 @@ describe("useExitAction", () => {
     expect(action).not.toHaveBeenCalled();
   });
 
-  test("gone", () => {
+  test("gone", async () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
     act(() => result.current.trigger(mouseEvent()));
-    act(() => result.current.attach?.onAnimationEnd(animationEvent(animation)));
+    await act(async () => result.current.attach?.onAnimationEnd(animationEvent(animation)));
 
     expect(action).toHaveBeenCalledTimes(1);
     expect(result.current.visible).toEqual(false);
     expect(result.current.attach).toEqual(undefined);
   });
 
-  test("ignores unrelated animations", () => {
+  test("ignores unrelated animations", async () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
     act(() => result.current.trigger(mouseEvent()));
-    act(() => result.current.attach?.onAnimationEnd(animationEvent("unrelated")));
+    await act(async () => result.current.attach?.onAnimationEnd(animationEvent("unrelated")));
 
     expect(action).not.toHaveBeenCalled();
     expect(result.current.visible).toEqual(true);
   });
 
-  test("runs only once", () => {
+  test("runs only once", async () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
     act(() => result.current.trigger(mouseEvent()));
-    act(() => result.current.attach?.onAnimationEnd(animationEvent(animation)));
+    await act(async () => result.current.attach?.onAnimationEnd(animationEvent(animation)));
     act(() => result.current.trigger(mouseEvent()));
-    act(() => result.current.attach?.onAnimationEnd(animationEvent(animation)));
+    await act(async () => result.current.attach?.onAnimationEnd(animationEvent(animation)));
 
     expect(result.current.visible).toEqual(false);
     expect(action).toHaveBeenCalledTimes(1);

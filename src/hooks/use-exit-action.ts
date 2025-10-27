@@ -2,7 +2,7 @@ import React from "react";
 
 type UseExitActionAnimationType = string;
 
-type UseExitActionOptionsType = { action: () => void; animation: UseExitActionAnimationType };
+type UseExitActionOptionsType = { action: () => Promise<void>; animation: UseExitActionAnimationType };
 
 type UseExitActionReturnType = {
   visible: boolean;
@@ -26,10 +26,10 @@ export function useExitAction(options: UseExitActionOptionsType): UseExitActionR
     if (phase === "idle") setPhase(UseExitActionPhase.exiting);
   };
 
-  const onAnimationEnd = (event: React.AnimationEvent) => {
+  const onAnimationEnd = async (event: React.AnimationEvent) => {
     if (event.animationName !== options.animation) return;
-    options.action();
     setPhase(UseExitActionPhase.gone);
+    await options.action();
   };
 
   const attach = phase === "exiting" ? { "data-animation": options.animation, onAnimationEnd } : undefined;
