@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField, type TextFieldValueType } from "../services/text-field";
 
 type TextFieldNameType = string;
@@ -41,6 +41,10 @@ export function useTextField<T extends string = string>(
 
   const onChange = (event: React.ChangeEvent<TextFieldElementType>) =>
     setCurrentValue(event.currentTarget.value as T);
+
+  useEffect(() => {
+    setCurrentValue(defaultValue.get());
+  }, [config.defaultValue]);
 
   return {
     defaultValue: defaultValue.get(),
