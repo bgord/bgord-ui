@@ -1,6 +1,9 @@
 # Changelog
+## 2025-10-29 16:52 v0.7.5
+- 2025-10-29 16:52 2447ff0 **0.7.5**
 - 2025-10-29 16:51 2c54683 **step: update packages**
 - 2025-10-29 16:43 665ae81 **step: sync default value change in use text field**
+- 2025-10-29 15:51 ab13f3e **docs: generate CHANGELOG**
 ## 2025-10-27 11:22 v0.7.4
 - 2025-10-27 11:22 9512391 **0.7.4**
 - 2025-10-27 11:22 93a689c **step: update packages**
