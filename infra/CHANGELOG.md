@@ -1,8 +1,11 @@
 # Changelog
+- 2025-10-30 11:13 19eaa26 **step: add tests**
+- 2025-10-30 11:12 1b49f3f **feature: add head**
 ## 2025-10-29 16:52 v0.7.5
 - 2025-10-29 16:52 2447ff0 **0.7.5**
 - 2025-10-29 16:51 2c54683 **step: update packages**
 - 2025-10-29 16:43 665ae81 **step: sync default value change in use text field**
+- 2025-10-29 15:52 acb1a45 **docs: generate CHANGELOG**
 - 2025-10-29 15:51 ab13f3e **docs: generate CHANGELOG**
 ## 2025-10-27 11:22 v0.7.4
 - 2025-10-27 11:22 9512391 **0.7.4**
