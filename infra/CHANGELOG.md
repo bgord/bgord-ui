@@ -1,6 +1,10 @@
 # Changelog
+## 2025-10-30 11:14 v0.7.6
+- 2025-10-30 11:14 04b2ddd **0.7.6**
 - 2025-10-30 11:13 19eaa26 **step: add tests**
 - 2025-10-30 11:12 1b49f3f **feature: add head**
+- 2025-10-30 10:14 c079845 **docs: generate readme**
+- 2025-10-30 10:14 2a22927 **docs: generate CHANGELOG**
 ## 2025-10-29 16:52 v0.7.5
 - 2025-10-29 16:52 2447ff0 **0.7.5**
 - 2025-10-29 16:51 2c54683 **step: update packages**
