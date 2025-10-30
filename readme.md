@@ -49,6 +49,7 @@ src/
     ├── fields.ts
     ├── form.ts
     ├── get-safe-window.ts
+    ├── head.ts
     ├── noop.ts
     ├── number-field.ts
     ├── pluralize.ts
