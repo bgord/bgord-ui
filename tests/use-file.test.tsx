@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, spyOn, test } from "bun:test";
 import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
-import type React from "react";
 import { UseFileState, useFile } from "../src/hooks/use-file";
 
 afterEach(() => cleanup());

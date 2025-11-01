@@ -1,5 +1,3 @@
-import type React from "react";
-
 type PatternTextConfigType = {
   min?: number;
   max?: number;

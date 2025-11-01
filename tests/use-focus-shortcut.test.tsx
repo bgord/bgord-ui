@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
 import { cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
-import React from "react";
 import { useFocusKeyboardShortcut } from "../src/hooks/use-focus-shortcut";
 
 afterEach(() => cleanup());
