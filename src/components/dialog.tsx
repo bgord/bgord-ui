@@ -7,9 +7,10 @@ export type DialogPropsType = hooks.UseToggleReturnType &
   React.JSX.IntrinsicElements["dialog"] & { locked?: boolean };
 
 export function Dialog(props: DialogPropsType) {
-  const locked = props.locked ?? false;
+  const { locked: _locked, ..._props } = props;
+  const locked = _locked ?? false;
 
-  const { toggle: dialog, rest } = hooks.extractUseToggle(props);
+  const { toggle: dialog, rest } = hooks.extractUseToggle(_props);
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
