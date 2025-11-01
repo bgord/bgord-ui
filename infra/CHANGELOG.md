@@ -1,5 +1,10 @@
 # Changelog
+- 2025-11-01 16:39 997e90d **step: add integration tests**
+- 2025-11-01 13:24 c5f4ece **step: test mutate**
+- 2025-11-01 13:19 684f9e2 **step: setup use mutation tests**
+- 2025-11-01 13:12 b6583e0 **feature: add use mutation hook**
 - 2025-11-01 13:05 756860e **step: make use exit action return type less strict**
+- 2025-11-01 12:05 6e75cf1 **docs: generate CHANGELOG**
 ## 2025-10-30 11:14 v0.7.6
 - 2025-10-30 11:14 04b2ddd **0.7.6**
 - 2025-10-30 11:13 19eaa26 **step: add tests**
