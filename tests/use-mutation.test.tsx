@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, spyOn, test } from "bun:test";
-import { act, cleanup, renderHook } from "@testing-library/react";
+import { act, cleanup, render, renderHook, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MutationState, useMutation } from "../src/hooks/use-mutation";
 
 afterEach(() => cleanup());
@@ -116,5 +117,49 @@ describe("useTextField", () => {
     expect(result.current.isLoading).toEqual(false);
     expect(result.current.isError).toEqual(false);
     expect(result.current.isDone).toEqual(false);
+  });
+
+  test("integration - success", async () => {
+    spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
+
+    function Testcase() {
+      const mutation = useMutation({ perform: () => fetch(url) });
+
+      return (
+        <form onSubmit={mutation.handleSubmit}>
+          <button type="submit">Send</button>
+          {mutation.isIdle && <output>Fill the form</output>}
+          {mutation.isDone && <output>Success</output>}
+        </form>
+      );
+    }
+
+    render(<Testcase />);
+
+    expect(screen.findByText("Fill the form"));
+    await act(() => userEvent.click(screen.getByText("Send")));
+    expect(screen.findByText("Success"));
+  });
+
+  test("integration - error", async () => {
+    spyOn(global, "fetch").mockResolvedValue({ ok: false } as any);
+
+    function Testcase() {
+      const mutation = useMutation({ perform: () => fetch(url) });
+
+      return (
+        <form onSubmit={mutation.handleSubmit}>
+          <button type="submit">Send</button>
+          {mutation.isIdle && <output>Fill the form</output>}
+          {mutation.isError && <output>Error</output>}
+        </form>
+      );
+    }
+
+    render(<Testcase />);
+
+    expect(screen.findByText("Fill the form"));
+    await act(() => userEvent.click(screen.getByText("Send")));
+    expect(screen.findByText("Error"));
   });
 });
