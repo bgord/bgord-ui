@@ -6,23 +6,16 @@ setup_base_config
 OUTPUT_DIRECTORY="dist"
 
 step_start "Directory clear"
-rm -rf $OUTPUT_DIRECTORY
+rm -rf "$OUTPUT_DIRECTORY"
 step_end "Directory clear"
 
 step_start "Package build"
-NODE_ENV=production bun build src/index.ts \
-   --minify \
-   --format esm \
-   --target browser \
-   --outdir dist \
-   --packages external \
-   --define process.env.NODE_ENV="production" \
-   --external react \
-   --external react-dom \
-   --external react/jsx-runtime \
-   --external react/jsx-dev-runtime
+bunx tsc -p tsconfig.build.json
 step_end "Package build"
 
-step_start "Types build"
-bunx tsc --emitDeclarationOnly
-step_end "Types build"
+step_start "jsxDEV guard"
+if grep -R --include='*.js' -n 'jsxDEV' "$OUTPUT_DIRECTORY" >/dev/null; then
+  echo "❌ Found jsxDEV in build output"
+  exit 1
+fi
+step_end "jsxDEV guard"
