@@ -11,15 +11,17 @@ rm -rf $OUTPUT_DIRECTORY
 step_end "Directory clear"
 
 step_start "Package build"
-NODE_ENV=production bun build src/index.ts \
-  --minify \
-  --format esm \
-  --outdir dist \
-  --packages external \
-  --external react \
-  --external react-dom \
-  --external react/jsx-runtime \
-  --external react-router
+ NODE_ENV=production bun build src/index.ts \
+   --minify \
+   --format esm \
+   --target browser \
+   --outdir dist \
+   --packages external \
+   --define process.env.NODE_ENV="production" \
+   --external react \
+   --external react-dom \
+   --external react/jsx-runtime \
+   --external react/jsx-dev-runtime
 step_end "Package build"
 
 step_start "Types build"
