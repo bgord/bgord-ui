@@ -1,4 +1,5 @@
 # Changelog
+- 2025-11-01 17:39 93b84d4 **fix: hooks import**
 - 2025-11-01 17:26 d35fbeb **fix: package build**
 ## 2025-11-01 17:18 v0.7.9
 - 2025-11-01 17:18 ac5feb4 **0.7.9**
@@ -8,6 +9,7 @@
 ## 2025-11-01 16:42 v0.7.7
 - 2025-11-01 16:42 d772c95 **0.7.7**
 - 2025-11-01 16:39 997e90d **step: add integration tests**
+- 2025-11-01 16:29 7dba329 **docs: generate CHANGELOG**
 - 2025-11-01 16:18 2aff98f **docs: generate CHANGELOG**
 - 2025-11-01 15:59 448d715 **docs: generate CHANGELOG**
 - 2025-11-01 15:58 1120e6f **docs: generate CHANGELOG**
