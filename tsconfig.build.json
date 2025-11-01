@@ -10,7 +10,14 @@
     "jsx": "react-jsx",
     "module": "ESNext",
     "target": "ES2022",
-    "moduleResolution": "Bundler",
+
+    "moduleResolution": "node",
+
+    "baseUrl": ".",
+    "paths": {
+      "tinykeys": ["node_modules/tinykeys/dist/tinykeys"]
+    },
+
     "isolatedModules": true,
     "skipLibCheck": true
   },
