@@ -50,6 +50,7 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
         setState(MutationState.error);
         setError(null);
         await options.onError?.(null);
+        return;
       }
 
       setState(MutationState.done);
@@ -64,7 +65,6 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
       setState(MutationState.error);
       setError(error);
       await options.onError?.(error);
-      throw error;
     }
   }, [state, options]);
 

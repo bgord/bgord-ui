@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, test } from "bun:test";
-import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { afterEach, describe, expect, spyOn, test } from "bun:test";
+import { act, cleanup, renderHook } from "@testing-library/react";
 import { MutationState, useMutation } from "../src/hooks/use-mutation";
 
 afterEach(() => cleanup());
@@ -10,7 +10,6 @@ describe("useTextField", () => {
   test("idle", () => {
     const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
 
-    console.log(result);
     expect(result.current.state).toEqual(MutationState.idle);
     expect(result.current.error).toEqual(null);
     expect(result.current.isIdle).toEqual(true);
@@ -20,5 +19,102 @@ describe("useTextField", () => {
     expect(typeof result.current.mutate).toEqual("function");
     expect(typeof result.current.handleSubmit).toEqual("function");
     expect(typeof result.current.reset).toEqual("function");
+  });
+
+  test("mutate - success", async () => {
+    const fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+
+    expect(result.current.state).toEqual(MutationState.idle);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(true);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(false);
+    expect(result.current.isDone).toEqual(false);
+
+    await act(() => result.current.mutate());
+
+    expect(fetchSpy).toHaveBeenCalledWith(url);
+
+    expect(result.current.state).toEqual(MutationState.done);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(false);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(false);
+    expect(result.current.isDone).toEqual(true);
+
+    act(() => result.current.reset());
+
+    expect(result.current.state).toEqual(MutationState.idle);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(true);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(false);
+    expect(result.current.isDone).toEqual(false);
+  });
+
+  test("mutate - error - response.ok", async () => {
+    const fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: false } as any);
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+
+    expect(result.current.state).toEqual(MutationState.idle);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(true);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(false);
+    expect(result.current.isDone).toEqual(false);
+
+    await act(() => result.current.mutate());
+
+    expect(fetchSpy).toHaveBeenCalledWith(url);
+
+    expect(result.current.state).toEqual(MutationState.error);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(false);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(true);
+    expect(result.current.isDone).toEqual(false);
+
+    act(() => result.current.reset());
+
+    expect(result.current.state).toEqual(MutationState.idle);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(true);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(false);
+    expect(result.current.isDone).toEqual(false);
+  });
+
+  test("mutate - error", async () => {
+    const error = "Failure";
+    const fetchSpy = spyOn(global, "fetch").mockRejectedValue(error);
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+
+    expect(result.current.state).toEqual(MutationState.idle);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(true);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(false);
+    expect(result.current.isDone).toEqual(false);
+
+    await act(() => result.current.mutate());
+
+    expect(fetchSpy).toHaveBeenCalledWith(url);
+
+    expect(result.current.state).toEqual(MutationState.error);
+    expect(result.current.error).toEqual(error);
+    expect(result.current.isIdle).toEqual(false);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(true);
+    expect(result.current.isDone).toEqual(false);
+
+    act(() => result.current.reset());
+
+    expect(result.current.state).toEqual(MutationState.idle);
+    expect(result.current.error).toEqual(null);
+    expect(result.current.isIdle).toEqual(true);
+    expect(result.current.isLoading).toEqual(false);
+    expect(result.current.isError).toEqual(false);
+    expect(result.current.isDone).toEqual(false);
   });
 });
