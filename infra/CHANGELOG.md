@@ -1,26 +1,28 @@
 # Changelog
-- 2025-11-01 17:39 93b84d4 **fix: hooks import**
-- 2025-11-01 17:26 d35fbeb **fix: package build**
+## 2025-11-01 18:12 v0.8.0
+- 2025-11-01 18:12 8de5f40 **0.8.0**
+- 2025-11-01 18:12 42731b3 **fix: use exit action action return type**
+- 2025-11-01 17:39 dbdd97c **fix: hooks import**
+- 2025-11-01 17:26 d9aaef3 **fix: package build**
 ## 2025-11-01 17:18 v0.7.9
-- 2025-11-01 17:18 ac5feb4 **0.7.9**
+- 2025-11-01 17:13 6b73e95 **docs: generate CHANGELOG**
+- 2025-11-01 17:12 ccd70ae **docs: generate CHANGELOG**
+- 2025-11-01 17:11 afc97b8 **docs: generate CHANGELOG**
 ## 2025-11-01 16:58 v0.7.8
-- 2025-11-01 16:58 84f863f **fix: dialock locked**
-- 2025-11-01 16:58 42385e5 **0.7.8**
+- 2025-11-01 16:58 0385749 **fix: dialock locked**
+- 2025-11-01 16:51 0911aa2 **docs: generate CHANGELOG**
 ## 2025-11-01 16:42 v0.7.7
-- 2025-11-01 16:42 d772c95 **0.7.7**
-- 2025-11-01 16:39 997e90d **step: add integration tests**
-- 2025-11-01 16:29 7dba329 **docs: generate CHANGELOG**
-- 2025-11-01 16:18 2aff98f **docs: generate CHANGELOG**
-- 2025-11-01 15:59 448d715 **docs: generate CHANGELOG**
-- 2025-11-01 15:58 1120e6f **docs: generate CHANGELOG**
-- 2025-11-01 15:42 63c2bb4 **docs: generate CHANGELOG**
-- 2025-11-01 15:40 d518da8 **docs: generate CHANGELOG**
-- 2025-11-01 15:40 817de3f **docs: generate readme**
-- 2025-11-01 13:24 c5f4ece **step: test mutate**
-- 2025-11-01 13:19 684f9e2 **step: setup use mutation tests**
-- 2025-11-01 13:12 b6583e0 **feature: add use mutation hook**
-- 2025-11-01 13:05 756860e **step: make use exit action return type less strict**
-- 2025-11-01 12:05 6e75cf1 **docs: generate CHANGELOG**
+- 2025-11-01 16:39 b0d33f2 **step: add integration tests**
+- 2025-11-01 16:29 aa927be **docs: generate CHANGELOG**
+- 2025-11-01 16:18 cf17385 **docs: generate CHANGELOG**
+- 2025-11-01 15:59 2604864 **docs: generate CHANGELOG**
+- 2025-11-01 15:58 e4c52a0 **docs: generate CHANGELOG**
+- 2025-11-01 15:42 3d4bc79 **docs: generate CHANGELOG**
+- 2025-11-01 15:40 ecf882f **docs: generate readme**
+- 2025-11-01 13:24 4737b98 **step: test mutate**
+- 2025-11-01 13:19 0f35539 **step: setup use mutation tests**
+- 2025-11-01 13:12 57df36f **feature: add use mutation hook**
+- 2025-11-01 12:05 3bcf89c **docs: generate CHANGELOG**
 ## 2025-10-30 11:14 v0.7.6
 - 2025-10-30 11:14 04b2ddd **0.7.6**
 - 2025-10-30 11:13 19eaa26 **step: add tests**
