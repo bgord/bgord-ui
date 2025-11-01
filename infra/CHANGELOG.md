@@ -1,5 +1,9 @@
 # Changelog
+## 2025-11-01 16:42 v0.7.7
+- 2025-11-01 16:42 d772c95 **0.7.7**
 - 2025-11-01 16:39 997e90d **step: add integration tests**
+- 2025-11-01 15:40 d518da8 **docs: generate CHANGELOG**
+- 2025-11-01 15:40 817de3f **docs: generate readme**
 - 2025-11-01 13:24 c5f4ece **step: test mutate**
 - 2025-11-01 13:19 684f9e2 **step: setup use mutation tests**
 - 2025-11-01 13:12 b6583e0 **feature: add use mutation hook**
