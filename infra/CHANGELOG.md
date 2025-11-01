@@ -1,4 +1,5 @@
 # Changelog
+- 2025-11-01 18:49 1c93e1c **step: extract absolute url**
 ## 2025-11-01 18:34 v0.8.1
 - 2025-11-01 18:34 d8b1506 **0.8.1**
 - 2025-11-01 18:33 ea7478d **fix: tinykeys type**
@@ -8,6 +9,7 @@
 - 2025-11-01 18:12 42731b3 **fix: use exit action action return type**
 - 2025-11-01 17:39 dbdd97c **fix: hooks import**
 - 2025-11-01 17:34 d62cbff **docs: generate CHANGELOG**
+- 2025-11-01 17:34 1018fbc **docs: generate CHANGELOG**
 - 2025-11-01 17:31 a2077f2 **docs: generate CHANGELOG**
 - 2025-11-01 17:26 d9aaef3 **fix: package build**
 - 2025-11-01 17:20 e7c3941 **docs: generate CHANGELOG**
