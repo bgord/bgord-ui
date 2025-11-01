@@ -1,5 +1,7 @@
 # Changelog
+- 2025-11-01 18:12 42731b3 **fix: use exit action action return type**
 ## 2025-11-01 17:18 v0.7.9
+- 2025-11-01 17:11 afc97b8 **docs: generate CHANGELOG**
 ## 2025-11-01 16:58 v0.7.8
 ## 2025-11-01 16:42 v0.7.7
 ## 2025-10-30 11:14 v0.7.6
