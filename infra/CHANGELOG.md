@@ -1,8 +1,11 @@
 # Changelog
+## 2025-11-01 16:58 v0.7.8
 - 2025-11-01 16:58 84f863f **fix: dialock locked**
+- 2025-11-01 16:58 42385e5 **0.7.8**
 ## 2025-11-01 16:42 v0.7.7
 - 2025-11-01 16:42 d772c95 **0.7.7**
 - 2025-11-01 16:39 997e90d **step: add integration tests**
+- 2025-11-01 15:58 1120e6f **docs: generate CHANGELOG**
 - 2025-11-01 15:42 63c2bb4 **docs: generate CHANGELOG**
 - 2025-11-01 15:40 d518da8 **docs: generate CHANGELOG**
 - 2025-11-01 15:40 817de3f **docs: generate readme**
