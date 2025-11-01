@@ -2,7 +2,7 @@ import React from "react";
 
 type UseExitActionAnimationType = string;
 
-type UseExitActionOptionsType = { action: () => Promise<void>; animation: UseExitActionAnimationType };
+type UseExitActionOptionsType = { action: () => Promise<unknown>; animation: UseExitActionAnimationType };
 
 type UseExitActionReturnType = {
   visible: boolean;
