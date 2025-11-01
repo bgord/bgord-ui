@@ -1,4 +1,6 @@
 # Changelog
+## 2025-11-01 18:55 v0.8.2
+- 2025-11-01 18:55 514a3d0 **0.8.2**
 - 2025-11-01 18:49 1c93e1c **step: extract absolute url**
 ## 2025-11-01 18:34 v0.8.1
 - 2025-11-01 18:34 d8b1506 **0.8.1**
@@ -7,6 +9,8 @@
 ## 2025-11-01 18:12 v0.8.0
 - 2025-11-01 18:12 8de5f40 **0.8.0**
 - 2025-11-01 18:12 42731b3 **fix: use exit action action return type**
+- 2025-11-01 17:55 84bdd1f **docs: generate readme**
+- 2025-11-01 17:55 4c34cc4 **docs: generate CHANGELOG**
 - 2025-11-01 17:39 dbdd97c **fix: hooks import**
 - 2025-11-01 17:34 d62cbff **docs: generate CHANGELOG**
 - 2025-11-01 17:34 1018fbc **docs: generate CHANGELOG**
