@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, jest, test } from "bun:test";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import React, { useRef } from "react";
 import { useClickOutside } from "../src/hooks/use-click-outside";
 
 function Box({ onOutside }: { onOutside: () => void }) {

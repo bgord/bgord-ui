@@ -1,6 +1,5 @@
 import { describe, expect, jest, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
-import type React from "react";
 import { useExitAction } from "../src/hooks/use-exit-action";
 
 function mouseEvent(): any {

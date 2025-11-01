@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 type UseExitActionAnimationType = string;
 
@@ -19,7 +19,7 @@ enum UseExitActionPhase {
 }
 
 export function useExitAction(options: UseExitActionOptionsType): UseExitActionReturnType {
-  const [phase, setPhase] = React.useState<UseExitActionPhase>(UseExitActionPhase.idle);
+  const [phase, setPhase] = useState<UseExitActionPhase>(UseExitActionPhase.idle);
 
   const trigger = (event: React.MouseEvent) => {
     event.preventDefault();
