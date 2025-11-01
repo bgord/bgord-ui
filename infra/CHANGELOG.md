@@ -1,9 +1,11 @@
 # Changelog
+- 2025-11-01 18:30 7a23353 **step: typescript build**
 ## 2025-11-01 18:12 v0.8.0
 - 2025-11-01 18:12 8de5f40 **0.8.0**
 - 2025-11-01 18:12 42731b3 **fix: use exit action action return type**
 - 2025-11-01 17:39 dbdd97c **fix: hooks import**
 - 2025-11-01 17:26 d9aaef3 **fix: package build**
+- 2025-11-01 17:20 e7c3941 **docs: generate CHANGELOG**
 ## 2025-11-01 17:18 v0.7.9
 - 2025-11-01 17:13 6b73e95 **docs: generate CHANGELOG**
 - 2025-11-01 17:12 ccd70ae **docs: generate CHANGELOG**
