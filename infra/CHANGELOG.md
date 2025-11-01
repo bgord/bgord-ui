@@ -1,9 +1,11 @@
 # Changelog
+- 2025-11-01 13:05 756860e **step: make use exit action return type less strict**
 ## 2025-10-30 11:14 v0.7.6
 - 2025-10-30 11:14 04b2ddd **0.7.6**
 - 2025-10-30 11:13 19eaa26 **step: add tests**
 - 2025-10-30 11:12 1b49f3f **feature: add head**
 - 2025-10-30 10:14 c079845 **docs: generate readme**
+- 2025-10-30 10:14 93f725b **docs: generate CHANGELOG**
 - 2025-10-30 10:14 2a22927 **docs: generate CHANGELOG**
 ## 2025-10-29 16:52 v0.7.5
 - 2025-10-29 16:52 2447ff0 **0.7.5**
