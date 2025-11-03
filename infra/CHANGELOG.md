@@ -1,9 +1,11 @@
 # Changelog
+- 2025-11-03 18:08 43659eb **refactor: make use mutation use reducer based**
 ## 2025-11-03 11:14 v0.8.3
 - 2025-11-03 11:14 872b30a **step: update packages**
 - 2025-11-03 11:14 5d08426 **0.8.3**
 - 2025-11-03 11:13 9589e34 **step: bump bgord/scripts**
 - 2025-11-03 11:06 a7940fc **feature: add use online status hook**
+- 2025-11-03 10:15 2185d00 **docs: generate CHANGELOG**
 - 2025-11-03 10:14 29ebb7a **docs: generate CHANGELOG**
 - 2025-11-03 10:14 115d8e2 **docs: generate readme**
 ## 2025-11-01 18:55 v0.8.2
