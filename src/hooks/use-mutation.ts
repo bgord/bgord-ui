@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useReducer } from "react";
 
 export enum MutationState {
   idle = "idle",
@@ -28,63 +28,68 @@ type UseMutationReturnType = {
   reset: () => void;
 };
 
+type MutationActionType =
+  | { type: "START" }
+  | { type: "ERROR"; error: MutationErrorType }
+  | { type: "DONE" }
+  | { type: "RESET" };
+
+function mutationReducer(
+  _state: { state: MutationState; error: MutationErrorType },
+  action: MutationActionType,
+) {
+  if (action.type === "START") return { state: MutationState.loading, error: null };
+  if (action.type === "ERROR") return { state: MutationState.error, error: action.error };
+  if (action.type === "DONE") return { state: MutationState.done, error: null };
+  if (action.type === "RESET") return { state: MutationState.idle, error: null };
+  throw new Error("Unknown useMutation action type");
+}
+
 export function useMutation(options: UseMutationOptions): UseMutationReturnType {
-  const [state, setState] = useState<MutationState>(MutationState.idle);
-  const [error, setError] = useState<MutationErrorType>(null);
+  const [mutation, dispatch] = useReducer(mutationReducer, { state: MutationState.idle, error: null });
 
-  const reset = useCallback(() => {
-    setError(null);
-    setState(MutationState.idle);
-  }, []);
+  const mutate = async () => {
+    if (mutation.state === MutationState.loading) return;
 
-  const mutate = useCallback(async () => {
-    if (state === MutationState.loading) return;
-
-    setError(null);
-    setState(MutationState.loading);
+    dispatch({ type: "START" });
 
     try {
       const response = await options.perform();
 
       if (!response.ok) {
-        setState(MutationState.error);
-        setError(null);
+        dispatch({ type: "ERROR", error: null });
         await options.onError?.(null);
         return;
       }
 
-      setState(MutationState.done);
+      dispatch({ type: "DONE" });
       await options.onSuccess?.(response);
 
       if (options.autoResetDelayMs) {
-        setTimeout(() => setState(MutationState.idle), options.autoResetDelayMs);
+        setTimeout(() => dispatch({ type: "RESET" }), options.autoResetDelayMs);
       }
 
       return response;
     } catch (error) {
-      setState(MutationState.error);
-      setError(error);
+      dispatch({ type: "ERROR", error });
       await options.onError?.(error);
     }
-  }, [state, options]);
+  };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
-    async (event) => {
-      event.preventDefault();
-      await mutate();
-    },
-    [mutate],
-  );
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    await mutate();
+  };
 
   return {
-    state,
-    error,
-    isIdle: state === MutationState.idle,
-    isLoading: state === MutationState.loading,
-    isError: state === MutationState.error,
-    isDone: state === MutationState.done,
+    state: mutation.state,
+    error: mutation.error,
+    isIdle: mutation.state === MutationState.idle,
+    isLoading: mutation.state === MutationState.loading,
+    isError: mutation.state === MutationState.error,
+    isDone: mutation.state === MutationState.done,
     mutate,
     handleSubmit,
-    reset,
+    reset: () => dispatch({ type: "RESET" }),
   };
 }
