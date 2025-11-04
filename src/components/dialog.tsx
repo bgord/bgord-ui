@@ -42,6 +42,7 @@ export function Dialog(props: DialogPropsType) {
       data-br="xs"
       data-backdrop="stronger"
       data-animation="grow-fade-in"
+      {...dialog.props.target}
       {...rest}
     />
   );
