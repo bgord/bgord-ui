@@ -1,5 +1,9 @@
 # Changelog
+- 2025-11-07 14:58 6437794 **step: update packages**
+- 2025-11-07 14:58 59b1645 **step: pass context to onsuccess and error**
+- 2025-11-04 21:51 7c96900 **step: add toggle target props to dialog**
 - 2025-11-03 18:08 43659eb **refactor: make use mutation use reducer based**
+- 2025-11-03 17:08 7e561c8 **docs: generate CHANGELOG**
 ## 2025-11-03 11:14 v0.8.3
 - 2025-11-03 11:14 872b30a **step: update packages**
 - 2025-11-03 11:14 5d08426 **0.8.3**
