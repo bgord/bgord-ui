@@ -9,10 +9,12 @@ export enum MutationState {
 
 type MutationErrorType = unknown;
 
+type MutationContextType = { form?: HTMLFormElement };
+
 type UseMutationOptions = {
   perform: () => Promise<Response>;
-  onSuccess?: (response: Response) => void | Promise<void>;
-  onError?: (error: MutationErrorType) => void | Promise<void>;
+  onSuccess?: (response: Response, context: MutationContextType) => void | Promise<void>;
+  onError?: (error: MutationErrorType, context: MutationContextType) => void | Promise<void>;
   autoResetDelayMs?: number;
 };
 
@@ -23,7 +25,7 @@ type UseMutationReturnType = {
   isLoading: boolean;
   isError: boolean;
   isDone: boolean;
-  mutate: () => Promise<Response | undefined>;
+  mutate: (formElement?: HTMLFormElement) => Promise<Response | undefined>;
   handleSubmit: React.FormEventHandler<HTMLFormElement>;
   reset: () => void;
 };
@@ -48,7 +50,7 @@ function mutationReducer(
 export function useMutation(options: UseMutationOptions): UseMutationReturnType {
   const [mutation, dispatch] = useReducer(mutationReducer, { state: MutationState.idle, error: null });
 
-  const mutate = async () => {
+  const mutate = async (form?: HTMLFormElement) => {
     if (mutation.state === MutationState.loading) return;
 
     dispatch({ type: "START" });
@@ -58,12 +60,12 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
 
       if (!response.ok) {
         dispatch({ type: "ERROR", error: null });
-        await options.onError?.(null);
+        await options.onError?.(null, { form: form });
         return;
       }
 
       dispatch({ type: "DONE" });
-      await options.onSuccess?.(response);
+      await options.onSuccess?.(response, { form: form });
 
       if (options.autoResetDelayMs) {
         setTimeout(() => dispatch({ type: "RESET" }), options.autoResetDelayMs);
@@ -72,13 +74,13 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
       return response;
     } catch (error) {
       dispatch({ type: "ERROR", error });
-      await options.onError?.(error);
+      await options.onError?.(error, { form: form });
     }
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    await mutate();
+    await mutate(event.currentTarget);
   };
 
   return {
