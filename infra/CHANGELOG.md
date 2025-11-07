@@ -1,4 +1,5 @@
 # Changelog
+- 2025-11-07 15:06 b250910 **0.8.6**
 ## 2025-11-07 15:05 v0.8.5
 - 2025-11-07 15:05 41e24dc **0.8.5**
 - 2025-11-07 15:05 271add3 **step: add fields.clearAll**
@@ -6,6 +7,7 @@
 - 2025-11-07 14:59 da0a59a **0.8.4**
 - 2025-11-07 14:58 6437794 **step: update packages**
 - 2025-11-07 14:58 59b1645 **step: pass context to onsuccess and error**
+- 2025-11-07 14:06 f009c00 **docs: generate CHANGELOG**
 - 2025-11-07 14:05 4045804 **docs: generate CHANGELOG**
 - 2025-11-07 13:59 b52d424 **docs: generate CHANGELOG**
 - 2025-11-07 13:59 a908b65 **docs: generate CHANGELOG**
