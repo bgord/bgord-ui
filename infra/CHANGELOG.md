@@ -1,4 +1,5 @@
 # Changelog
+- 2025-11-08 19:27 12cea07 **step: update bun**
 ## 2025-11-07 15:06 v0.8.7
 ## 2025-11-07 15:06 v0.8.6
 - 2025-11-07 15:06 b250910 **0.8.6**
@@ -10,6 +11,7 @@
 - 2025-11-07 14:59 da0a59a **0.8.4**
 - 2025-11-07 14:58 6437794 **step: update packages**
 - 2025-11-07 14:58 59b1645 **step: pass context to onsuccess and error**
+- 2025-11-07 14:06 fce1cd5 **docs: generate CHANGELOG**
 - 2025-11-07 14:06 f009c00 **docs: generate CHANGELOG**
 - 2025-11-07 14:06 6976f1e **docs: generate CHANGELOG**
 - 2025-11-07 14:05 4045804 **docs: generate CHANGELOG**
