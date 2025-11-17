@@ -34,7 +34,7 @@ export function pluralize(options: PluralizeOptionsType): PluralizeWordType {
   }
 
   // biome-ignore lint: lint/suspicious/noConsole
-  console.warn(`[@bgord/frontend] missing pluralization function for language: ${options.language}.`);
+  console.warn(`[@bgord/ui] missing pluralization function for language: ${options.language}.`);
 
   return options.singular;
 }

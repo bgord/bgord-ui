@@ -48,8 +48,6 @@ describe("pluralize", () => {
     const consoleWarn = spyOn(console, "warn").mockImplementation(jest.fn());
 
     expect(pluralize({ value: 7, singular: "item", language: "fr" })).toEqual("item");
-    expect(consoleWarn).toHaveBeenCalledWith(
-      "[@bgord/frontend] missing pluralization function for language: fr.",
-    );
+    expect(consoleWarn).toHaveBeenCalledWith("[@bgord/ui] missing pluralization function for language: fr.");
   });
 });
