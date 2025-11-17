@@ -17,24 +17,26 @@ enum PluralizationSupportedLanguages {
 }
 
 export function pluralize(options: PluralizeOptionsType): PluralizeWordType {
-  if (options.language === PluralizationSupportedLanguages.en) {
-    const plural = options.plural ?? `${options.singular}s`;
+  switch (options.language) {
+    case PluralizationSupportedLanguages.en: {
+      if (options.value === 1) return options.singular;
+      return options.plural ?? `${options.singular}s`;
+    }
 
-    if (options.value === 1) return options.singular;
+    case PluralizationSupportedLanguages.pl: {
+      if (options.value === 1) return options.singular;
+      return polishPlurals(
+        options.singular,
+        String(options.plural),
+        String(options.genitive),
+        options.value ?? 1,
+      );
+    }
 
-    return plural;
+    default: {
+      // biome-ignore lint: lint/suspicious/noConsole
+      console.warn(`[@bgord/ui] missing pluralization function for language: ${options.language}.`);
+      return options.singular;
+    }
   }
-
-  if (options.language === PluralizationSupportedLanguages.pl) {
-    const value = options.value ?? 1;
-
-    if (value === 1) return options.singular;
-
-    return polishPlurals(options.singular, String(options.plural), String(options.genitive), value);
-  }
-
-  // biome-ignore lint: lint/suspicious/noConsole
-  console.warn(`[@bgord/ui] missing pluralization function for language: ${options.language}.`);
-
-  return options.singular;
 }
