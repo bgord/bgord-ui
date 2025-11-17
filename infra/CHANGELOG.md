@@ -1,7 +1,11 @@
 # Changelog
+- 2025-11-17 15:55 e7ff007 **step: update packages**
+- 2025-11-17 15:53 baee650 **refactor: simplify pluralize**
+- 2025-11-17 15:48 b9c6096 **fix: pluralize warning**
 ## 2025-11-14 17:00 v0.8.8
 - 2025-11-14 17:00 cf35917 **step: update packages**
 - 2025-11-14 17:00 b5006f3 **0.8.8**
+- 2025-11-14 16:00 2e3815e **docs: generate CHANGELOG**
 - 2025-11-14 16:00 04e7011 **docs: generate CHANGELOG**
 - 2025-11-13 09:54 929c678 **step: update packages**
 - 2025-11-13 08:54 2ce9229 **docs: generate CHANGELOG**
