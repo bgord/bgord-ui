@@ -1,8 +1,10 @@
 # Changelog
+- 2025-12-01 11:51 b9a81f9 **step: bump bgord/scripts**
 ## 2025-12-01 11:48 v0.8.9
 - 2025-12-01 11:48 481c651 **0.8.9**
 - 2025-12-01 11:47 f5a103f **step: update packages**
 - 2025-12-01 10:48 e62c8a1 **docs: generate CHANGELOG**
+- 2025-12-01 10:48 70b8cdf **docs: generate CHANGELOG**
 - 2025-11-17 15:55 e7ff007 **step: update packages**
 - 2025-11-17 15:53 baee650 **refactor: simplify pluralize**
 - 2025-11-17 15:48 b9c6096 **fix: pluralize warning**
