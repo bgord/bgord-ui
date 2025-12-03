@@ -1,8 +1,10 @@
 # Changelog
+- 2025-12-03 11:43 03c4f89 **step: bump bgord/scripts**
 - 2025-12-03 11:15 e93ddce **step: update packages**
 - 2025-12-03 11:15 bb7130d **step: install typecsript**
 - 2025-12-03 10:58 76bddae **step: bump bgord/scripts**
 - 2025-12-03 10:56 b12becd **step: bump bgord/scripts**
+- 2025-12-03 10:16 ec8209f **docs: generate CHANGELOG**
 - 2025-12-03 10:13 e93ef30 **docs: generate CHANGELOG**
 - 2025-12-01 11:51 b9a81f9 **step: bump bgord/scripts**
 ## 2025-12-01 11:48 v0.8.9
