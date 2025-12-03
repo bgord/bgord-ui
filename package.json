@@ -39,7 +39,8 @@
     "knip": "5.71.0",
     "lefthook": "2.0.4",
     "only-allow": "1.2.2",
-    "shellcheck": "4.1.0"
+    "shellcheck": "4.1.0",
+    "typescript": "5.9.3"
   },
   "dependencies": {
     "js-cookie": "3.0.5",
