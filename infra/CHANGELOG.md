@@ -1,8 +1,10 @@
 # Changelog
+- 2025-12-12 13:45 5f9414e **step: update packages**
 ## 2025-12-11 23:11 v0.8.12
 - 2025-12-11 23:11 dc83dda **step: update packages**
 - 2025-12-11 23:11 1e770e2 **step: update packages**
 - 2025-12-11 23:11 079f125 **0.8.12**
+- 2025-12-11 22:12 a4f33e0 **docs: generate CHANGELOG**
 - 2025-12-11 22:11 3becf59 **docs: generate CHANGELOG**
 ## 2025-12-09 20:56 v0.8.11
 - 2025-12-09 20:56 c24a1f3 **0.8.11**
