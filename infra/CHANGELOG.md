@@ -1,8 +1,10 @@
 # Changelog
+- 2025-12-15 19:50 ba249af **step: bump bgord/scripts**
 - 2025-12-15 18:41 d87fd60 **step: bump bgord/scripts**
 - 2025-12-15 18:41 9291c2a **step: install lockfile lint**
 - 2025-12-15 18:41 8d3bafb **step: update packages**
 - 2025-12-15 18:41 866f870 **step: update build prechecks**
+- 2025-12-15 17:42 c2f5b31 **docs: generate CHANGELOG**
 - 2025-12-15 17:41 8726abe **docs: generate CHANGELOG**
 ## 2025-12-14 13:02 v0.8.14
 - 2025-12-14 13:02 d817649 **0.8.14**
