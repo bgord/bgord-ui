@@ -19,6 +19,7 @@ describe("useScrollLock", () => {
 
   test("unmount", () => {
     const { unmount } = renderHook(() => useScrollLock(true));
+
     unmount();
 
     expect(document.body.style.overflow).toEqual("");
@@ -32,9 +33,11 @@ describe("useScrollLock", () => {
     expect(document.body.style.overflow).toEqual("hidden");
 
     rerender({ enabled: false });
+
     expect(document.body.style.overflow).not.toEqual("hidden");
 
     rerender({ enabled: true });
+
     expect(document.body.style.overflow).toEqual("hidden");
   });
 });

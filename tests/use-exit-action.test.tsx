@@ -15,6 +15,7 @@ const animation = "fade";
 describe("useExitAction", () => {
   test("idle", () => {
     const action = jest.fn();
+
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
     expect(result.current.visible).toEqual(true);
@@ -74,7 +75,6 @@ describe("useExitAction", () => {
 
   test("integration", () => {
     const action = jest.fn();
-
     function Card() {
       const exit = useExitAction({ action, animation });
 
@@ -88,7 +88,6 @@ describe("useExitAction", () => {
         </div>
       );
     }
-
     render(<Card />);
 
     const card = screen.getByTestId("card");
@@ -96,6 +95,7 @@ describe("useExitAction", () => {
     expect(card).toBeInTheDocument();
 
     fireEvent.click(screen.getByText("Delete"));
+
     expect(card).toBeInTheDocument();
 
     fireEvent.animationEnd(card, { animationName: animation });

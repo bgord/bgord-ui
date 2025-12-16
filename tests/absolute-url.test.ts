@@ -12,11 +12,13 @@ describe("absoluteUrl", () => {
 
   test("happy path - http request", () => {
     const request = new Request(http);
+
     expect(absoluteUrl(path, request).toString()).toEqual(`${http}${path}`);
   });
 
   test("happy path - https request", () => {
     const request = new Request(`${https}/anything`);
+
     expect(absoluteUrl(path, request).toString()).toEqual(`${https}${path}`);
   });
 
@@ -24,6 +26,7 @@ describe("absoluteUrl", () => {
     const request = new Request(`${http}/whatever`, {
       headers: { "x-forwarded-proto": "https" },
     });
+
     expect(absoluteUrl(path, request).toString()).toEqual(`${https}${path}`);
   });
 
@@ -31,18 +34,21 @@ describe("absoluteUrl", () => {
     const request = new Request(`${http}/whatever`, {
       headers: { forwarded: "for=1.2.3.4; proto=https; host=foo.example" },
     });
+
     expect(absoluteUrl(path, request).toString()).toEqual(`${https}${path}`);
   });
 
   test("relative path with query", () => {
-    const request = new Request(`${http}/base`);
     const withQuery = "/api?filter=today&query=";
+    const request = new Request(`${http}/base`);
+
     expect(absoluteUrl(withQuery, request).toString()).toEqual(`${http}${withQuery}`);
   });
 
   test("passthrough", () => {
     const absolute = "https://cdn.example.com/static/file.png";
     const request = new Request(http);
+
     expect(absoluteUrl(absolute, request).toString()).toEqual(absolute);
   });
 });

@@ -36,7 +36,6 @@ describe("useTextField", () => {
     await act(() => result.current.mutate());
 
     expect(fetchSpy).toHaveBeenCalledWith(url);
-
     expect(result.current.state).toEqual(MutationState.done);
     expect(result.current.error).toEqual(null);
     expect(result.current.isIdle).toEqual(false);
@@ -68,7 +67,6 @@ describe("useTextField", () => {
     await act(() => result.current.mutate());
 
     expect(fetchSpy).toHaveBeenCalledWith(url);
-
     expect(result.current.state).toEqual(MutationState.error);
     expect(result.current.error).toEqual(null);
     expect(result.current.isIdle).toEqual(false);
@@ -101,7 +99,6 @@ describe("useTextField", () => {
     await act(() => result.current.mutate());
 
     expect(fetchSpy).toHaveBeenCalledWith(url);
-
     expect(result.current.state).toEqual(MutationState.error);
     expect(result.current.error).toEqual(error);
     expect(result.current.isIdle).toEqual(false);
@@ -121,7 +118,6 @@ describe("useTextField", () => {
 
   test("integration - success", async () => {
     spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
-
     function Testcase() {
       const mutation = useMutation({ perform: () => fetch(url) });
 
@@ -137,13 +133,14 @@ describe("useTextField", () => {
     render(<Testcase />);
 
     expect(screen.findByText("Fill the form"));
+
     await act(() => userEvent.click(screen.getByText("Send")));
+
     expect(screen.findByText("Success"));
   });
 
   test("integration - error", async () => {
     spyOn(global, "fetch").mockResolvedValue({ ok: false } as any);
-
     function Testcase() {
       const mutation = useMutation({ perform: () => fetch(url) });
 
@@ -159,7 +156,9 @@ describe("useTextField", () => {
     render(<Testcase />);
 
     expect(screen.findByText("Fill the form"));
+
     await act(() => userEvent.click(screen.getByText("Send")));
+
     expect(screen.findByText("Error"));
   });
 });

@@ -69,14 +69,17 @@ describe("useNumberField", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
     act(() => result.current.handleChange(changeEvent("1", 1)));
+
     expect(result.current.value).toEqual(1);
     expect(result.current.input.props.value).toEqual("1");
 
     act(() => result.current.handleChange(changeEvent("1.", Number.NaN)));
+
     expect(result.current.value).toEqual(1);
     expect(result.current.input.props.value).toEqual("1.");
 
     act(() => result.current.handleChange(changeEvent("1.1", 1.1)));
+
     expect(result.current.value).toEqual(1.1);
     expect(result.current.input.props.value).toEqual("1.1");
   });
@@ -85,10 +88,12 @@ describe("useNumberField", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
     act(() => result.current.handleChange(changeEvent("-", Number.NaN)));
+
     expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual("-");
 
     act(() => result.current.handleChange(changeEvent("-1", -1)));
+
     expect(result.current.value).toEqual(-1);
     expect(result.current.input.props.value).toEqual("-1");
   });
@@ -97,13 +102,13 @@ describe("useNumberField", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
     act(() => result.current.handleChange(changeEvent("10.1.1", Number.NaN)));
+
     expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual("10.1.1");
   });
 
   test("integration", async () => {
     const value = "123";
-
     function Testcase() {
       const field = useNumberField({ name: "field" });
 
@@ -119,51 +124,73 @@ describe("useNumberField", () => {
         </div>
       );
     }
-
     render(<Testcase />);
-
     const input = screen.getByTestId("field");
+
     expect(input).toHaveDisplayValue("");
 
     // handleChange/clear
     await userEvent.type(input, value);
+
     expect(input).toHaveDisplayValue(value);
 
     await userEvent.click(screen.getByText("Clear"));
+
     await waitFor(() => expect(input).toHaveDisplayValue(""));
 
     // Fractions
     await userEvent.type(input, "1");
+
     expect(input).toHaveDisplayValue("1");
+
     await userEvent.type(input, ".");
+
     expect(input).toHaveDisplayValue("1");
+
     await userEvent.type(input, "5");
+
     expect(input).toHaveDisplayValue("1.5");
 
     await userEvent.click(screen.getByText("Clear"));
+
     await waitFor(() => expect(input).toHaveDisplayValue(""));
 
     // Negative fractions
     await userEvent.type(input, "-");
+
     expect(input).toHaveDisplayValue("");
+
     await userEvent.type(input, "1");
+
     expect(input).toHaveDisplayValue("-1");
+
     await userEvent.type(input, ".");
+
     expect(input).toHaveDisplayValue("-1");
+
     await userEvent.type(input, "5");
+
     expect(input).toHaveDisplayValue("-1.5");
 
     await userEvent.click(screen.getByText("Clear"));
+
     await waitFor(() => expect(input).toHaveDisplayValue(""));
 
     // Invalid value
     await userEvent.type(input, "-");
+
     expect(input).toHaveDisplayValue("");
+
     await userEvent.type(input, "2");
+
     expect(input).toHaveDisplayValue("-2");
+
     await userEvent.type(input, ".");
+
     expect(input).toHaveDisplayValue("-2");
+
     await userEvent.type(input, "5");
+
     expect(input).toHaveDisplayValue("-2.5");
     expect(input.validity.valid).toEqual(false);
   });

@@ -24,27 +24,33 @@ describe("useHover", () => {
 
   test("disabled", () => {
     render(<TestComponent enabled={false} />);
+
     const result = screen.getByTestId("hoverable");
 
     expect(result.textContent).toEqual("false");
 
     fireEvent.pointerEnter(result);
+
     expect(result.textContent).toEqual("false");
 
     fireEvent.pointerLeave(result);
+
     expect(result.textContent).toEqual("false");
   });
 
   test("toggle", () => {
     render(<TestComponent />);
+
     const result = screen.getByTestId("hoverable");
 
     expect(result).toHaveTextContent("false");
 
     fireEvent.pointerEnter(result);
+
     expect(result).toHaveTextContent("true");
 
     fireEvent.pointerLeave(result);
+
     expect(result).toHaveTextContent("false");
   });
 });

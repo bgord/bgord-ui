@@ -2,8 +2,6 @@ import { afterEach, describe, expect, spyOn, test } from "bun:test";
 import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { UseFileState, useFile } from "../src/hooks/use-file";
 
-afterEach(() => cleanup());
-
 const mimeTypes = ["image/png"];
 
 const png = new File(["x"], "avatar.png", { type: "image/png" });
@@ -13,6 +11,8 @@ const bigPng = new File(["xx"], "avatar.png", { type: "image/png" });
 function changeEvent(files: File[]) {
   return { currentTarget: { files } } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
+
+afterEach(() => cleanup());
 
 describe("useFile", () => {
   test("idle", () => {
@@ -45,7 +45,6 @@ describe("useFile", () => {
 
   test("selected", () => {
     spyOn(URL, "createObjectURL").mockReturnValue("blob:preview");
-
     const { result } = renderHook(() => useFile("file", { mimeTypes }));
 
     act(() => result.current.actions.selectFile(changeEvent([png])));
@@ -120,9 +119,11 @@ describe("useFile", () => {
     expect(screen.queryByText(png.name)).toBeNull();
 
     act(() => fireEvent.change(screen.getByTestId("file-input"), { target: { files: [png] } }));
+
     await screen.findByText(png.name);
 
     act(() => fireEvent.click(screen.getByText("Clear")));
+
     expect(screen.queryByText(png.name)).toBeNull();
   });
 });

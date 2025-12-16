@@ -18,23 +18,28 @@ describe("useFocusKeyboardShortcut", () => {
     expect(field).not.toHaveFocus();
 
     fireEvent.keyDown(window, { key: "k" });
+
     expect(field).toHaveFocus();
 
     fireEvent.keyDown(window, { key: "x" });
+
     expect(field).toHaveFocus();
   });
 
   test("shortcut change", () => {
     const { rerender } = render(<Testcase shortcut="k" />);
+
     const field = screen.getByTestId("field") as HTMLInputElement;
 
     expect(field).not.toHaveFocus();
 
     rerender(<Testcase shortcut="x" />);
     fireEvent.keyDown(window, { key: "k" });
+
     expect(field).not.toHaveFocus();
 
     fireEvent.keyDown(window, { key: "x" });
+
     expect(field).toHaveFocus();
   });
 
@@ -42,13 +47,14 @@ describe("useFocusKeyboardShortcut", () => {
     const hook = renderHook(({ shortcut }) => useFocusKeyboardShortcut<HTMLInputElement>(shortcut), {
       initialProps: { shortcut: "k" },
     });
-
     const ref = hook.result.current.ref;
 
     hook.rerender({ shortcut: "k" });
+
     expect(hook.result.current.ref).toBe(ref);
 
     hook.rerender({ shortcut: "x" });
+
     expect(hook.result.current.ref).toBe(ref);
   });
 });

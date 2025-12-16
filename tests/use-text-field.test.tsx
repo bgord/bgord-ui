@@ -84,7 +84,6 @@ describe("useTextField", () => {
 
   test("integration", async () => {
     const value = "abc";
-
     function Testcase() {
       const field = useTextField({ name: "field" });
 
@@ -100,16 +99,18 @@ describe("useTextField", () => {
         </div>
       );
     }
-
     render(<Testcase />);
+
     const input = screen.getByTestId("field");
 
     expect(input).toHaveValue("");
 
     act(() => fireEvent.change(input, { target: { value } }));
+
     expect(input).toHaveValue(value);
 
     act(() => fireEvent.click(screen.getByText("Clear")));
+
     expect(input).toHaveValue("");
   });
 });

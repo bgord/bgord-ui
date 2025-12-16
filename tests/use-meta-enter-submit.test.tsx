@@ -18,17 +18,16 @@ function TestComponent(props: React.JSX.IntrinsicElements["form"]) {
 describe("useMetaEnterSubmit", () => {
   test("happy path", () => {
     const submitSpy = jest.fn();
-
     render(<TestComponent onSubmit={submitSpy} />);
     const result = screen.getByTestId("textarea");
 
     fireEvent.keyDown(result, { key: "Enter", metaKey: true });
+
     expect(submitSpy).toHaveBeenCalledTimes(1);
   });
 
   test("enter without meta", () => {
     const submitSpy = jest.fn();
-
     render(<TestComponent onSubmit={submitSpy} />);
     const result = screen.getByTestId("textarea");
 
@@ -39,7 +38,6 @@ describe("useMetaEnterSubmit", () => {
 
   test("meta without enter", () => {
     const submitSpy = jest.fn();
-
     render(<TestComponent onSubmit={submitSpy} />);
     const result = screen.getByTestId("textarea");
 
@@ -50,30 +48,31 @@ describe("useMetaEnterSubmit", () => {
 
   test("ignores other modifiers", () => {
     const submitSpy = jest.fn();
-
     render(<TestComponent onSubmit={submitSpy} />);
     const result = screen.getByTestId("textarea");
 
     fireEvent.keyDown(result, { key: "Enter", ctrlKey: true });
+
     expect(submitSpy).not.toHaveBeenCalled();
 
     fireEvent.keyDown(result, { key: "Enter", shiftKey: true });
+
     expect(submitSpy).not.toHaveBeenCalled();
 
     fireEvent.keyDown(result, { key: "Enter", altKey: true });
+
     expect(submitSpy).not.toHaveBeenCalled();
   });
 
   test("onKeyDown handler keeps the identity", () => {
     const handlers = [];
-
     function TestComponent() {
       const props = useMetaEnterSubmit();
       handlers.push(props.onKeyDown);
       return <textarea {...props} data-testid="textarea" />;
     }
-
     const { rerender } = render(<TestComponent />);
+
     rerender(<TestComponent />);
 
     expect(handlers[0]).toEqual(handlers[1]);

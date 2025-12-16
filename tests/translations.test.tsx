@@ -33,9 +33,8 @@ describe("Translations", () => {
   });
 
   test("useTranslations - returns key and warns for missing translation", () => {
-    const missingKey = "missing.key";
-
     const mockWarn = spyOn(console, "warn").mockImplementation(jest.fn());
+    const missingKey = "missing.key";
 
     const { result } = renderHook(() => useTranslations(), {
       wrapper: ({ children }) => wrapper({ children, value }),
@@ -91,6 +90,7 @@ describe("Translations", () => {
       children: result.current,
       value: { translations: {}, language: "es", supportedLanguages: { es: "es" } },
     });
+
     expect(result.current).toEqual("en");
   });
 
@@ -114,7 +114,6 @@ describe("Translations", () => {
         </div>
       );
     }
-
     render(
       <TranslationsContext.Provider value={value}>
         <TestComponent />

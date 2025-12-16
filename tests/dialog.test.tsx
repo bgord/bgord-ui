@@ -6,10 +6,6 @@ import * as hooks from "../src/hooks";
 const showSpy = jest.fn();
 const closeSpy = jest.fn();
 
-beforeAll(() => {
-  Object.assign(HTMLDialogElement.prototype, { showModal: showSpy, close: closeSpy });
-});
-
 function Testcase(props: { defaultValue?: boolean; locked?: boolean }) {
   const defaultValue = props.defaultValue ?? false;
   const locked = props.locked ?? false;
@@ -27,6 +23,11 @@ function Testcase(props: { defaultValue?: boolean; locked?: boolean }) {
     </>
   );
 }
+
+beforeAll(() => {
+  Object.assign(HTMLDialogElement.prototype, { showModal: showSpy, close: closeSpy });
+});
+
 afterEach(() => {
   cleanup();
   showSpy.mockClear();
@@ -36,6 +37,7 @@ afterEach(() => {
 describe("Dialog component", () => {
   test("open", () => {
     render(<Testcase defaultValue={true} />);
+
     expect(showSpy).toHaveBeenCalledTimes(1);
   });
 
@@ -50,6 +52,7 @@ describe("Dialog component", () => {
 
   test("close - ESC", async () => {
     const { getByTestId } = render(<Testcase defaultValue={true} />);
+
     fireEvent.keyDown(document, { key: "Escape" });
 
     expect(closeSpy).toHaveBeenCalledTimes(1);
@@ -58,6 +61,7 @@ describe("Dialog component", () => {
 
   test("close - ESC - locked", async () => {
     const { getByTestId } = render(<Testcase defaultValue={true} locked={true} />);
+
     fireEvent.keyDown(document, { key: "Escape" });
 
     expect(closeSpy).toHaveBeenCalledTimes(0);
@@ -66,6 +70,7 @@ describe("Dialog component", () => {
 
   test("close - click outside", async () => {
     render(<Testcase defaultValue={true} />);
+
     fireEvent.mouseDown(document.body);
 
     expect(closeSpy).toHaveBeenCalledTimes(1);
@@ -74,6 +79,7 @@ describe("Dialog component", () => {
 
   test("close - click outside - locked", async () => {
     render(<Testcase defaultValue={true} locked={true} />);
+
     fireEvent.mouseDown(document.body);
 
     expect(closeSpy).toHaveBeenCalledTimes(0);
@@ -86,6 +92,7 @@ describe("Dialog component", () => {
     expect(document.body.style.overflow).toEqual("hidden");
 
     fireEvent.click(screen.getByText("Close"));
+
     expect(document.body.style.overflow).toEqual("");
   });
 });

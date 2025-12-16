@@ -42,11 +42,13 @@ describe("useToggle", () => {
     expect(hook.result.current.on).toEqual(false);
 
     act(() => hook.result.current.toggle());
+
     expect(hook.result.current.on).toEqual(true);
     expect(hook.result.current.off).toEqual(false);
     expect(hook.result.current.props.controller["aria-expanded"]).toEqual("true");
 
     act(() => hook.result.current.toggle());
+
     expect(hook.result.current.on).toEqual(false);
     expect(hook.result.current.off).toEqual(true);
     expect(hook.result.current.props.controller["aria-expanded"]).toEqual("false");
@@ -56,10 +58,12 @@ describe("useToggle", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
 
     act(() => hook.result.current.enable());
+
     expect(hook.result.current.on).toEqual(true);
     expect(hook.result.current.off).toEqual(false);
 
     act(() => hook.result.current.enable());
+
     expect(hook.result.current.on).toEqual(true);
   });
 
@@ -67,10 +71,12 @@ describe("useToggle", () => {
     const hook = renderHook(() => useToggle({ name: "test", defaultValue: true }));
 
     act(() => hook.result.current.disable());
+
     expect(hook.result.current.on).toEqual(false);
     expect(hook.result.current.off).toEqual(true);
 
     act(() => hook.result.current.disable());
+
     expect(hook.result.current.on).toEqual(false);
     expect(hook.result.current.off).toEqual(true);
   });
@@ -78,10 +84,10 @@ describe("useToggle", () => {
   test("extractUseToggle", () => {
     const props = { className: "test-class", style: { color: "red" } };
     const hook = renderHook(() => useToggle({ name: "test" }));
+
     const { toggle, rest } = extractUseToggle({ ...hook.result.current, ...props });
 
     expect(toggle).toEqual(hook.result.current);
-
     // @ts-expect-error
     expect(rest).toEqual(props);
     expect(rest).not.toHaveProperty("on");
@@ -108,7 +114,6 @@ describe("useToggle", () => {
         </div>
       );
     }
-
     render(<Testcase />);
 
     const button = screen.getByText("Toggler");
@@ -118,6 +123,7 @@ describe("useToggle", () => {
     expect(button).toHaveAttribute("aria-expanded", "true");
 
     fireEvent.click(button);
+
     expect(message).not.toBeVisible();
     expect(button).toHaveAttribute("aria-expanded", "false");
 
@@ -139,7 +145,6 @@ describe("useToggle", () => {
         </div>
       );
     }
-
     render(<Testcase />);
 
     const button = screen.getByText("Toggler");
@@ -151,10 +156,12 @@ describe("useToggle", () => {
     expect(message).not.toBeVisible();
 
     fireEvent.click(button);
+
     expect(button).toHaveAttribute("aria-expanded", "true");
     expect(message).toBeVisible();
 
     fireEvent.click(button);
+
     expect(button).toHaveAttribute("aria-expanded", "false");
     expect(message).not.toBeVisible();
 
@@ -179,7 +186,6 @@ describe("useToggle", () => {
         </div>
       );
     }
-
     render(<Testcase />);
 
     const show = screen.getByText("Show");
@@ -187,15 +193,19 @@ describe("useToggle", () => {
     const message = screen.getByText("Message");
 
     expect(message).not.toBeVisible();
+
     fireEvent.click(show);
 
     expect(message).toBeVisible();
+
     fireEvent.click(show);
 
     expect(message).toBeVisible();
+
     fireEvent.click(hide);
 
     expect(message).not.toBeVisible();
+
     fireEvent.click(hide);
 
     expect(message).not.toBeVisible();

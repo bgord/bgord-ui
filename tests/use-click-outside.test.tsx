@@ -33,6 +33,7 @@ describe("useClickOutside", () => {
   test("click outside - div", () => {
     const clickHandlerSpy = jest.fn();
     render(<Box onOutside={clickHandlerSpy} />);
+
     fireEvent.mouseDown(document.body);
 
     expect(clickHandlerSpy).toHaveBeenCalledTimes(1);
@@ -41,7 +42,6 @@ describe("useClickOutside", () => {
   test("click outside - backdrop", () => {
     const clickHandlerSpy = jest.fn();
     render(<Dialog onOutside={clickHandlerSpy} />);
-
     const dialog = screen.getByTestId("dialog");
     Object.defineProperty(dialog, "getBoundingClientRect", {
       value: () => ({
@@ -56,6 +56,7 @@ describe("useClickOutside", () => {
         toJSON: () => {},
       }),
     });
+
     fireEvent.mouseDown(dialog, { clientX: 0, clientY: 0, bubbles: true });
 
     expect(clickHandlerSpy).toHaveBeenCalledTimes(1);
@@ -64,6 +65,7 @@ describe("useClickOutside", () => {
   test("click inside - div", () => {
     const clickHandlerSpy = jest.fn();
     render(<Box onOutside={clickHandlerSpy} />);
+
     fireEvent.mouseDown(screen.getByTestId("box"));
 
     expect(clickHandlerSpy).toHaveBeenCalledTimes(0);
@@ -72,6 +74,7 @@ describe("useClickOutside", () => {
   test("click inside - dialog", () => {
     const clickHandlerSpy = jest.fn();
     render(<Dialog onOutside={clickHandlerSpy} />);
+
     fireEvent.mouseDown(screen.getByTestId("dlg-inner"));
 
     expect(clickHandlerSpy).toHaveBeenCalledTimes(0);
@@ -81,6 +84,7 @@ describe("useClickOutside", () => {
     const clickHandlerSpy = jest.fn();
     const { unmount } = render(<Box onOutside={clickHandlerSpy} />);
     unmount();
+
     fireEvent.mouseDown(document.body);
 
     expect(clickHandlerSpy).toHaveBeenCalledTimes(0);

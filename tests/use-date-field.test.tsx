@@ -68,6 +68,7 @@ describe("useDateField", () => {
     const { result } = renderHook(() => useDateField({ name: "field" }));
 
     act(() => result.current.handleChange(changeEvent(invalid)));
+
     expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual(invalid);
   });
@@ -90,23 +91,28 @@ describe("useDateField", () => {
         </div>
       );
     }
-
     render(<Testcase />);
 
     const input = screen.getByTestId("field");
+
     expect(input).toHaveDisplayValue("");
 
     // handleChange/clear
     await userEvent.type(input, value);
+
     expect(input).toHaveDisplayValue(value);
 
     await userEvent.click(screen.getByText("Clear"));
+
     await waitFor(() => expect(input).toHaveDisplayValue(""));
 
     // Typing
     await userEvent.type(input, "2");
+
     expect(input).toHaveDisplayValue("");
+
     await userEvent.type(input, "025-01-01");
+
     expect(input).toHaveDisplayValue("2025-01-01");
   });
 });
