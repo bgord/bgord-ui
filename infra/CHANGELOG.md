@@ -1,5 +1,7 @@
 # Changelog
+- 2025-12-16 09:12 9976a08 **step: update packages**
 - 2025-12-15 19:50 ba249af **step: bump bgord/scripts**
+- 2025-12-15 18:51 ecdd09f **docs: generate CHANGELOG**
 - 2025-12-15 18:41 d87fd60 **step: bump bgord/scripts**
 - 2025-12-15 18:41 9291c2a **step: install lockfile lint**
 - 2025-12-15 18:41 8d3bafb **step: update packages**
