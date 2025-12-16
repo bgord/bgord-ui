@@ -1,8 +1,10 @@
 # Changelog
+- 2025-12-16 11:23 0198223 **refactor: arrange act assert**
 ## 2025-12-16 09:12 v0.8.15
 - 2025-12-16 09:12 9b8de18 **0.8.15**
 - 2025-12-16 09:12 9976a08 **step: update packages**
 - 2025-12-16 08:12 fd8504b **docs: generate CHANGELOG**
+- 2025-12-16 08:12 0175ea6 **docs: generate CHANGELOG**
 - 2025-12-15 19:50 ba249af **step: bump bgord/scripts**
 - 2025-12-15 18:51 ecdd09f **docs: generate CHANGELOG**
 - 2025-12-15 18:41 d87fd60 **step: bump bgord/scripts**
