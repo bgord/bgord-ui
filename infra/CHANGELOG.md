@@ -1,7 +1,12 @@
 # Changelog
+- 2026-01-05 18:01 7d25b66 **step: bump bgord/scripts**
+- 2026-01-05 18:01 405fef5 **step: update knip version to 5.80.0**
+- 2026-01-05 18:00 083d6cd **step: bump bgord/scripts**
+- 2026-01-04 16:18 6e4b1de **step: gitignore stryker**
 - 2026-01-04 16:11 838660c **step: install stryker**
 - 2026-01-04 16:10 c48534f **step: bump bgord/scripts**
 - 2026-01-04 16:10 3827dc5 **step: update packages**
+- 2026-01-04 15:11 a0ff141 **docs: generate CHANGELOG**
 - 2026-01-04 15:10 9eefa33 **docs: generate CHANGELOG**
 ## 2025-12-29 16:58 v0.8.16
 - 2025-12-29 16:58 fc7f7a7 **0.8.16**
