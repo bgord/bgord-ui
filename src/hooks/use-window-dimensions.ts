@@ -4,19 +4,31 @@ export type WindowDimensions = { width: number | undefined; height: number | und
 
 const DefaultWindowDimensions: WindowDimensions = { width: undefined, height: undefined };
 
+let snapshot: WindowDimensions = DefaultWindowDimensions;
+
 const WindowDimensionsStore = {
-  subscribe: (callback: () => void) => {
+  subscribe(callback: () => void) {
     if (typeof window === "undefined") return () => {};
-
     window.addEventListener("resize", callback);
-
     return () => window.removeEventListener("resize", callback);
   },
-  getSnapshot: (): WindowDimensions => {
+
+  getSnapshot(): WindowDimensions {
     if (typeof window === "undefined") return DefaultWindowDimensions;
-    return { width: window.innerWidth, height: window.innerHeight };
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    if (snapshot.width === width && snapshot.height === height) return snapshot;
+
+    snapshot = { width, height };
+
+    return snapshot;
   },
-  getServerSnapshot: (): WindowDimensions => DefaultWindowDimensions,
+
+  getServerSnapshot(): WindowDimensions {
+    return DefaultWindowDimensions;
+  },
 };
 
 export function useWindowDimensions(): WindowDimensions {
