@@ -1,7 +1,14 @@
 # Changelog
+- 2026-01-09 12:22 b9088b5 **step: add tests**
+- 2026-01-09 12:19 f1f1396 **step: cache snapshot**
+- 2026-01-09 12:06 94a89b6 **feature: use window dimensions**
+- 2026-01-09 12:04 9922ed8 **refactor: simplify use online status**
+- 2026-01-09 12:00 2cdf339 **step: update packages**
+- 2026-01-09 11:59 c2eee57 **step: bump bgord/scripts**
 - 2026-01-05 18:01 7d25b66 **step: bump bgord/scripts**
 - 2026-01-05 18:01 405fef5 **step: update knip version to 5.80.0**
 - 2026-01-05 18:00 083d6cd **step: bump bgord/scripts**
+- 2026-01-05 17:02 e87e74e **docs: generate CHANGELOG**
 - 2026-01-04 16:18 6e4b1de **step: gitignore stryker**
 - 2026-01-04 16:11 838660c **step: install stryker**
 - 2026-01-04 16:10 c48534f **step: bump bgord/scripts**
