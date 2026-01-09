@@ -12,3 +12,4 @@ export * from "./use-scroll-lock";
 export * from "./use-shortcuts";
 export * from "./use-text-field";
 export * from "./use-toggle";
+export * from "./use-window-dimensions";
