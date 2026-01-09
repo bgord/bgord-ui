@@ -40,7 +40,8 @@ src/
 │   ├── use-scroll-lock.ts
 │   ├── use-shortcuts.ts
 │   ├── use-text-field.ts
-│   └── use-toggle.ts
+│   ├── use-toggle.ts
+│   └── use-window-dimensions.ts
 └── services
     ├── absolute-url.ts
     ├── autocomplete.ts
