@@ -25,11 +25,9 @@ const OnlineStatusStore = {
 };
 
 export function useOnlineStatus(): OnlineStatus {
-  const status = useSyncExternalStore(
+  return useSyncExternalStore(
     OnlineStatusStore.subscribe,
     OnlineStatusStore.getSnapshot,
     OnlineStatusStore.getServerSnapshot,
   );
-
-  return status;
 }
