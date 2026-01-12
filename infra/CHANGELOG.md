@@ -1,4 +1,5 @@
 # Changelog
+- 2026-01-12 22:39 7d7dccc **step: update packages**
 ## 2026-01-09 12:23 v0.8.17
 - 2026-01-09 12:23 18c15a9 **0.8.17**
 - 2026-01-09 12:22 b9088b5 **step: add tests**
@@ -7,6 +8,7 @@
 - 2026-01-09 12:04 9922ed8 **refactor: simplify use online status**
 - 2026-01-09 12:00 2cdf339 **step: update packages**
 - 2026-01-09 11:59 c2eee57 **step: bump bgord/scripts**
+- 2026-01-09 11:23 72e6917 **docs: generate CHANGELOG**
 - 2026-01-09 11:22 f1edcdb **docs: generate readme**
 - 2026-01-09 11:22 451221f **docs: generate CHANGELOG**
 - 2026-01-05 18:01 7d25b66 **step: bump bgord/scripts**
