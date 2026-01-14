@@ -1,5 +1,8 @@
 # Changelog
+## 2026-01-14 19:25 v0.8.20
+- 2026-01-14 19:25 fcf833e **0.8.20**
 - 2026-01-14 19:24 ad24c80 **step: disable border on dialog**
+- 2026-01-14 18:24 3a7c151 **docs: generate CHANGELOG**
 ## 2026-01-14 13:44 v0.8.19
 - 2026-01-14 13:44 89618b7 **0.8.19**
 - 2026-01-14 13:33 1e727ab **step: update packages**
