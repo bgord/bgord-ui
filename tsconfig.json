@@ -10,7 +10,8 @@
     "declarationDir": "./dist",
     "emitDeclarationOnly": true,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "stripInternal": true
   },
   "include": ["src"]
 }
