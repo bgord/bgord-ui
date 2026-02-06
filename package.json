@@ -11,10 +11,6 @@
   "files": [
     "dist"
   ],
-  "peerDependencies": {
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
-  },
   "scripts": {
     "build": "bash scripts/package-build.sh",
     "preinstall": "bunx only-allow bun"
@@ -23,23 +19,23 @@
     "access": "public"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.11",
-    "@commitlint/cli": "20.3.1",
-    "@commitlint/config-conventional": "20.3.1",
-    "@happy-dom/global-registrator": "20.1.0",
-    "@stryker-mutator/core": "9.4.0",
+    "@biomejs/biome": "2.3.14",
+    "@commitlint/cli": "20.4.1",
+    "@commitlint/config-conventional": "20.4.1",
+    "@happy-dom/global-registrator": "20.5.0",
+    "@stryker-mutator/core": "9.5.1",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
-    "@testing-library/react": "16.3.1",
+    "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
-    "@types/bun": "1.3.6",
+    "@types/bun": "1.3.8",
     "@types/js-cookie": "3.0.6",
-    "@types/react": "19.2.8",
+    "@types/react": "19.2.13",
     "@types/react-dom": "19.2.3",
-    "cspell": "9.6.0",
-    "knip": "5.81.0",
-    "lefthook": "2.0.15",
-    "lockfile-lint": "4.14.1",
+    "cspell": "9.6.4",
+    "knip": "5.83.0",
+    "lefthook": "2.1.0",
+    "lockfile-lint": "5.0.0",
     "only-allow": "1.2.2",
     "shellcheck": "4.1.0",
     "typescript": "5.9.3"
@@ -48,5 +44,9 @@
     "js-cookie": "3.0.5",
     "polish-plurals": "1.1.0",
     "tinykeys": "3.0.0"
+  },
+  "peerDependencies": {
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   }
 }
