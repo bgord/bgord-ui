@@ -8,7 +8,7 @@ const png = new File(["x"], "avatar.png", { type: "image/png" });
 const jpeg = new File(["x"], "avatar.png", { type: "image/jpeg" });
 const bigPng = new File(["xx"], "avatar.png", { type: "image/png" });
 
-function changeEvent(files: File[]) {
+function changeEvent(files: ReadonlyArray<File>) {
   return { currentTarget: { files } } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
 

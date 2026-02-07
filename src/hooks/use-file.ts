@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 type UseFileNameType = string;
 
-export type UseFileConfigType = { mimeTypes: string[]; maxSizeBytes?: number };
+export type UseFileConfigType = { mimeTypes: ReadonlyArray<string>; maxSizeBytes?: number };
 
 export enum UseFileState {
   idle = "idle",
@@ -33,7 +33,7 @@ type UseFileIdle = {
   isIdle: true;
   isSelected: false;
   label: UseFileLabelType;
-  matches: (states: UseFileState[]) => boolean;
+  matches: (states: ReadonlyArray<UseFileState>) => boolean;
   state: UseFileState.idle;
 };
 
@@ -45,7 +45,7 @@ type UseFileSelected = {
   isIdle: false;
   isSelected: true;
   label: UseFileLabelType;
-  matches: (states: UseFileState[]) => boolean;
+  matches: (states: ReadonlyArray<UseFileState>) => boolean;
   preview: ReturnType<typeof URL.createObjectURL> | undefined;
   state: UseFileState.selected;
 };
@@ -58,7 +58,7 @@ type UseFileError = {
   isIdle: false;
   isSelected: false;
   label: UseFileLabelType;
-  matches: (states: UseFileState[]) => boolean;
+  matches: (states: ReadonlyArray<UseFileState>) => boolean;
   state: UseFileState.error;
 };
 
@@ -102,7 +102,7 @@ export function useFile(name: UseFileNameType, config: UseFileConfigType): UseFi
 
   const preview = useMemo(() => (file ? URL.createObjectURL(file) : undefined), [file]);
 
-  function matches(states: UseFileState[]) {
+  function matches(states: ReadonlyArray<UseFileState>) {
     return states.some((given) => given === state);
   }
 
