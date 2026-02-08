@@ -1,8 +1,12 @@
 # Changelog
+- 2026-02-07 23:08 1660017 **step: update packages**
+- 2026-02-07 23:08 10f9bc3 **refactor: use readonly array**
+- 2026-02-07 23:06 aa56162 **step: bump bgord/scripts**
 ## 2026-02-06 17:59 v0.8.21
 - 2026-02-06 17:59 f8b64ff **0.8.21**
 - 2026-02-06 17:58 202435e **step: update packages**
 - 2026-02-06 16:59 e7113d4 **docs: generate CHANGELOG**
+- 2026-02-06 16:59 ac4b09e **docs: generate CHANGELOG**
 - 2026-01-15 22:12 bf8289f **step: add strip internal tsconfig option**
 ## 2026-01-14 19:25 v0.8.20
 - 2026-01-14 19:25 fcf833e **0.8.20**
