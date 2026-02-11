@@ -4,8 +4,8 @@ import { exec } from "../src/services/exec";
 describe("exec", () => {
   test("happy path", () => {
     const handlers = { mutate: () => {}, cleanup: () => {} };
-    const mutateSpy = spyOn(handlers, "mutate");
-    const cleanupSpy = spyOn(handlers, "cleanup");
+    using mutateSpy = spyOn(handlers, "mutate");
+    using cleanupSpy = spyOn(handlers, "cleanup");
 
     exec([handlers.mutate, handlers.cleanup])();
 

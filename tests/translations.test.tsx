@@ -33,7 +33,7 @@ describe("Translations", () => {
   });
 
   test("useTranslations - returns key and warns for missing translation", () => {
-    const mockWarn = spyOn(console, "warn").mockImplementation(jest.fn());
+    using mockWarn = spyOn(console, "warn").mockImplementation(jest.fn());
     const missingKey = "missing.key";
 
     const { result } = renderHook(() => useTranslations(), {

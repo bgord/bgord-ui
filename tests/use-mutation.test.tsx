@@ -23,7 +23,7 @@ describe("useTextField", () => {
   });
 
   test("mutate - success", async () => {
-    const fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
+    using fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
     const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
 
     expect(result.current.state).toEqual(MutationState.idle);
@@ -54,7 +54,7 @@ describe("useTextField", () => {
   });
 
   test("mutate - error - response.ok", async () => {
-    const fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: false } as any);
+    using fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: false } as any);
     const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
 
     expect(result.current.state).toEqual(MutationState.idle);
@@ -86,7 +86,7 @@ describe("useTextField", () => {
 
   test("mutate - error", async () => {
     const error = "Failure";
-    const fetchSpy = spyOn(global, "fetch").mockRejectedValue(error);
+    using fetchSpy = spyOn(global, "fetch").mockRejectedValue(error);
     const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
 
     expect(result.current.state).toEqual(MutationState.idle);
@@ -117,7 +117,7 @@ describe("useTextField", () => {
   });
 
   test("integration - success", async () => {
-    spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
+    using _ = spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
     function Testcase() {
       const mutation = useMutation({ perform: () => fetch(url) });
 
@@ -140,7 +140,7 @@ describe("useTextField", () => {
   });
 
   test("integration - error", async () => {
-    spyOn(global, "fetch").mockResolvedValue({ ok: false } as any);
+    using _ = spyOn(global, "fetch").mockResolvedValue({ ok: false } as any);
     function Testcase() {
       const mutation = useMutation({ perform: () => fetch(url) });
 

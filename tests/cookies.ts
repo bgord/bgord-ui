@@ -10,7 +10,7 @@ describe("Cookies", () => {
   });
 
   test("set", () => {
-    const jsCookieSetSpy = spyOn(JsCookie, "set");
+    using jsCookieSetSpy = spyOn(JsCookie, "set");
 
     Cookies.set("name", "test");
 

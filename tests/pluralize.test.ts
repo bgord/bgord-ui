@@ -45,7 +45,7 @@ describe("pluralize", () => {
   });
 
   test("unsupported language", () => {
-    const consoleWarn = spyOn(console, "warn").mockImplementation(jest.fn());
+    using consoleWarn = spyOn(console, "warn").mockImplementation(jest.fn());
 
     expect(pluralize({ value: 7, singular: "item", language: "fr" })).toEqual("item");
     expect(consoleWarn).toHaveBeenCalledWith("[@bgord/ui] missing pluralization function for language: fr.");

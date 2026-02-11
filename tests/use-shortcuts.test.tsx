@@ -6,7 +6,7 @@ const handlers = { k: (_event: KeyboardEvent) => {} };
 
 describe("useKeyboardShortcuts", () => {
   test("happy path", () => {
-    const handlerSpy = spyOn(handlers, "k");
+    using handlerSpy = spyOn(handlers, "k");
     renderHook(() => useShortcuts(handlers));
 
     fireEvent.keyDown(window, { key: "k" });
@@ -19,7 +19,7 @@ describe("useKeyboardShortcuts", () => {
   });
 
   test("disabled", () => {
-    const handlerSpy = spyOn(handlers, "k");
+    using handlerSpy = spyOn(handlers, "k");
     renderHook(() => useShortcuts(handlers, { enabled: false }));
 
     fireEvent.keyDown(window, { key: "k" });
@@ -28,7 +28,7 @@ describe("useKeyboardShortcuts", () => {
   });
 
   test("toggle", () => {
-    const handlerSpy = spyOn(handlers, "k");
+    using handlerSpy = spyOn(handlers, "k");
     const { rerender } = renderHook(
       ({ enabled }: { enabled: boolean }) => useShortcuts(handlers, { enabled }),
       { initialProps: { enabled: true } },
@@ -50,7 +50,7 @@ describe("useKeyboardShortcuts", () => {
   });
 
   test("cleanup", () => {
-    const handlerSpy = spyOn(handlers, "k");
+    using handlerSpy = spyOn(handlers, "k");
     const { unmount } = renderHook(() => useShortcuts(handlers, { enabled: true }));
 
     fireEvent.keyDown(window, { key: "k" });
@@ -64,7 +64,7 @@ describe("useKeyboardShortcuts", () => {
   });
 
   test("ignores non-matching keys", () => {
-    const handlerSpy = spyOn(handlers, "k");
+    using handlerSpy = spyOn(handlers, "k");
     renderHook(() => useShortcuts(handlers));
 
     fireEvent.keyDown(window, { key: "x" });
@@ -75,8 +75,8 @@ describe("useKeyboardShortcuts", () => {
   test("changed callbacks", () => {
     const old = { k: (_event: KeyboardEvent) => {} };
     const updated = { k: (_event: KeyboardEvent) => {} };
-    const oldHandlerSpy = spyOn(old, "k");
-    const updatedHandlerSpy = spyOn(updated, "k");
+    using oldHandlerSpy = spyOn(old, "k");
+    using updatedHandlerSpy = spyOn(updated, "k");
     const { rerender } = renderHook(({ callback }) => useShortcuts({ k: callback }, { enabled: true }), {
       initialProps: { callback: old.k },
     });

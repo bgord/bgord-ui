@@ -44,7 +44,7 @@ describe("useFile", () => {
   });
 
   test("selected", () => {
-    spyOn(URL, "createObjectURL").mockReturnValue("blob:preview");
+    using _ = spyOn(URL, "createObjectURL").mockReturnValue("blob:preview");
     const { result } = renderHook(() => useFile("file", { mimeTypes }));
 
     act(() => result.current.actions.selectFile(changeEvent([png])));
