@@ -1,6 +1,10 @@
 # Changelog
+- 2026-02-11 12:31 49469ad **refactor: using for spyOn**
+- 2026-02-11 12:29 9f3e5ee **step: update packages**
+- 2026-02-11 12:28 9f3510f **refactor: simplify test setup**
 ## 2026-02-08 11:57 v0.8.22
 - 2026-02-08 11:57 8068571 **0.8.22**
+- 2026-02-08 10:57 29b3450 **docs: generate CHANGELOG**
 - 2026-02-08 10:37 5c6ab2a **docs: generate CHANGELOG**
 - 2026-02-07 23:08 1660017 **step: update packages**
 - 2026-02-07 23:08 10f9bc3 **refactor: use readonly array**
