@@ -1,0 +1,8 @@
+tests/translations.test.tsx
+tests/exec.test.ts
+tests/use-mutation.test.tsx
+tests/pluralize.test.ts
+tests/clipboard.test.ts
+tests/use-shortcuts.test.tsx
+tests/use-file.test.tsx
+tests/cookies.ts
