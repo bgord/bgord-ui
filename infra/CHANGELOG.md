@@ -1,9 +1,15 @@
 # Changelog
+- 2026-02-20 16:12 94d6a77 **step: bump bgord/scripts**
+- 2026-02-20 16:12 13c1d3c **refactor: apply biome fixes**
+- 2026-02-20 16:11 b537480 **step: update packages**
+- 2026-02-15 11:32 09f18f6 **step: update packages**
+- 2026-02-11 13:21 10cb772 **step: update packages**
 ## 2026-02-11 12:32 v0.8.23
 - 2026-02-11 12:32 e62bfa7 **0.8.23**
 - 2026-02-11 12:31 49469ad **refactor: using for spyOn**
 - 2026-02-11 12:29 9f3e5ee **step: update packages**
 - 2026-02-11 12:28 9f3510f **refactor: simplify test setup**
+- 2026-02-11 11:32 d719af5 **docs: generate CHANGELOG**
 - 2026-02-11 11:31 bddf938 **docs: generate CHANGELOG**
 ## 2026-02-08 11:57 v0.8.22
 - 2026-02-08 11:57 8068571 **0.8.22**
