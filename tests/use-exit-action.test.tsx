@@ -82,7 +82,7 @@ describe("useExitAction", () => {
 
       return (
         <div data-testid="card" {...exit.attach}>
-          <button type="button" onClick={exit.trigger}>
+          <button onClick={exit.trigger} type="button">
             Delete
           </button>
         </div>

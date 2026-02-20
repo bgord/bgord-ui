@@ -9,7 +9,7 @@ function TestComponent(props: { enabled: boolean } = { enabled: true }) {
   const hover = useHover(props);
 
   return (
-    <div ref={hover.attach.ref} data-testid="hoverable">
+    <div data-testid="hoverable" ref={hover.attach.ref}>
       {hover.hovering.toString()}
     </div>
   );

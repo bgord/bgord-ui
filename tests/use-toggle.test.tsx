@@ -104,7 +104,7 @@ describe("useToggle", () => {
 
       return (
         <div>
-          <button type="button" onClick={message.toggle} {...message.props.controller}>
+          <button onClick={message.toggle} type="button" {...message.props.controller}>
             Toggler
           </button>
 
@@ -136,7 +136,7 @@ describe("useToggle", () => {
 
       return (
         <div>
-          <button type="button" onClick={message.toggle} {...message.props.controller}>
+          <button onClick={message.toggle} type="button" {...message.props.controller}>
             Toggler
           </button>
           <div {...message.props.target} style={{ display: message.on ? "block" : "none" }}>
@@ -174,10 +174,10 @@ describe("useToggle", () => {
 
       return (
         <div>
-          <button type="button" onClick={message.enable}>
+          <button onClick={message.enable} type="button">
             Show
           </button>
-          <button type="button" onClick={message.disable}>
+          <button onClick={message.disable} type="button">
             Hide
           </button>
           <div {...message.props.target} style={{ display: message.on ? "block" : "none" }}>

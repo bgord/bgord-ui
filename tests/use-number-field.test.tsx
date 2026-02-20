@@ -115,10 +115,10 @@ describe("useNumberField", () => {
       return (
         <div>
           <label {...field.label.props}>
-            <input data-testid="field" type="number" min={-2} step={0.1} {...field.input.props} />
+            <input data-testid="field" min={-2} step={0.1} type="number" {...field.input.props} />
           </label>
 
-          <button type="button" onClick={field.clear}>
+          <button onClick={field.clear} type="button">
             Clear
           </button>
         </div>

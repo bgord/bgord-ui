@@ -13,10 +13,10 @@ function Testcase(props: { defaultValue?: boolean; locked?: boolean }) {
 
   return (
     <>
-      <button type="button" onClick={toggle.enable}>
+      <button onClick={toggle.enable} type="button">
         Open
       </button>
-      <button type="button" onClick={toggle.disable}>
+      <button onClick={toggle.disable} type="button">
         Close
       </button>
       <Dialog {...toggle} data-testid="dialog" locked={locked} />

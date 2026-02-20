@@ -99,15 +99,15 @@ describe("useFile", () => {
           <label {...file.label.props}>
             <input
               data-testid="file-input"
-              type="file"
               onChange={file.actions.selectFile}
+              type="file"
               {...file.input.props}
             />
           </label>
 
           {file.isSelected && <output>{file.data.name}</output>}
 
-          <button type="button" onClick={file.actions.clearFile}>
+          <button onClick={file.actions.clearFile} type="button">
             Clear
           </button>
         </div>

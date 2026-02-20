@@ -85,7 +85,7 @@ describe("useDateField", () => {
             <input data-testid="field" type="date" {...field.input.props} />
           </label>
 
-          <button type="button" onClick={field.clear}>
+          <button onClick={field.clear} type="button">
             Clear
           </button>
         </div>

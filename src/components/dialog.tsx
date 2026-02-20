@@ -29,20 +29,20 @@ export function Dialog(props: DialogPropsType) {
 
   return (
     <dialog
-      ref={ref}
-      tabIndex={0}
       aria-modal="true"
-      data-disp={props.on ? "flex" : "none"}
+      data-animation="grow-fade-in"
+      data-backdrop="stronger"
+      data-bg="neutral-900"
+      data-br="xs"
+      data-bw="none"
       data-dir="column"
+      data-disp={props.on ? "flex" : "none"}
       data-mx="auto"
       data-p="5"
       data-position="fixed"
       data-z="2"
-      data-bg="neutral-900"
-      data-br="xs"
-      data-bw="none"
-      data-backdrop="stronger"
-      data-animation="grow-fade-in"
+      ref={ref}
+      tabIndex={0}
       {...dialog.props.target}
       {...rest}
     />
