@@ -1,5 +1,7 @@
 # Changelog
+- 2026-03-01 09:19 233a572 **step: update packages**
 - 2026-02-24 11:12 60add6c **step: update packages**
+- 2026-02-24 10:13 82ebc90 **docs: generate CHANGELOG**
 - 2026-02-20 16:12 94d6a77 **step: bump bgord/scripts**
 - 2026-02-20 16:12 13c1d3c **refactor: apply biome fixes**
 - 2026-02-20 16:11 b537480 **step: update packages**
