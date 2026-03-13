@@ -1,7 +1,13 @@
 # Changelog
+- 2026-03-13 11:40 c65c44d **step: update packages**
+- 2026-03-13 09:25 d1f951e **refactor: require duration**
+- 2026-03-13 09:22 d4872e6 **refactor: remove max prop**
+- 2026-03-13 09:10 327d794 **step: add notifications**
+- 2026-03-08 14:11 a0912fc **step: update packages**
 ## 2026-03-01 09:19 v0.8.24
 - 2026-03-01 09:19 bd2ab45 **0.8.24**
 - 2026-03-01 09:19 233a572 **step: update packages**
+- 2026-03-01 08:19 b962c2b **docs: generate CHANGELOG**
 - 2026-03-01 08:19 a18d1d4 **docs: generate CHANGELOG**
 - 2026-02-24 11:12 60add6c **step: update packages**
 - 2026-02-24 10:13 82ebc90 **docs: generate CHANGELOG**
