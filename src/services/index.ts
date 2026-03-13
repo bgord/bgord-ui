@@ -10,6 +10,7 @@ export * from "./form";
 export * from "./get-safe-window";
 export * from "./head";
 export * from "./noop";
+export * from "./notifications";
 export * from "./number-field";
 export * from "./pluralize";
 export * from "./rhythm";
