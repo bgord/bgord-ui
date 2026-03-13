@@ -16,7 +16,7 @@ import {
 // ---------------------------------------------------------------------------
 
 const wrapper =
-  (props: { duration?: number; max?: number } = {}) =>
+  (props: { duration?: number } = {}) =>
   ({ children }: { children: React.ReactNode }) => (
     <NotificationProvider {...props}>{children}</NotificationProvider>
   );
@@ -98,22 +98,6 @@ describe("useNotify", () => {
 
     expect(result.current.notifications[0]).toMatchObject(negative);
     expect(result.current.notifications[1]).toMatchObject(positive);
-  });
-
-  test("respects the max cap — drops the oldest on overflow", () => {
-    const { result } = renderHook(() => ({ notify: useNotify(), notifications: useNotifications() }), {
-      wrapper: wrapper({ max: 2 }),
-    });
-
-    act(() => {
-      result.current.notify(positive);
-      result.current.notify(negative);
-      result.current.notify(warning);
-    });
-
-    expect(result.current.notifications).toHaveLength(2);
-    expect(result.current.notifications[0]).toMatchObject(warning);
-    expect(result.current.notifications[1]).toMatchObject(negative);
   });
 });
 

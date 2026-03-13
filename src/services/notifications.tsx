@@ -10,36 +10,30 @@ import {
 
 export type NotificationVariantType = "positive" | "negative" | "warning" | "neutral";
 export type NotificationType = { id: string; message: string; variant: NotificationVariantType };
-export type NotificationConfigType = { message: string; variant: NotificationVariantType };
 
 export type NotificationContextValueType = {
   notifications: NotificationType[];
-  notify: (config: NotificationConfigType) => void;
-  dismiss: (id: string) => void;
+  notify: (config: Omit<NotificationType, "id">) => void;
+  dismiss: (id: NotificationType["id"]) => void;
   dismissAll: () => void;
 };
 
 type NotificationActionType =
   | { type: "ADD"; notification: NotificationType }
-  | { type: "DISMISS"; id: string }
+  | { type: "DISMISS"; id: NotificationType["id"] }
   | { type: "DISMISS_ALL" };
-
 type NotificationStateType = { notifications: NotificationType[] };
 
 function notificationReducer(
   state: NotificationStateType,
   action: NotificationActionType,
-  max: number | undefined,
 ): NotificationStateType {
   switch (action.type) {
     case "ADD": {
-      const next = [action.notification, ...state.notifications];
-      return {
-        notifications: max !== undefined && next.length > max ? next.slice(0, max) : next,
-      };
+      return { notifications: [action.notification, ...state.notifications] };
     }
     case "DISMISS":
-      return { notifications: state.notifications.filter((n) => n.id !== action.id) };
+      return { notifications: state.notifications.filter((notification) => notification.id !== action.id) };
     case "DISMISS_ALL":
       return { notifications: [] };
   }
@@ -47,19 +41,17 @@ function notificationReducer(
 
 export const NotificationContext = createContext<NotificationContextValueType | undefined>(undefined);
 
-type NotificationProviderPropsType = PropsWithChildren<{ duration?: number; max?: number }>;
+type NotificationProviderPropsType = PropsWithChildren<{ duration?: number }>;
 
 export function NotificationProvider(props: NotificationProviderPropsType) {
-  const { children, duration, max } = props;
-
   const [state, dispatch] = useReducer(
-    (state: NotificationStateType, action: NotificationActionType) => notificationReducer(state, action, max),
+    (state: NotificationStateType, action: NotificationActionType) => notificationReducer(state, action),
     { notifications: [] },
   );
 
-  const timers = useRef<Map<string, ReturnType<typeof setTimeout>>>(new Map());
+  const timers = useRef<Map<NotificationType["id"], ReturnType<typeof setTimeout>>>(new Map());
 
-  const clearTimer = useCallback((id: string) => {
+  const clearTimer = useCallback((id: NotificationType["id"]) => {
     const timer = timers.current.get(id);
 
     if (timer !== undefined) {
@@ -69,29 +61,25 @@ export function NotificationProvider(props: NotificationProviderPropsType) {
   }, []);
 
   const notify = useCallback(
-    (config: NotificationConfigType) => {
-      const notification: NotificationType = {
-        id: crypto.randomUUID(),
-        message: config.message,
-        variant: config.variant,
-      };
+    (config: Omit<NotificationType, "id">) => {
+      const notification: NotificationType = { id: crypto.randomUUID(), ...config };
 
       dispatch({ type: "ADD", notification });
 
-      if (duration !== undefined) {
+      if (props.duration !== undefined) {
         const timer = setTimeout(() => {
           dispatch({ type: "DISMISS", id: notification.id });
           timers.current.delete(notification.id);
-        }, duration);
+        }, props.duration);
 
         timers.current.set(notification.id, timer);
       }
     },
-    [duration],
+    [props.duration],
   );
 
   const dismiss = useCallback(
-    (id: string) => {
+    (id: NotificationType["id"]) => {
       clearTimer(id);
       dispatch({ type: "DISMISS", id });
     },
@@ -99,19 +87,17 @@ export function NotificationProvider(props: NotificationProviderPropsType) {
   );
 
   const dismissAll = useCallback(() => {
-    for (const id of timers.current.keys()) clearTimer(id);
+    timers.current.keys().forEach((id) => clearTimer(id));
     dispatch({ type: "DISMISS_ALL" });
   }, [clearTimer]);
 
   useEffect(() => {
-    return () => {
-      for (const timer of timers.current.values()) clearTimeout(timer);
-    };
+    return () => timers.current.values().forEach((timer) => clearTimeout(timer));
   }, []);
 
   return (
     <NotificationContext.Provider value={{ notifications: state.notifications, notify, dismiss, dismissAll }}>
-      {children}
+      {props.children}
     </NotificationContext.Provider>
   );
 }
