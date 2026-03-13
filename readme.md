@@ -55,6 +55,7 @@ src/
     ├── get-safe-window.ts
     ├── head.ts
     ├── noop.ts
+    ├── notifications.tsx
     ├── number-field.ts
     ├── pluralize.ts
     ├── rhythm.ts
