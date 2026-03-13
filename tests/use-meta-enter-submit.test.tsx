@@ -65,7 +65,7 @@ describe("useMetaEnterSubmit", () => {
   });
 
   test("onKeyDown handler keeps the identity", () => {
-    const handlers = [];
+    const handlers: Array<React.EventHandler<any>> = [];
     function TestComponent() {
       const props = useMetaEnterSubmit();
       handlers.push(props.onKeyDown);

@@ -192,6 +192,7 @@ describe("useNumberField", () => {
     await userEvent.type(input, "5");
 
     expect(input).toHaveDisplayValue("-2.5");
+    // @ts-expect-error
     expect(input.validity.valid).toEqual(false);
   });
 });

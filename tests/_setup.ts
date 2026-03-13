@@ -6,4 +6,4 @@ import * as matchers from "@testing-library/jest-dom/matchers";
 // cspell:disable-next-line
 GlobalRegistrator.register();
 
-expect.extend(matchers);
+expect.extend(matchers as any);

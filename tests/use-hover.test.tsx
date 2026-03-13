@@ -17,7 +17,7 @@ function TestComponent(props: { enabled: boolean } = { enabled: true }) {
 
 describe("useHover", () => {
   test("default", () => {
-    render(<TestComponent />);
+    render(<TestComponent enabled />);
 
     expect(screen.getByTestId("hoverable").textContent).toEqual("false");
   });
@@ -39,7 +39,7 @@ describe("useHover", () => {
   });
 
   test("toggle", () => {
-    render(<TestComponent />);
+    render(<TestComponent enabled={true} />);
 
     const result = screen.getByTestId("hoverable");
 
