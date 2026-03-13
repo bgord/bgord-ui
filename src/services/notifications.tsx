@@ -22,7 +22,7 @@ type NotificationActionType =
   | { type: "ADD"; notification: NotificationType }
   | { type: "DISMISS"; id: NotificationType["id"] }
   | { type: "DISMISS_ALL" };
-  type NotificationStateType = { notifications: Array<NotificationType> };
+type NotificationStateType = { notifications: Array<NotificationType> };
 
 function notificationReducer(
   state: NotificationStateType,
