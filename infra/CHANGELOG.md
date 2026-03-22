@@ -1,5 +1,7 @@
 # Changelog
+- 2026-03-22 18:45 7c8a634 **step: update packages**
 - 2026-03-16 13:13 f5fc289 **step: update packages**
+- 2026-03-16 12:15 ef17aac **docs: generate CHANGELOG**
 ## 2026-03-13 11:50 v0.8.26
 - 2026-03-13 11:50 49d3d40 **0.8.26**
 - 2026-03-13 11:49 6e6d725 **fix: missing export**
