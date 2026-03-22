@@ -1,4 +1,7 @@
 # Changelog
+## 2026-03-22 20:51 v0.8.27
+- 2026-03-22 20:51 f675a60 **0.8.27**
+- 2026-03-22 19:50 aa31b99 **docs: generate CHANGELOG**
 - 2026-03-22 18:45 7c8a634 **step: update packages**
 - 2026-03-16 13:13 f5fc289 **step: update packages**
 - 2026-03-16 12:15 ef17aac **docs: generate CHANGELOG**
