@@ -1,7 +1,11 @@
 # Changelog
+## 2026-03-24 11:36 v0.8.28
+- 2026-03-24 11:36 c47033f **0.8.28**
 - 2026-03-24 11:33 183973d **refactor: types**
 - 2026-03-24 11:24 ed2eb3f **step: bump bgord/scripts**
 - 2026-03-24 11:00 0c9af46 **step: update packages**
+- 2026-03-24 10:36 9778dda **docs: generate CHANGELOG**
+- 2026-03-24 10:36 5877e3c **docs: generate readme**
 ## 2026-03-22 20:51 v0.8.27
 - 2026-03-22 20:51 f675a60 **0.8.27**
 - 2026-03-22 19:51 66d6a06 **docs: generate CHANGELOG**
