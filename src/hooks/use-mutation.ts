@@ -75,6 +75,7 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
     } catch (error) {
       dispatch({ type: "ERROR", error });
       await options.onError?.(error, { form: form });
+      return;
     }
   };
 

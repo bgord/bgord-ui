@@ -16,8 +16,8 @@ export function useClickOutside<T extends HTMLElement>(
         if (event.target === element) {
           const { left, right, top, bottom } = element.getBoundingClientRect();
 
-          const clientX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
-          const clientY = event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
+          const clientX = event instanceof MouseEvent ? event.clientX : (event.touches[0]?.clientX ?? 0);
+          const clientY = event instanceof MouseEvent ? event.clientY : (event.touches[0]?.clientY ?? 0);
 
           const targetsElement = clientX >= left && clientX <= right && clientY >= top && clientY <= bottom;
 
