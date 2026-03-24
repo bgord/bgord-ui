@@ -10,7 +10,7 @@ rm -rf "$OUTPUT_DIRECTORY"
 step_end "Directory clear"
 
 step_start "Package build"
-bunx tsc -p tsconfig.build.json
+bunx tsc
 step_end "Package build"
 
 step_start "jsxDEV guard"

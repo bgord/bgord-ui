@@ -1,17 +1,23 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx",
     "module": "esnext",
-    "target": "esnext",
-    "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
     "declaration": true,
-    "declarationDir": "./dist",
-    "emitDeclarationOnly": true,
-    "isolatedModules": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "skipLibCheck": true,
-    "stripInternal": true
+    "incremental": true,
+    "stripInternal": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "types": []
   },
   "include": ["src"]
 }
