@@ -20,10 +20,10 @@
     "preinstall": "bunx only-allow bun"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.8",
+    "@biomejs/biome": "2.4.9",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
-    "@happy-dom/global-registrator": "20.8.7",
+    "@happy-dom/global-registrator": "20.8.9",
     "@stryker-mutator/core": "9.6.0",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
@@ -34,7 +34,7 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "cspell": "9.7.0",
-    "knip": "6.0.4",
+    "knip": "6.1.0",
     "lefthook": "2.1.4",
     "lockfile-lint": "5.0.0",
     "only-allow": "1.2.2",
