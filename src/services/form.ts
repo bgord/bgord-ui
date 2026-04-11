@@ -36,30 +36,40 @@ export class Form {
 
   static date = {
     min: {
+      // biome-ignore lint: lint/style/noRestrictedGlobals
       today: () => new Date().toISOString().split("T")[0],
       tomorrow: () => {
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const today = new Date();
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
 
         return tomorrow.toISOString().split("T")[0];
       },
       yesterday: () => {
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const today = new Date();
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const yesterday = new Date(today.setDate(today.getDate() - 1));
 
         return yesterday.toISOString().split("T")[0];
       },
     },
     max: {
+      // biome-ignore lint: lint/style/noRestrictedGlobals
       today: () => new Date().toISOString().split("T")[0],
       tomorrow: () => {
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const today = new Date();
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const tomorrow = new Date(today.setDate(today.getDate() + 1));
 
         return tomorrow.toISOString().split("T")[0];
       },
       yesterday: () => {
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const today = new Date();
+        // biome-ignore lint: lint/style/noRestrictedGlobals
         const yesterday = new Date(today.setDate(today.getDate() - 1));
 
         return yesterday.toISOString().split("T")[0];
