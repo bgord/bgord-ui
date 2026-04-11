@@ -1,8 +1,11 @@
 # Changelog
+## 2026-04-11 18:06 v0.8.30
+- 2026-04-11 18:06 c352263 **0.8.30**
 - 2026-04-11 18:05 81f3866 **step: supress biome**
 - 2026-04-11 17:59 b1e2189 **step: update packages**
 - 2026-04-11 17:58 aae4829 **step: update packages**
 - 2026-04-11 17:58 5fe1839 **step: bump bgord/scripts**
+- 2026-04-11 16:06 d7e3718 **docs: generate CHANGELOG**
 - 2026-04-11 16:00 29fb857 **docs: generate CHANGELOG**
 - 2026-04-06 09:42 32b0a81 **step: update packages**
 - 2026-03-29 10:42 b84badc **step: update packages**
