@@ -1,4 +1,9 @@
 # Changelog
+- 2026-04-11 17:59 b1e2189 **step: update packages**
+- 2026-04-11 17:58 aae4829 **step: update packages**
+- 2026-04-11 17:58 5fe1839 **step: bump bgord/scripts**
+- 2026-04-06 09:42 32b0a81 **step: update packages**
+- 2026-03-29 10:42 b84badc **step: update packages**
 ## 2026-03-24 11:39 v0.8.29
 - 2026-03-24 11:39 7e8083b **0.8.29**
 - 2026-03-24 11:38 dacc2ad **step: add guard**
@@ -7,6 +12,7 @@
 - 2026-03-24 11:33 183973d **refactor: types**
 - 2026-03-24 11:24 ed2eb3f **step: bump bgord/scripts**
 - 2026-03-24 11:00 0c9af46 **step: update packages**
+- 2026-03-24 10:39 947acb8 **docs: generate CHANGELOG**
 - 2026-03-24 10:38 063bd1f **docs: generate CHANGELOG**
 - 2026-03-24 10:36 9778dda **docs: generate CHANGELOG**
 - 2026-03-24 10:36 93c44c8 **docs: generate CHANGELOG**
