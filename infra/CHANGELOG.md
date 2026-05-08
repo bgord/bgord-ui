@@ -1,5 +1,7 @@
 # Changelog
+- 2026-05-08 18:03 a1e77eb **0.8.35**
 - 2026-05-08 18:01 2713bf6 **step: update packages**
+- 2026-05-08 16:02 d79a079 **docs: generate CHANGELOG**
 - 2026-05-03 09:41 798a2cf **step: update packages**
 - 2026-05-03 07:42 949abb0 **docs: generate CHANGELOG**
 ## 2026-04-28 12:52 v0.8.34
