@@ -1,5 +1,7 @@
 # Changelog
+- 2026-05-08 18:01 2713bf6 **step: update packages**
 - 2026-05-03 09:41 798a2cf **step: update packages**
+- 2026-05-03 07:42 949abb0 **docs: generate CHANGELOG**
 ## 2026-04-28 12:52 v0.8.34
 - 2026-04-28 12:52 a73e3e8 **0.8.34**
 - 2026-04-28 12:51 6d28bd0 **fix: make autocomplete const**
