@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
-    "@commitlint/cli": "20.5.3",
-    "@commitlint/config-conventional": "20.5.3",
+    "@commitlint/cli": "21.0.0",
+    "@commitlint/config-conventional": "21.0.0",
     "@happy-dom/global-registrator": "20.9.0",
     "@stryker-mutator/core": "9.6.1",
     "@stryker-mutator/typescript-checker": "9.6.1",
@@ -34,9 +34,9 @@
     "@types/js-cookie": "3.0.6",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260502.1",
+    "@typescript/native-preview": "7.0.0-dev.20260508.1",
     "cspell": "10.0.0",
-    "knip": "6.11.0",
+    "knip": "6.12.1",
     "lefthook": "2.1.6",
     "lockfile-lint": "5.0.0",
     "only-allow": "1.2.2",
@@ -49,7 +49,7 @@
     "tinykeys": "3.0.0"
   },
   "peerDependencies": {
-    "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   }
 }
