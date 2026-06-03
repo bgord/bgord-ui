@@ -23,7 +23,7 @@ describe("useExitAction", () => {
     expect(action).not.toHaveBeenCalled();
   });
 
-  test("exitting", () => {
+  test("exiting", () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 

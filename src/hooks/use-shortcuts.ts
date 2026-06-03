@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+// cSpell:ignore tinykeys
 import { tinykeys } from "tinykeys";
 
 type UseShortcutsConfigType = { [key: string]: (event: KeyboardEvent) => void };

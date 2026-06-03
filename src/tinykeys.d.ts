@@ -1,3 +1,4 @@
+// cSpell:ignore tinykeys
 declare module "tinykeys" {
   export interface KeyBindingMap {
     [keybinding: string]: (event: KeyboardEvent) => void;

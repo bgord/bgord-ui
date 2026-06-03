@@ -23,7 +23,7 @@ describe("NumberField", () => {
     expect(result.isEmpty()).toEqual(true);
   });
 
-  test("create - undefiend", () => {
+  test("create - undefined", () => {
     const result = new NumberField(undefined);
 
     expect(result.get()).toEqual(NumberField.EMPTY);

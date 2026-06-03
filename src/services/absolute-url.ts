@@ -1,3 +1,4 @@
+/* cSpell:disable */
 export function absoluteUrl(path: string, request: Request | null): string | URL {
   if (!request) return path;
 
