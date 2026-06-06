@@ -32,7 +32,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/bun": "1.3.14",
     "@types/js-cookie": "3.0.6",
-    "@types/react": "19.2.15",
+    "@types/react": "19.2.16",
     "@types/react-dom": "19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20260527.2",
     "cspell": "10.0.1",
@@ -49,7 +49,7 @@
     "tinykeys": "3.0.0"
   },
   "peerDependencies": {
-    "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   }
 }
