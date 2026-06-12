@@ -4,7 +4,7 @@ import { Cookies } from "../src/services/cookies";
 
 describe("Cookies", () => {
   test("extractFrom", () => {
-    const request = new Request("example.com", { headers: { cookie: "example" } });
+    const request = new Request("http://example.com", { headers: { cookie: "example" } });
 
     expect(Cookies.extractFrom(request)).toEqual("example");
   });
