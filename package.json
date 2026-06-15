@@ -44,7 +44,7 @@
   "dependencies": {
     "js-cookie": "3.0.8",
     "polish-plurals": "1.1.0",
-    "tinykeys": "3.0.0"
+    "tinykeys": "4.0.0"
   },
   "peerDependencies": {
     "react": "19.2.7",
