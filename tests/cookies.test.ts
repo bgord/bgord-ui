@@ -3,8 +3,9 @@ import JsCookie from "js-cookie";
 import { Cookies } from "../src/services/cookies";
 
 describe("Cookies", () => {
-  test.skip("extractFrom", () => {
-    const request = new Request("http://example.com", { headers: { cookie: "example" } });
+  test("extractFrom", () => {
+    const request = new Request("http://example.com");
+    request.headers.set("cookie", "example");
 
     expect(Cookies.extractFrom(request)).toEqual("example");
   });
