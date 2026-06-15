@@ -42,27 +42,26 @@ src/
 │   ├── use-text-field.ts
 │   ├── use-toggle.ts
 │   └── use-window-dimensions.ts
-├── services
-│   ├── absolute-url.ts
-│   ├── autocomplete.ts
-│   ├── clipboard.ts
-│   ├── cookies.ts
-│   ├── date-field.ts
-│   ├── etag.ts
-│   ├── exec.ts
-│   ├── fields.ts
-│   ├── form.ts
-│   ├── get-safe-window.ts
-│   ├── head.ts
-│   ├── noop.ts
-│   ├── notifications.tsx
-│   ├── number-field.ts
-│   ├── pluralize.ts
-│   ├── rhythm.ts
-│   ├── text-field.ts
-│   ├── time-zone-offset.ts
-│   ├── translations.tsx
-│   └── weak-etag.ts
-└── tinykeys.d.ts
+└── services
+    ├── absolute-url.ts
+    ├── autocomplete.ts
+    ├── clipboard.ts
+    ├── cookies.ts
+    ├── date-field.ts
+    ├── etag.ts
+    ├── exec.ts
+    ├── fields.ts
+    ├── form.ts
+    ├── get-safe-window.ts
+    ├── head.ts
+    ├── noop.ts
+    ├── notifications.tsx
+    ├── number-field.ts
+    ├── pluralize.ts
+    ├── rhythm.ts
+    ├── text-field.ts
+    ├── time-zone-offset.ts
+    ├── translations.tsx
+    └── weak-etag.ts
 ```
 

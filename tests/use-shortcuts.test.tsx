@@ -9,11 +9,11 @@ describe("useKeyboardShortcuts", () => {
     using handlerSpy = spyOn(handlers, "k");
     renderHook(() => useShortcuts(handlers));
 
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
 
-    fireEvent.keyDown(window, { key: "x" });
+    fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
   });
@@ -22,7 +22,7 @@ describe("useKeyboardShortcuts", () => {
     using handlerSpy = spyOn(handlers, "k");
     renderHook(() => useShortcuts(handlers, { enabled: false }));
 
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(0);
   });
@@ -34,17 +34,17 @@ describe("useKeyboardShortcuts", () => {
       { initialProps: { enabled: true } },
     );
 
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
 
     rerender({ enabled: false });
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
 
     rerender({ enabled: true });
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(2);
   });
@@ -53,12 +53,12 @@ describe("useKeyboardShortcuts", () => {
     using handlerSpy = spyOn(handlers, "k");
     const { unmount } = renderHook(() => useShortcuts(handlers, { enabled: true }));
 
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
 
     unmount();
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
   });
@@ -67,7 +67,7 @@ describe("useKeyboardShortcuts", () => {
     using handlerSpy = spyOn(handlers, "k");
     renderHook(() => useShortcuts(handlers));
 
-    fireEvent.keyDown(window, { key: "x" });
+    fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(0);
   });
@@ -81,13 +81,13 @@ describe("useKeyboardShortcuts", () => {
       initialProps: { callback: old.k },
     });
 
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(oldHandlerSpy).toHaveBeenCalledTimes(1);
     expect(updatedHandlerSpy).toHaveBeenCalledTimes(0);
 
     rerender({ callback: updated.k });
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(oldHandlerSpy).toHaveBeenCalledTimes(1);
     expect(updatedHandlerSpy).toHaveBeenCalledTimes(1);

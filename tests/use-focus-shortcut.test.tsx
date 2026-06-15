@@ -17,11 +17,11 @@ describe("useFocusKeyboardShortcut", () => {
 
     expect(field).not.toHaveFocus();
 
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(field).toHaveFocus();
 
-    fireEvent.keyDown(window, { key: "x" });
+    fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
     expect(field).toHaveFocus();
   });
@@ -34,11 +34,11 @@ describe("useFocusKeyboardShortcut", () => {
     expect(field).not.toHaveFocus();
 
     rerender(<Testcase shortcut="x" />);
-    fireEvent.keyDown(window, { key: "k" });
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(field).not.toHaveFocus();
 
-    fireEvent.keyDown(window, { key: "x" });
+    fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
     expect(field).toHaveFocus();
   });
