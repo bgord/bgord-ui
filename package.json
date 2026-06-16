@@ -16,8 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "bash scripts/package-build.sh",
-    "preinstall": "bunx only-allow bun"
+    "build": "bash scripts/package-build.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.0",
@@ -36,7 +35,6 @@
     "fallow": "2.95.0",
     "lefthook": "2.1.9",
     "lockfile-lint": "5.0.0",
-    "only-allow": "1.2.2",
     "shellcheck": "4.1.0",
     "typescript": "6.0.3"
   },
