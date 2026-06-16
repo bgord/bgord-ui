@@ -1,5 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
-import JsCookie from "js-cookie";
+import { describe, expect, test } from "bun:test";
 import { Cookies } from "../src/services/cookies";
 
 describe("Cookies", () => {
@@ -10,11 +9,9 @@ describe("Cookies", () => {
     expect(Cookies.extractFrom(request)).toEqual("example");
   });
 
-  test("set", () => {
-    using jsCookieSetSpy = spyOn(JsCookie, "set");
+  test("set with encoding", () => {
+    Cookies.set("name with space", "test value with space");
 
-    Cookies.set("name", "test");
-
-    expect(jsCookieSetSpy).toHaveBeenCalled();
+    expect(document.cookie).toContain("name%20with%20space=test%20value%20with%20space");
   });
 });
