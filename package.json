@@ -46,15 +46,5 @@
   "peerDependencies": {
     "react": "19.2.7",
     "react-dom": "19.2.7"
-  },
-  "devEngines": {
-    "runtime": {
-      "name": "bun",
-      "onFail": "error"
-    },
-    "packageManager": {
-      "name": "bun",
-      "onFail": "error"
-    }
   }
 }
