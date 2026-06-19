@@ -30,14 +30,13 @@
     "@types/bun": "1.3.14",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "@typescript/native-preview": "7.0.0-dev.20260616.1",
     "cspell": "10.0.1",
     "fallow": "2.96.0",
     "lefthook": "2.1.9",
     "lockfile-lint": "5.0.0",
     "publint": "0.3.21",
     "shellcheck": "4.1.0",
-    "typescript": "6.0.3"
+    "typescript": "7.0.1-rc"
   },
   "dependencies": {
     "polish-plurals": "1.1.0",
