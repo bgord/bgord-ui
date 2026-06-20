@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.0",
-    "@happy-dom/global-registrator": "20.10.4",
+    "@happy-dom/global-registrator": "20.10.5",
     "@stryker-mutator/core": "9.6.1",
     "@stryker-mutator/typescript-checker": "9.6.1",
     "@testing-library/dom": "10.4.1",
