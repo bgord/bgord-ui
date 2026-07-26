@@ -1,9 +1,9 @@
+// cspell:ignore registrator
 import { expect } from "bun:test";
-// cspell:disable-next-line
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
-import * as matchers from "@testing-library/jest-dom/matchers";
 
-// cspell:disable-next-line
 GlobalRegistrator.register();
+
+const matchers = await import("@testing-library/jest-dom/matchers");
 
 expect.extend(matchers as any);
