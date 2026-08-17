@@ -29,7 +29,7 @@ describe("useFocusKeyboardShortcut", () => {
   test("shortcut change", () => {
     const { rerender } = render(<Testcase shortcut="k" />);
 
-    const field = screen.getByTestId("field") as HTMLInputElement;
+    const field = screen.getByTestId("field");
 
     expect(field).not.toHaveFocus();
 

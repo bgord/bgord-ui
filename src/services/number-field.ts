@@ -3,7 +3,7 @@ export type NumberFieldValueType<T extends number = number> = T | undefined;
 export class NumberField<T extends number = number> {
   // Empty value is `undefined` here instead of `null`,
   // because HTML elements accept it as an empty value.
-  static readonly EMPTY = undefined as undefined;
+  static readonly EMPTY = undefined;
 
   private readonly value: NumberFieldValueType<T> = NumberField.EMPTY;
 

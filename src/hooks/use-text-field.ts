@@ -57,7 +57,7 @@ export function useTextField<T extends string = string>(
       props: {
         id: config.name,
         name: config.name,
-        value: TextField.isEmpty(value) ? "" : (value as string),
+        value: TextField.isEmpty(value) ? "" : String(value),
         onChange,
       },
     },

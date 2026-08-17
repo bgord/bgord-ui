@@ -39,7 +39,7 @@ export function useDateField<T extends string = string>(
 
   const [value, setValue] = useState<DateFieldValueType<T>>(defaultValue.get());
   const [dom, setDom] = useState<string>(
-    DateField.isEmpty(defaultValue.get()) ? "" : (defaultValue.get() as string),
+    DateField.isEmpty(defaultValue.get()) ? "" : String(defaultValue.get()),
   );
 
   const setCurrentValue = (next: DateFieldValueType<T>) => {
