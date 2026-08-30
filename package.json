@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.10",
-    "@happy-dom/global-registrator": "20.11.6",
+    "@happy-dom/global-registrator": "20.11.9",
     "@stryker-mutator/core": "10.0.0",
     "@stryker-mutator/typescript-checker": "10.0.0",
     "@testing-library/dom": "10.4.1",
@@ -31,7 +31,7 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "cspell": "10.1.1",
-    "fallow": "3.18.0",
+    "fallow": "3.19.0",
     "lefthook": "2.1.10",
     "lockfile-lint": "5.0.1",
     "publint": "0.3.24",
