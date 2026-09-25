@@ -37,6 +37,7 @@ src/
 │   ├── use-mutation.ts
 │   ├── use-number-field.ts
 │   ├── use-online-status.ts
+│   ├── use-persisted-toggle.ts
 │   ├── use-scroll-lock.ts
 │   ├── use-shortcuts.ts
 │   ├── use-text-field.ts
