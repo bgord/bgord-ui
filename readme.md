@@ -44,12 +44,10 @@ src/
 │   ├── use-toggle.ts
 │   └── use-window-dimensions.ts
 └── services
-    ├── absolute-url.ts
     ├── api-client.ts
     ├── asset-version.ts
     ├── autocomplete.ts
     ├── clipboard.ts
-    ├── cookies.ts
     ├── date-field.ts
     ├── etag.ts
     ├── exec.ts
