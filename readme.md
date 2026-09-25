@@ -44,6 +44,7 @@ src/
 │   └── use-window-dimensions.ts
 └── services
     ├── absolute-url.ts
+    ├── asset-version.ts
     ├── autocomplete.ts
     ├── clipboard.ts
     ├── cookies.ts

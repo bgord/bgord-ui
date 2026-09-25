@@ -1,4 +1,5 @@
 export * from "./absolute-url";
+export * from "./asset-version";
 export * from "./autocomplete";
 export * from "./clipboard";
 export * from "./cookies";
