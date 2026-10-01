@@ -18,7 +18,7 @@ describe("useToggle", () => {
       role: "button",
       tabIndex: 0,
     });
-    expect(result.props.target).toEqual({ id: "test", "aria-hidden": "true", role: "region" });
+    expect(result.props.target).toEqual({ id: "test", "aria-hidden": "true" });
   });
 
   test("default value - true", () => {
@@ -33,7 +33,7 @@ describe("useToggle", () => {
       role: "button",
       tabIndex: 0,
     });
-    expect(result.props.target).toEqual({ id: "test", "aria-hidden": "false", role: "region" });
+    expect(result.props.target).toEqual({ id: "test", "aria-hidden": "false" });
   });
 
   test("toggle", () => {

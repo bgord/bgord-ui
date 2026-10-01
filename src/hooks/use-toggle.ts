@@ -6,7 +6,7 @@ export type UseToggleConfigType = { name: string; defaultValue?: UseToggleValueT
 
 type UseToggleProps = {
   controller: { "aria-expanded": "true" | "false"; "aria-controls": string; role: "button"; tabIndex: 0 };
-  target: { id: string; role: "region"; "aria-hidden": "true" | "false" };
+  target: { id: string; "aria-hidden": "true" | "false" };
 };
 
 export type UseToggleReturnType = {
@@ -34,7 +34,7 @@ export function useToggle({ name, defaultValue = false }: UseToggleConfigType): 
       role: "button",
       tabIndex: 0,
     },
-    target: { id: name, role: "region", "aria-hidden": on ? "false" : "true" },
+    target: { id: name, "aria-hidden": on ? "false" : "true" },
   };
 
   return { on, off, enable, disable, toggle, props };
