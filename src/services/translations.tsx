@@ -13,6 +13,8 @@ type TranslationPlaceholderValueType = string | number;
 
 type TranslationVariableType = Record<TranslationPlaceholderType, TranslationPlaceholderValueType>;
 
+export type TranslateType = (key: TranslationsKeyType, variables?: TranslationVariableType) => string;
+
 export type TranslationsContextValueType = {
   translations: TranslationsType;
   language: string;
@@ -25,13 +27,13 @@ export const TranslationsContext = createContext<TranslationsContextValueType>({
   supportedLanguages: { en: "en" },
 });
 
-export function useTranslations() {
+export function useTranslations(): TranslateType {
   const value = use(TranslationsContext);
 
   if (value === undefined) throw new Error("useTranslations must be used within the TranslationsContext");
 
-  const translate = useCallback(
-    (key: TranslationsKeyType, variables?: TranslationVariableType) => {
+  const translate = useCallback<TranslateType>(
+    (key, variables) => {
       const translation = value.translations[key];
 
       if (!translation) {
