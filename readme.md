@@ -26,6 +26,7 @@ Run the tests
 src/
 ├── components
 │   ├── dialog.tsx
+│   └── menu.tsx
 ├── hooks
 │   ├── use-click-outside.ts
 │   ├── use-date-field.ts
