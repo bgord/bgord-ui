@@ -1,3 +1,4 @@
+// cSpell:ignore Kiritimati
 import { afterEach, describe, expect, setSystemTime, test } from "bun:test";
 import { renderHook } from "@testing-library/react";
 import { useDateFormat } from "../src/hooks/use-date-format";
