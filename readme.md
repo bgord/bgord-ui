@@ -45,6 +45,7 @@ src/
 │   ├── use-persisted-toggle.ts
 │   ├── use-scroll-lock.ts
 │   ├── use-shortcuts.ts
+│   ├── use-swipe-dismiss.ts
 │   ├── use-text-field.ts
 │   ├── use-time-zone.ts
 │   ├── use-toggle.ts
