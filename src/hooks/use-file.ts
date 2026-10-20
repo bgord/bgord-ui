@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type UseFileNameType = string;
 
@@ -100,7 +100,19 @@ export function useFile(name: UseFileNameType, config: UseFileConfigType): UseFi
     setState(UseFileState.idle);
   }
 
-  const preview = useMemo(() => (file ? URL.createObjectURL(file) : undefined), [file]);
+  const [preview, setPreview] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (!file) {
+      setPreview(undefined);
+      return;
+    }
+
+    const url = URL.createObjectURL(file);
+    setPreview(url);
+
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
 
   function matches(states: ReadonlyArray<UseFileState>) {
     return states.some((given) => given === state);

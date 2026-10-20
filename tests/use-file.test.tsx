@@ -42,7 +42,9 @@ describe("useFile", () => {
   });
 
   test("selected", () => {
-    using _ = spyOn(URL, "createObjectURL").mockReturnValue("blob:preview");
+    using spies = new DisposableStack();
+    spies.use(spyOn(URL, "createObjectURL").mockReturnValue("blob:preview"));
+    spies.use(spyOn(URL, "revokeObjectURL"));
     const { result } = renderHook(() => useFile("file", { mimeTypes }));
 
     act(() => result.current.actions.selectFile(changeEvent([png])));
@@ -62,6 +64,30 @@ describe("useFile", () => {
     expect(result.current.isSelected).toEqual(false);
     expect(result.current.isError).toEqual(false);
     expect(result.current.data).toEqual(null);
+  });
+
+  test("clearFile - revokes preview", () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(URL, "createObjectURL").mockReturnValue("blob:preview"));
+    const revokeObjectURL = spies.use(spyOn(URL, "revokeObjectURL"));
+    const { result } = renderHook(() => useFile("file", { mimeTypes }));
+    act(() => result.current.actions.selectFile(changeEvent([png])));
+
+    act(() => result.current.actions.clearFile());
+
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:preview");
+  });
+
+  test("unmount - revokes preview", () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(URL, "createObjectURL").mockReturnValue("blob:preview"));
+    const revokeObjectURL = spies.use(spyOn(URL, "revokeObjectURL"));
+    const { result, unmount } = renderHook(() => useFile("file", { mimeTypes }));
+    act(() => result.current.actions.selectFile(changeEvent([png])));
+
+    unmount();
+
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:preview");
   });
 
   test("error - too big", () => {
