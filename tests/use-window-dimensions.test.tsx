@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import { act, renderHook } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { useWindowDimensions } from "../src/hooks/use-window-dimensions";
@@ -22,7 +22,7 @@ describe("useWindowDimensions", () => {
     Object.defineProperty(window, "innerHeight", { configurable: true, value: originalInnerHeight });
   });
 
-  test("resize", () => {
+  test("resize - width", () => {
     const originalInnerWidth = window.innerWidth;
     const originalInnerHeight = window.innerHeight;
     Object.defineProperty(window, "innerWidth", { configurable: true, value: 800 });
@@ -31,14 +31,40 @@ describe("useWindowDimensions", () => {
     const { result } = renderHook(() => useWindowDimensions());
     act(() => {
       Object.defineProperty(window, "innerWidth", { configurable: true, value: 1280 });
+      window.dispatchEvent(new Event("resize"));
+    });
+
+    expect(result.current).toEqual({ width: 1280, height: 600 });
+
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: originalInnerWidth });
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: originalInnerHeight });
+  });
+
+  test("resize - height", () => {
+    const originalInnerWidth = window.innerWidth;
+    const originalInnerHeight = window.innerHeight;
+    Object.defineProperty(window, "innerWidth", { configurable: true, value: 800 });
+    Object.defineProperty(window, "innerHeight", { configurable: true, value: 600 });
+
+    const { result } = renderHook(() => useWindowDimensions());
+    act(() => {
       Object.defineProperty(window, "innerHeight", { configurable: true, value: 800 });
       window.dispatchEvent(new Event("resize"));
     });
 
-    expect(result.current).toEqual({ width: 1280, height: 800 });
+    expect(result.current).toEqual({ width: 800, height: 800 });
 
     Object.defineProperty(window, "innerWidth", { configurable: true, value: originalInnerWidth });
     Object.defineProperty(window, "innerHeight", { configurable: true, value: originalInnerHeight });
+  });
+
+  test("unmount", () => {
+    using _ = spyOn(window, "removeEventListener");
+    const { unmount } = renderHook(() => useWindowDimensions());
+
+    unmount();
+
+    expect(_).toHaveBeenCalledWith("resize", expect.any(Function));
   });
 
   test("snapshot reference stability", () => {

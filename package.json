@@ -30,6 +30,7 @@
     "@types/react-dom": "19.3.0",
     "cspell": "10.4.0",
     "fallow": "3.31.0",
+    "happy-dom": "21.0.3",
     "lefthook": "2.2.2",
     "lockfile-lint": "5.1.0",
     "publint": "0.3.25",
