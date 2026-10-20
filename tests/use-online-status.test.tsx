@@ -1,6 +1,11 @@
 import { describe, expect, test } from "bun:test";
 import { act, renderHook } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import { OnlineStatus, useOnlineStatus } from "../src/hooks/use-online-status";
+
+function Testcase() {
+  return useOnlineStatus();
+}
 
 describe("useOnlineStatus", () => {
   test("online", () => {
@@ -39,5 +44,13 @@ describe("useOnlineStatus", () => {
     });
 
     expect(result.current).toEqual(OnlineStatus.online);
+  });
+
+  test("server", () => {
+    Object.defineProperty(window.navigator, "onLine", { configurable: true, value: false });
+
+    const html = renderToString(<Testcase />);
+
+    expect(html).toEqual("online");
   });
 });

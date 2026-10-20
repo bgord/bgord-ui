@@ -1,6 +1,11 @@
 import { describe, expect, test } from "bun:test";
 import { act, renderHook } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import { useWindowDimensions } from "../src/hooks/use-window-dimensions";
+
+function Testcase() {
+  return JSON.stringify(useWindowDimensions());
+}
 
 describe("useWindowDimensions", () => {
   test("happy path", () => {
@@ -46,5 +51,11 @@ describe("useWindowDimensions", () => {
     const second = result.current;
 
     expect(second).toBe(first);
+  });
+
+  test("server", () => {
+    const html = renderToString(<Testcase />);
+
+    expect(html).toEqual("{}");
   });
 });
