@@ -11,7 +11,6 @@ export * from "./etag";
 export * from "./exec";
 export * from "./fields";
 export * from "./form";
-export * from "./get-safe-window";
 export * from "./head";
 export * from "./noop";
 export * from "./notifications";

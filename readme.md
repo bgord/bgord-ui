@@ -64,7 +64,6 @@ src/
     ├── exec.ts
     ├── fields.ts
     ├── form.ts
-    ├── get-safe-window.ts
     ├── head.ts
     ├── noop.ts
     ├── notifications.tsx

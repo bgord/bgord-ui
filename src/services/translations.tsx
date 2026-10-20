@@ -30,8 +30,6 @@ export const TranslationsContext = createContext<TranslationsContextValueType>({
 export function useTranslations(): TranslateType {
   const value = use(TranslationsContext);
 
-  if (value === undefined) throw new Error("useTranslations must be used within the TranslationsContext");
-
   const translate = useCallback<TranslateType>(
     (key, variables) => {
       const translation = value.translations[key];
@@ -57,19 +55,11 @@ export function useTranslations(): TranslateType {
 }
 
 export function useLanguage(): TranslationsContextValueType["language"] {
-  const value = use(TranslationsContext);
-
-  if (value === undefined) throw new Error("useLanguage must be used within the TranslationsContext");
-  return value.language;
+  return use(TranslationsContext).language;
 }
 
 export function useSupportedLanguages(): TranslationsContextValueType["supportedLanguages"] {
-  const value = use(TranslationsContext);
-
-  if (value === undefined) {
-    throw new Error("useSupportedLanguages must be used within the TranslationsContext");
-  }
-  return value.supportedLanguages;
+  return use(TranslationsContext).supportedLanguages;
 }
 
 export function usePluralize() {
