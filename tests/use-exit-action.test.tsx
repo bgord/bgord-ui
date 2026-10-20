@@ -92,11 +92,11 @@ describe("useExitAction", () => {
 
     const card = screen.getByTestId("card");
 
-    expect(card).toBeInTheDocument();
+    expect(document.body.contains(card)).toEqual(true);
 
     fireEvent.click(screen.getByText("Delete"));
 
-    expect(card).toBeInTheDocument();
+    expect(document.body.contains(card)).toEqual(true);
 
     fireEvent.animationEnd(card, { animationName: animation });
 

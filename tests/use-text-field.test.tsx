@@ -101,16 +101,16 @@ describe("useTextField", () => {
     }
     render(<Testcase />);
 
-    const input = screen.getByTestId("field");
+    const input = screen.getByTestId<HTMLInputElement>("field");
 
-    expect(input).toHaveValue("");
+    expect(input.value).toEqual("");
 
     act(() => fireEvent.change(input, { target: { value } }));
 
-    expect(input).toHaveValue(value);
+    expect(input.value).toEqual(value);
 
     act(() => fireEvent.click(screen.getByText("Clear")));
 
-    expect(input).toHaveValue("");
+    expect(input.value).toEqual("");
   });
 });

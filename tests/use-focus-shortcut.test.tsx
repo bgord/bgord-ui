@@ -15,15 +15,15 @@ describe("useFocusKeyboardShortcut", () => {
     render(<Testcase shortcut="k" />);
     const field = screen.getByTestId("field");
 
-    expect(field).not.toHaveFocus();
+    expect(document.activeElement).not.toBe(field);
 
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(field).toHaveFocus();
+    expect(document.activeElement).toBe(field);
 
     fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
-    expect(field).toHaveFocus();
+    expect(document.activeElement).toBe(field);
   });
 
   test("shortcut change", () => {
@@ -31,16 +31,16 @@ describe("useFocusKeyboardShortcut", () => {
 
     const field = screen.getByTestId("field");
 
-    expect(field).not.toHaveFocus();
+    expect(document.activeElement).not.toBe(field);
 
     rerender(<Testcase shortcut="x" />);
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(field).not.toHaveFocus();
+    expect(document.activeElement).not.toBe(field);
 
     fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
-    expect(field).toHaveFocus();
+    expect(document.activeElement).toBe(field);
   });
 
   test("ref keeps the identity", () => {

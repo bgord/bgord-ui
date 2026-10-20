@@ -22,8 +22,8 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByText("Tomorrow")).toHaveAttribute("datetime", "2026-10-08");
-    expect(screen.getByText("Tomorrow")).toHaveAttribute("title", "Oct 8, 2026");
+    expect(screen.getByText("Tomorrow").getAttribute("datetime")).toEqual("2026-10-08");
+    expect(screen.getByText("Tomorrow").getAttribute("title")).toEqual("Oct 8, 2026");
   });
 
   test("freshness", () => {
@@ -35,7 +35,7 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByText("3 days ago")).toHaveAttribute("title", "Oct 4, 2026");
+    expect(screen.getByText("3 days ago").getAttribute("title")).toEqual("Oct 4, 2026");
   });
 
   test("relativeDay", () => {
@@ -47,7 +47,7 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByText("In 3 days")).toHaveAttribute("title", "Oct 10, 2026");
+    expect(screen.getByText("In 3 days").getAttribute("title")).toEqual("Oct 10, 2026");
   });
 
   test("list", () => {
@@ -59,7 +59,7 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByText("Tue, Oct 7, 2025")).toBeInTheDocument();
+    expect(document.body.contains(screen.getByText("Tue, Oct 7, 2025"))).toEqual(true);
   });
 
   test("short", () => {
@@ -71,7 +71,7 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByText("Sep 12")).toBeInTheDocument();
+    expect(document.body.contains(screen.getByText("Sep 12"))).toEqual(true);
   });
 
   test("ago", () => {
@@ -83,8 +83,8 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByText("2 hours ago")).toHaveAttribute("datetime", "2026-10-07T10:00:00.000Z");
-    expect(screen.getByText("2 hours ago")).toHaveAttribute("title", "Oct 7, 2026 at 10:00 AM");
+    expect(screen.getByText("2 hours ago").getAttribute("datetime")).toEqual("2026-10-07T10:00:00.000Z");
+    expect(screen.getByText("2 hours ago").getAttribute("title")).toEqual("Oct 7, 2026 at 10:00 AM");
   });
 
   test("props", () => {
@@ -96,7 +96,7 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByText("Sep 12")).toHaveAttribute("data-color", "neutral-600");
+    expect(screen.getByText("Sep 12").getAttribute("data-color")).toEqual("neutral-600");
   });
 
   test("server", () => {

@@ -119,13 +119,13 @@ describe("useToggle", () => {
     const button = screen.getByText("Toggler");
     const message = screen.getByText("Message");
 
-    expect(message).toBeVisible();
-    expect(button).toHaveAttribute("aria-expanded", "true");
+    expect(message.style.display).toEqual("block");
+    expect(button.getAttribute("aria-expanded")).toEqual("true");
 
     fireEvent.click(button);
 
-    expect(message).not.toBeVisible();
-    expect(button).toHaveAttribute("aria-expanded", "false");
+    expect(message.style.display).toEqual("none");
+    expect(button.getAttribute("aria-expanded")).toEqual("false");
 
     cleanup();
   });
@@ -148,22 +148,22 @@ describe("useToggle", () => {
     render(<Testcase />);
 
     const button = screen.getByText("Toggler");
-    const message = screen.queryByText("Message");
+    const message = screen.getByText("Message");
 
-    expect(button).toHaveAttribute("aria-expanded", "false");
-    expect(button).toHaveAttribute("aria-controls", "test");
-    expect(message).toHaveAttribute("id", "test");
-    expect(message).not.toBeVisible();
-
-    fireEvent.click(button);
-
-    expect(button).toHaveAttribute("aria-expanded", "true");
-    expect(message).toBeVisible();
+    expect(button.getAttribute("aria-expanded")).toEqual("false");
+    expect(button.getAttribute("aria-controls")).toEqual("test");
+    expect(message.getAttribute("id")).toEqual("test");
+    expect(message.style.display).toEqual("none");
 
     fireEvent.click(button);
 
-    expect(button).toHaveAttribute("aria-expanded", "false");
-    expect(message).not.toBeVisible();
+    expect(button.getAttribute("aria-expanded")).toEqual("true");
+    expect(message.style.display).toEqual("block");
+
+    fireEvent.click(button);
+
+    expect(button.getAttribute("aria-expanded")).toEqual("false");
+    expect(message.style.display).toEqual("none");
 
     cleanup();
   });
@@ -192,23 +192,23 @@ describe("useToggle", () => {
     const hide = screen.getByText("Hide");
     const message = screen.getByText("Message");
 
-    expect(message).not.toBeVisible();
+    expect(message.style.display).toEqual("none");
 
     fireEvent.click(show);
 
-    expect(message).toBeVisible();
+    expect(message.style.display).toEqual("block");
 
     fireEvent.click(show);
 
-    expect(message).toBeVisible();
+    expect(message.style.display).toEqual("block");
 
     fireEvent.click(hide);
 
-    expect(message).not.toBeVisible();
+    expect(message.style.display).toEqual("none");
 
     fireEvent.click(hide);
 
-    expect(message).not.toBeVisible();
+    expect(message.style.display).toEqual("none");
 
     cleanup();
   });

@@ -171,7 +171,7 @@ describe("Notifications", () => {
 
     await user.click(screen.getByText("notify"));
 
-    expect(screen.getByTestId("message")).toHaveTextContent(positive.message);
+    expect(screen.getByTestId("message").textContent).toEqual(positive.message);
 
     await user.click(screen.getByText("dismiss"));
 

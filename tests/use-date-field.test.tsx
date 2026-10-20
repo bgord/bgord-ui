@@ -93,26 +93,26 @@ describe("useDateField", () => {
     }
     render(<Testcase />);
 
-    const input = screen.getByTestId("field");
+    const input = screen.getByTestId<HTMLInputElement>("field");
 
-    expect(input).toHaveDisplayValue("");
+    expect(input.value).toEqual("");
 
     // handleChange/clear
     await userEvent.type(input, value);
 
-    expect(input).toHaveDisplayValue(value);
+    expect(input.value).toEqual(value);
 
     await userEvent.click(screen.getByText("Clear"));
 
-    await waitFor(() => expect(input).toHaveDisplayValue(""));
+    await waitFor(() => expect(input.value).toEqual(""));
 
     // Typing
     await userEvent.type(input, "2");
 
-    expect(input).toHaveDisplayValue("");
+    expect(input.value).toEqual("");
 
     await userEvent.type(input, "025-01-01");
 
-    expect(input).toHaveDisplayValue("2025-01-01");
+    expect(input.value).toEqual("2025-01-01");
   });
 });

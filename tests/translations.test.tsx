@@ -120,7 +120,7 @@ describe("Translations", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(screen.getByTestId("translation")).toHaveTextContent("Hello");
-    expect(screen.getByTestId("language")).toHaveTextContent("en");
+    expect(screen.getByTestId("translation").textContent).toEqual("Hello");
+    expect(screen.getByTestId("language").textContent).toEqual("en");
   });
 });

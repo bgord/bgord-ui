@@ -43,14 +43,14 @@ describe("useHover", () => {
 
     const result = screen.getByTestId("hoverable");
 
-    expect(result).toHaveTextContent("false");
+    expect(result.textContent).toEqual("false");
 
     fireEvent.pointerEnter(result);
 
-    expect(result).toHaveTextContent("true");
+    expect(result.textContent).toEqual("true");
 
     fireEvent.pointerLeave(result);
 
-    expect(result).toHaveTextContent("false");
+    expect(result.textContent).toEqual("false");
   });
 });

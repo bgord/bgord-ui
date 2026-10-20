@@ -125,74 +125,73 @@ describe("useNumberField", () => {
       );
     }
     render(<Testcase />);
-    const input = screen.getByTestId("field");
+    const input = screen.getByTestId<HTMLInputElement>("field");
 
-    expect(input).toHaveDisplayValue("");
+    expect(input.value).toEqual("");
 
     // handleChange/clear
     await userEvent.type(input, value);
 
-    expect(input).toHaveDisplayValue(value);
+    expect(input.value).toEqual(value);
 
     await userEvent.click(screen.getByText("Clear"));
 
-    await waitFor(() => expect(input).toHaveDisplayValue(""));
+    await waitFor(() => expect(input.value).toEqual(""));
 
     // Fractions
     await userEvent.type(input, "1");
 
-    expect(input).toHaveDisplayValue("1");
+    expect(input.value).toEqual("1");
 
     await userEvent.type(input, ".");
 
-    expect(input).toHaveDisplayValue("1");
+    expect(input.value).toEqual("1");
 
     await userEvent.type(input, "5");
 
-    expect(input).toHaveDisplayValue("1.5");
+    expect(input.value).toEqual("1.5");
 
     await userEvent.click(screen.getByText("Clear"));
 
-    await waitFor(() => expect(input).toHaveDisplayValue(""));
+    await waitFor(() => expect(input.value).toEqual(""));
 
     // Negative fractions
     await userEvent.type(input, "-");
 
-    expect(input).toHaveDisplayValue("");
+    expect(input.value).toEqual("");
 
     await userEvent.type(input, "1");
 
-    expect(input).toHaveDisplayValue("-1");
+    expect(input.value).toEqual("-1");
 
     await userEvent.type(input, ".");
 
-    expect(input).toHaveDisplayValue("-1");
+    expect(input.value).toEqual("-1");
 
     await userEvent.type(input, "5");
 
-    expect(input).toHaveDisplayValue("-1.5");
+    expect(input.value).toEqual("-1.5");
 
     await userEvent.click(screen.getByText("Clear"));
 
-    await waitFor(() => expect(input).toHaveDisplayValue(""));
+    await waitFor(() => expect(input.value).toEqual(""));
 
     // Invalid value
     await userEvent.type(input, "-");
 
-    expect(input).toHaveDisplayValue("");
+    expect(input.value).toEqual("");
 
     await userEvent.type(input, "2");
 
-    expect(input).toHaveDisplayValue("-2");
+    expect(input.value).toEqual("-2");
 
     await userEvent.type(input, ".");
 
-    expect(input).toHaveDisplayValue("-2");
+    expect(input.value).toEqual("-2");
 
     await userEvent.type(input, "5");
 
-    expect(input).toHaveDisplayValue("-2.5");
-    // @ts-expect-error
+    expect(input.value).toEqual("-2.5");
     expect(input.validity.valid).toEqual(false);
   });
 });
