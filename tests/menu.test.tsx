@@ -37,7 +37,7 @@ describe("Menu component", () => {
     render(<Testcase />);
 
     expect(screen.getByRole("button", { name: "More actions" })).toHaveAttribute("aria-expanded", "false");
-    expect(screen.getByRole("menu", { hidden: true }).dataset.disp).toEqual("none");
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
   });
 
   test("open - click", () => {
@@ -46,7 +46,7 @@ describe("Menu component", () => {
     fireEvent.click(screen.getByRole("button", { name: "More actions" }));
 
     expect(screen.getByRole("button", { name: "More actions" })).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("menu").dataset.disp).toEqual("flex");
+    expect(screen.getByRole("menu").getAttribute("data-disp")).toEqual("flex");
     expect(screen.getByRole("menuitem", { name: "Copy" })).toHaveFocus();
   });
 
@@ -55,7 +55,7 @@ describe("Menu component", () => {
 
     fireEvent.keyDown(screen.getByRole("button", { name: "More actions" }), { key: "ArrowDown" });
 
-    expect(screen.getByRole("menu").dataset.disp).toEqual("flex");
+    expect(screen.getByRole("menu").getAttribute("data-disp")).toEqual("flex");
     expect(screen.getByRole("menuitem", { name: "Copy" })).toHaveFocus();
   });
 
@@ -65,7 +65,7 @@ describe("Menu component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "More actions" }));
 
-    expect(screen.getByRole("menu", { hidden: true }).dataset.disp).toEqual("none");
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
     expect(screen.getByRole("button", { name: "More actions" })).toHaveFocus();
   });
 
@@ -75,7 +75,7 @@ describe("Menu component", () => {
 
     fireEvent.keyDown(screen.getByRole("menuitem", { name: "Copy" }), { key: "Escape" });
 
-    expect(screen.getByRole("menu", { hidden: true }).dataset.disp).toEqual("none");
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
     expect(screen.getByRole("button", { name: "More actions" })).toHaveFocus();
   });
 
@@ -85,7 +85,7 @@ describe("Menu component", () => {
 
     fireEvent.mouseDown(screen.getByRole("button", { name: "Outside" }));
 
-    expect(screen.getByRole("menu", { hidden: true }).dataset.disp).toEqual("none");
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
   });
 
   test("close - focus leaves", () => {
@@ -96,7 +96,7 @@ describe("Menu component", () => {
       relatedTarget: screen.getByRole("button", { name: "Outside" }),
     });
 
-    expect(screen.getByRole("menu", { hidden: true }).dataset.disp).toEqual("none");
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
   });
 
   test("item - closes on select", () => {
@@ -105,7 +105,7 @@ describe("Menu component", () => {
 
     fireEvent.click(screen.getByRole("menuitem", { name: "Copy" }));
 
-    expect(screen.getByRole("menu", { hidden: true }).dataset.disp).toEqual("none");
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
     expect(screen.getByRole("button", { name: "More actions" })).toHaveFocus();
   });
 
@@ -115,7 +115,7 @@ describe("Menu component", () => {
 
     fireEvent.click(screen.getByRole("menuitem", { name: "Stay" }));
 
-    expect(screen.getByRole("menu").dataset.disp).toEqual("flex");
+    expect(screen.getByRole("menu").getAttribute("data-disp")).toEqual("flex");
   });
 
   test("link - closes on select", () => {
@@ -124,7 +124,7 @@ describe("Menu component", () => {
 
     fireEvent.click(screen.getByRole("menuitem", { name: "Export" }));
 
-    expect(screen.getByRole("menu", { hidden: true }).dataset.disp).toEqual("none");
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
     expect(screen.getByRole("button", { name: "More actions" })).toHaveFocus();
   });
 
@@ -143,7 +143,7 @@ describe("Menu component", () => {
 
     fireEvent.click(screen.getByRole("menuitem", { name: "Export" }));
 
-    expect(screen.getByRole("menu").dataset.disp).toEqual("flex");
+    expect(screen.getByRole("menu").getAttribute("data-disp")).toEqual("flex");
   });
 
   test("link - tone", () => {
@@ -161,8 +161,10 @@ describe("Menu component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "More actions" }));
 
-    expect(screen.getByRole("menuitem", { name: "Export" }).dataset.color).toEqual("neutral-200");
-    expect(screen.getByRole("menuitem", { name: "Delete" }).dataset.color).toEqual("danger-400");
+    expect(screen.getByRole("menuitem", { name: "Export" }).getAttribute("data-color")).toEqual(
+      "neutral-200",
+    );
+    expect(screen.getByRole("menuitem", { name: "Delete" }).getAttribute("data-color")).toEqual("danger-400");
   });
 
   test("trigger - title from aria-label", () => {
@@ -176,8 +178,8 @@ describe("Menu component", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "More actions" }));
 
-    expect(screen.getByRole("menuitem", { name: "Copy" }).dataset.color).toEqual("neutral-200");
-    expect(screen.getByRole("menuitem", { name: "Delete" }).dataset.color).toEqual("danger-400");
+    expect(screen.getByRole("menuitem", { name: "Copy" }).getAttribute("data-color")).toEqual("neutral-200");
+    expect(screen.getByRole("menuitem", { name: "Delete" }).getAttribute("data-color")).toEqual("danger-400");
   });
 
   test("navigation - ArrowDown skips disabled and wraps", () => {

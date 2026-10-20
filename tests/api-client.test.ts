@@ -4,7 +4,7 @@ import { ApiClient } from "../src/services/api-client";
 const path = "/api/items";
 const origin = "http://localhost:3000";
 const init = { method: "QUERY", body: JSON.stringify({ page: 1 }) };
-const fallback = { items: [] };
+const fallback: { items: string[] } = { items: [] };
 const body = { items: ["first"] };
 
 describe("ApiClient.fetch", () => {

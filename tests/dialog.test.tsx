@@ -47,7 +47,7 @@ describe("Dialog component", () => {
     fireEvent.click(screen.getByText("Close"));
 
     expect(closeSpy).toHaveBeenCalledTimes(1);
-    expect(screen.getByTestId("dialog").dataset.disp).toEqual("none");
+    expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("none");
   });
 
   test("close - ESC", async () => {
@@ -56,7 +56,7 @@ describe("Dialog component", () => {
     fireEvent.keyDown(window, { key: "Escape", code: "Escape" });
 
     expect(closeSpy).toHaveBeenCalledTimes(1);
-    expect(getByTestId("dialog").dataset.disp).toEqual("none");
+    expect(getByTestId("dialog").getAttribute("data-disp")).toEqual("none");
   });
 
   test("close - ESC - locked", async () => {
@@ -65,7 +65,7 @@ describe("Dialog component", () => {
     fireEvent.keyDown(window, { key: "Escape", code: "Escape" });
 
     expect(closeSpy).toHaveBeenCalledTimes(0);
-    expect(getByTestId("dialog").dataset.disp).toEqual("flex");
+    expect(getByTestId("dialog").getAttribute("data-disp")).toEqual("flex");
   });
 
   test("close - click outside", async () => {
@@ -74,7 +74,7 @@ describe("Dialog component", () => {
     fireEvent.mouseDown(document.body);
 
     expect(closeSpy).toHaveBeenCalledTimes(1);
-    expect(screen.getByTestId("dialog").dataset.disp).toEqual("none");
+    expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("none");
   });
 
   test("close - click outside - locked", async () => {
@@ -83,7 +83,7 @@ describe("Dialog component", () => {
     fireEvent.mouseDown(document.body);
 
     expect(closeSpy).toHaveBeenCalledTimes(0);
-    expect(screen.getByTestId("dialog").dataset.disp).toEqual("flex");
+    expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("flex");
   });
 
   test("body scroll lock", async () => {

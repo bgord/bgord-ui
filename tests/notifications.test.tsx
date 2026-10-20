@@ -40,7 +40,7 @@ describe("Notifications", () => {
 
     act(() => result.current.notify(positive));
 
-    const id = result.current.notifications[0].id;
+    const id = result.current.notifications[0]!.id;
 
     act(() => result.current.dismiss(id));
 
@@ -58,7 +58,7 @@ describe("Notifications", () => {
       result.current.notify(negative);
     });
 
-    const id = result.current.notifications[0].id;
+    const id = result.current.notifications[0]!.id;
 
     act(() => result.current.dismiss(id));
 
