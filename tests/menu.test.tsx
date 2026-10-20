@@ -61,6 +61,16 @@ describe("Menu", () => {
     expect(document.activeElement).toBe(screen.getByRole("menuitem", { name: "Copy" }));
   });
 
+  test("open - ArrowDown - already open", () => {
+    render(<Testcase />);
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+    screen.getByRole("button", { name: "More actions" }).focus();
+
+    fireEvent.keyDown(screen.getByRole("button", { name: "More actions" }), { key: "ArrowDown" });
+
+    expect(document.activeElement).toBe(screen.getByRole("menuitem", { name: "Copy" }));
+  });
+
   test("close - click trigger", () => {
     render(<Testcase />);
     fireEvent.click(screen.getByRole("button", { name: "More actions" }));
@@ -79,6 +89,15 @@ describe("Menu", () => {
 
     expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
     expect(document.activeElement).toBe(screen.getByRole("button", { name: "More actions" }));
+  });
+
+  test("close - Escape - already closed", () => {
+    render(<Testcase />);
+
+    const result = fireEvent.keyDown(screen.getByRole("button", { name: "More actions" }), { key: "Escape" });
+
+    expect(result).toEqual(true);
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
   });
 
   test("close - click outside", () => {
@@ -154,8 +173,8 @@ describe("Menu", () => {
         <MenuTrigger aria-label="More actions">...</MenuTrigger>
         <MenuContent>
           <MenuLink href="#export">Export</MenuLink>
-          <MenuLink href="#delete" tone="danger">
-            Delete
+          <MenuLink href="#publish" tone="brand">
+            Publish
           </MenuLink>
         </MenuContent>
       </Menu>,
@@ -166,7 +185,7 @@ describe("Menu", () => {
     expect(screen.getByRole("menuitem", { name: "Export" }).getAttribute("data-color")).toEqual(
       "neutral-200",
     );
-    expect(screen.getByRole("menuitem", { name: "Delete" }).getAttribute("data-color")).toEqual("danger-400");
+    expect(screen.getByRole("menuitem", { name: "Publish" }).getAttribute("data-color")).toEqual("brand-400");
   });
 
   test("trigger - title from aria-label", () => {
