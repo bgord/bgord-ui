@@ -23,6 +23,28 @@ describe("useScrollLock", () => {
     expect(document.body.style.overflow).toEqual("");
   });
 
+  test("two locks - out of order", () => {
+    const first = renderHook(() => useScrollLock(true));
+    const second = renderHook(() => useScrollLock(true));
+
+    first.unmount();
+
+    expect(document.body.style.overflow).toEqual("hidden");
+
+    second.unmount();
+
+    expect(document.body.style.overflow).toEqual("");
+  });
+
+  test("disabled - unmount", () => {
+    const disabled = renderHook(() => useScrollLock(false));
+    renderHook(() => useScrollLock(true));
+
+    disabled.unmount();
+
+    expect(document.body.style.overflow).toEqual("hidden");
+  });
+
   test("toggle", () => {
     const { rerender } = renderHook(({ enabled }) => useScrollLock(enabled), {
       initialProps: { enabled: true },
