@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { MutationState, useMutation } from "../src/hooks/use-mutation";
 
@@ -111,6 +111,43 @@ describe("useTextField", () => {
     expect(result.current.isLoading).toEqual(false);
     expect(result.current.isError).toEqual(false);
     expect(result.current.isDone).toEqual(false);
+  });
+
+  test("mutate - concurrent calls", async () => {
+    using fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+
+    await act(() => Promise.all([result.current.mutate(), result.current.mutate()]));
+
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test("mutate - during onSuccess", async () => {
+    using fetchSpy = spyOn(global, "fetch").mockResolvedValue({ ok: true } as any);
+    const onSuccess = jest.fn();
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url), onSuccess }));
+    onSuccess.mockImplementationOnce(async () => {
+      await result.current.mutate();
+    });
+
+    await act(() => result.current.mutate());
+
+    expect(fetchSpy).toHaveBeenCalledTimes(2);
+  });
+
+  test("mutate - after reset during loading", async () => {
+    using fetchSpy = spyOn(global, "fetch").mockReturnValue(new Promise(() => {}));
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+    act(() => {
+      result.current.mutate();
+    });
+    act(() => result.current.reset());
+
+    act(() => {
+      result.current.mutate();
+    });
+
+    expect(fetchSpy).toHaveBeenCalledTimes(2);
   });
 
   test("integration - success", async () => {

@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 
 export enum MutationState {
   idle = "idle",
@@ -49,14 +49,17 @@ function mutationReducer(
 
 export function useMutation(options: UseMutationOptions): UseMutationReturnType {
   const [mutation, dispatch] = useReducer(mutationReducer, { state: MutationState.idle, error: null });
+  const pending = useRef(false);
 
   const mutate = async (form?: HTMLFormElement) => {
-    if (mutation.state === MutationState.loading) return;
+    if (pending.current) return;
 
+    pending.current = true;
     dispatch({ type: "START" });
 
     try {
       const response = await options.perform();
+      pending.current = false;
 
       if (!response.ok) {
         dispatch({ type: "ERROR", error: null });
@@ -73,6 +76,7 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
 
       return response;
     } catch (error) {
+      pending.current = false;
       dispatch({ type: "ERROR", error });
       await options.onError?.(error, { form: form });
       return;
@@ -93,6 +97,9 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
     isDone: mutation.state === MutationState.done,
     mutate,
     handleSubmit,
-    reset: () => dispatch({ type: "RESET" }),
+    reset: () => {
+      pending.current = false;
+      dispatch({ type: "RESET" });
+    },
   };
 }
