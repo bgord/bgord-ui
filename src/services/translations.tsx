@@ -42,11 +42,10 @@ export function useTranslations(): TranslateType {
 
       if (!variables) return translation;
 
-      return Object.entries(variables).reduce((result, [placeholder, value]) => {
-        const replacer = new RegExp(`{{${placeholder}}}`, "g");
-
-        return result.replace(replacer, String(value));
-      }, translation);
+      return Object.entries(variables).reduce(
+        (result, [placeholder, value]) => result.replaceAll(`{{${placeholder}}}`, () => String(value)),
+        translation,
+      );
     },
     [value.translations],
   );

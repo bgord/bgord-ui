@@ -54,6 +54,14 @@ describe("Translations", () => {
     );
   });
 
+  test("useTranslations - special characters in value", () => {
+    const { result } = renderHook(() => useTranslations(), {
+      wrapper: ({ children }) => wrapper({ children, value }),
+    });
+
+    expect(result.current("missing", { name: "$& $$" })).toEqual("Hello, $& $$!");
+  });
+
   test("useTranslations - numeric variable", () => {
     const { result } = renderHook(() => useTranslations(), {
       wrapper: ({ children }) => wrapper({ children, value }),
