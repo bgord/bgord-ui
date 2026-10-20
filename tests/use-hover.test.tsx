@@ -1,9 +1,7 @@
 // cspell:disable
-import { afterEach, describe, expect, test } from "bun:test";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, test } from "bun:test";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { useHover } from "../src/hooks/use-hover";
-
-afterEach(() => cleanup());
 
 function TestComponent(props: { enabled: boolean } = { enabled: true }) {
   const hover = useHover(props);

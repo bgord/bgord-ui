@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, spyOn, test } from "bun:test";
-import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { describe, expect, spyOn, test } from "bun:test";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { UseFileState, useFile } from "../src/hooks/use-file";
 
 const mimeTypes = ["image/png"];
@@ -11,8 +11,6 @@ const bigPng = new File(["xx"], "avatar.png", { type: "image/png" });
 function changeEvent(files: ReadonlyArray<File>) {
   return { currentTarget: { files } } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
-
-afterEach(() => cleanup());
 
 describe("useFile", () => {
   test("idle", () => {

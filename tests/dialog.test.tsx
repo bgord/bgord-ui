@@ -1,41 +1,36 @@
-import { afterEach, describe, expect, jest, test } from "bun:test";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, jest, spyOn, test } from "bun:test";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Dialog } from "../src/components/dialog";
-import * as hooks from "../src/hooks";
+import { useToggle } from "../src/hooks";
 
-function Testcase(props: {
-  defaultValue?: boolean;
-  locked?: boolean;
-  onCancel?: React.ReactEventHandler<HTMLDialogElement>;
-}) {
-  const defaultValue = props.defaultValue ?? false;
-  const locked = props.locked ?? false;
-  const toggle = hooks.useToggle({ name: "demo", defaultValue });
+function Testcase(props: { locked?: boolean; onCancel?: React.ReactEventHandler<HTMLDialogElement> }) {
+  const toggle = useToggle({ name: "demo", defaultValue: true });
 
   return (
     <>
-      <button onClick={toggle.enable} type="button">
-        Open
-      </button>
       <button onClick={toggle.disable} type="button">
         Close
       </button>
-      <Dialog {...toggle} data-testid="dialog" locked={locked} onCancel={props.onCancel} />
+      <Dialog {...toggle} data-testid="dialog" locked={props.locked} onCancel={props.onCancel} />
     </>
   );
 }
 
-afterEach(() => cleanup());
-
-describe("Dialog component", () => {
+describe("Dialog", () => {
   test("open", () => {
-    render(<Testcase defaultValue={true} />);
+    render(<Testcase />);
 
     expect(screen.getByTestId<HTMLDialogElement>("dialog").open).toEqual(true);
   });
 
-  test("close", async () => {
-    render(<Testcase defaultValue={true} />);
+  test("open - focus", () => {
+    render(<Testcase />);
+
+    expect(document.activeElement).toBe(screen.getByTestId("dialog"));
+  });
+
+  test("close", () => {
+    render(<Testcase />);
 
     fireEvent.click(screen.getByText("Close"));
 
@@ -43,8 +38,28 @@ describe("Dialog component", () => {
     expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("none");
   });
 
-  test("close - ESC", async () => {
-    render(<Testcase defaultValue={true} />);
+  test("close - coarse pointer", () => {
+    using _ = spyOn(window, "matchMedia").mockReturnValue({ matches: true } as MediaQueryList);
+    render(<Testcase />);
+    screen.getByText("Close").focus();
+
+    fireEvent.click(screen.getByText("Close"));
+
+    expect(document.activeElement).toBe(document.body);
+  });
+
+  test("close - fine pointer", () => {
+    using _ = spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList);
+    render(<Testcase />);
+    screen.getByText("Close").focus();
+
+    fireEvent.click(screen.getByText("Close"));
+
+    expect(document.activeElement).toBe(screen.getByText("Close"));
+  });
+
+  test("close - ESC", () => {
+    render(<Testcase />);
 
     fireEvent(screen.getByTestId("dialog"), new Event("cancel", { cancelable: true }));
 
@@ -52,8 +67,8 @@ describe("Dialog component", () => {
     expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("none");
   });
 
-  test("close - ESC - locked", async () => {
-    render(<Testcase defaultValue={true} locked={true} />);
+  test("close - ESC - locked", () => {
+    render(<Testcase locked={true} />);
 
     fireEvent(screen.getByTestId("dialog"), new Event("cancel", { cancelable: true }));
 
@@ -63,7 +78,7 @@ describe("Dialog component", () => {
 
   test("close - ESC - onCancel", () => {
     const onCancel = jest.fn();
-    render(<Testcase defaultValue={true} onCancel={onCancel} />);
+    render(<Testcase onCancel={onCancel} />);
 
     fireEvent(screen.getByTestId("dialog"), new Event("cancel", { cancelable: true }));
 
@@ -73,7 +88,7 @@ describe("Dialog component", () => {
   });
 
   test("close - ESC - onCancel - preventDefault", () => {
-    render(<Testcase defaultValue={true} onCancel={(event) => event.preventDefault()} />);
+    render(<Testcase onCancel={(event) => event.preventDefault()} />);
 
     fireEvent(screen.getByTestId("dialog"), new Event("cancel", { cancelable: true }));
 
@@ -81,8 +96,8 @@ describe("Dialog component", () => {
     expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("flex");
   });
 
-  test("close - click outside", async () => {
-    render(<Testcase defaultValue={true} />);
+  test("close - click outside", () => {
+    render(<Testcase />);
 
     fireEvent.mouseDown(document.body);
 
@@ -90,8 +105,8 @@ describe("Dialog component", () => {
     expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("none");
   });
 
-  test("close - click outside - locked", async () => {
-    render(<Testcase defaultValue={true} locked={true} />);
+  test("close - click outside - locked", () => {
+    render(<Testcase locked={true} />);
 
     fireEvent.mouseDown(document.body);
 
@@ -99,8 +114,8 @@ describe("Dialog component", () => {
     expect(screen.getByTestId("dialog").getAttribute("data-disp")).toEqual("flex");
   });
 
-  test("body scroll lock", async () => {
-    render(<Testcase defaultValue={true} />);
+  test("body scroll lock", () => {
+    render(<Testcase />);
 
     expect(document.body.style.overflow).toEqual("hidden");
 

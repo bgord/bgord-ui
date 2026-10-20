@@ -1,8 +1,6 @@
-import { afterEach, describe, expect, test } from "bun:test";
-import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { describe, expect, test } from "bun:test";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useNumberField } from "../src/hooks/use-number-field";
-
-afterEach(() => cleanup());
 
 function changeEvent(value: string, valueAsNumber: number, valid = true) {
   return {

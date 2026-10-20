@@ -1,8 +1,6 @@
-import { afterEach, describe, expect, test } from "bun:test";
-import { cleanup, renderHook } from "@testing-library/react";
+import { describe, expect, test } from "bun:test";
+import { renderHook } from "@testing-library/react";
 import { useScrollLock } from "../src/hooks/use-scroll-lock";
-
-afterEach(() => cleanup());
 
 describe("useScrollLock", () => {
   test("enabled", () => {

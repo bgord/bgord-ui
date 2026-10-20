@@ -1,12 +1,10 @@
-import { afterEach, describe, expect, test } from "bun:test";
-import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { describe, expect, test } from "bun:test";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useTextField } from "../src/hooks/use-text-field";
 
 function changeEvent(value: string) {
   return { currentTarget: { value } } as unknown as React.ChangeEvent<HTMLInputElement>;
 }
-
-afterEach(() => cleanup());
 
 describe("useTextField", () => {
   test("idle", () => {

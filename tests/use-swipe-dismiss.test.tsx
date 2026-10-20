@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, jest, spyOn, test } from "bun:test";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { useSwipeDismiss } from "../src/hooks/use-swipe-dismiss";
 
 function Sheet(props: { onDismiss: () => void; enabled?: boolean }) {
@@ -33,10 +33,7 @@ function settle(sheet: HTMLElement) {
   sheet.dispatchEvent(event);
 }
 
-afterEach(() => {
-  cleanup();
-  jest.restoreAllMocks();
-});
+afterEach(() => jest.restoreAllMocks());
 
 describe("useSwipeDismiss", () => {
   test("follows the pointer", () => {

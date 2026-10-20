@@ -1,9 +1,7 @@
 // cspell:disable
-import { afterEach, describe, expect, jest, test } from "bun:test";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, jest, test } from "bun:test";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { useMetaEnterSubmit } from "../src/hooks/use-meta-enter-submit";
-
-afterEach(() => cleanup());
 
 function TestComponent(props: React.JSX.IntrinsicElements["form"]) {
   const metaEnterSubmit = useMetaEnterSubmit();

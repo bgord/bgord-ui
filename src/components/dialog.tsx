@@ -6,24 +6,24 @@ export type DialogPropsType = UseToggleReturnType &
   React.JSX.IntrinsicElements["dialog"] & { locked?: boolean };
 
 export function Dialog(props: DialogPropsType) {
-  const { locked: _locked, onCancel, ..._props } = props;
-  const locked = _locked ?? false;
+  const { locked = false, onCancel, ...others } = props;
 
-  const { toggle: dialog, rest } = extractUseToggle(_props);
+  const { toggle: dialog, rest } = extractUseToggle(others);
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    if (props.on) {
+    if (dialog.on) {
       ref.current?.showModal();
-      return ref.current?.focus();
+      ref.current?.focus();
+      return;
     }
 
     ref.current?.close();
     if (window.matchMedia("(pointer: coarse)").matches)
       (document.activeElement as HTMLElement | null)?.blur();
-  }, [props.on]);
+  }, [dialog.on]);
 
-  useScrollLock(props.on);
+  useScrollLock(dialog.on);
   useClickOutside(ref, locked ? noop : dialog.disable);
 
   return (
@@ -35,7 +35,7 @@ export function Dialog(props: DialogPropsType) {
       data-br="xs"
       data-bw="none"
       data-dir="column"
-      data-disp={props.on ? "flex" : "none"}
+      data-disp={dialog.on ? "flex" : "none"}
       data-mx="auto"
       data-p="5"
       data-position="fixed"

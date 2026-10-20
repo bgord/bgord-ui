@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, jest, test } from "bun:test";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, jest, test } from "bun:test";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { useRef } from "react";
 import { useClickOutside } from "../src/hooks/use-click-outside";
 
@@ -26,8 +26,6 @@ function Dialog({ onOutside }: { onOutside: () => void }) {
     </dialog>
   );
 }
-
-afterEach(() => cleanup());
 
 describe("useClickOutside", () => {
   test("click outside - div", () => {

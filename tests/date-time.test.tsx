@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, setSystemTime, test } from "bun:test";
-import { cleanup, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { DateTime } from "../src/components/date-time";
 import { TimeZoneContext } from "../src/hooks/use-time-zone";
@@ -7,10 +7,7 @@ import { TranslationsContext } from "../src/services/translations";
 
 const value = { translations: {}, language: "en", supportedLanguages: { en: "en" } };
 
-afterEach(() => {
-  cleanup();
-  setSystemTime();
-});
+afterEach(() => setSystemTime());
 
 describe("DateTime", () => {
   test("dayLabel", () => {

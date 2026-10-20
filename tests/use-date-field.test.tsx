@@ -1,8 +1,6 @@
-import { afterEach, describe, expect, test } from "bun:test";
-import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { describe, expect, test } from "bun:test";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useDateField } from "../src/hooks/use-date-field";
-
-afterEach(() => cleanup());
 
 function changeEvent(value: string, valid = true) {
   return { currentTarget: { value, validity: { valid } } } as unknown as React.ChangeEvent<HTMLInputElement>;

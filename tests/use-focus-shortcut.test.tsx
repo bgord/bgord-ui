@@ -1,8 +1,6 @@
-import { afterEach, describe, expect, test } from "bun:test";
-import { cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { describe, expect, test } from "bun:test";
+import { fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useFocusKeyboardShortcut } from "../src/hooks/use-focus-shortcut";
-
-afterEach(() => cleanup());
 
 function Testcase(props: { shortcut: string }) {
   const shortcut = useFocusKeyboardShortcut(props.shortcut);

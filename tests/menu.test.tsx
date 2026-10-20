@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, jest, test } from "bun:test";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, jest, test } from "bun:test";
+import { fireEvent, render, screen } from "@testing-library/react";
 import {
   Menu,
   MenuContent,
@@ -30,9 +30,7 @@ function Testcase() {
   );
 }
 
-afterEach(() => cleanup());
-
-describe("Menu component", () => {
+describe("Menu", () => {
   test("closed by default", () => {
     render(<Testcase />);
 

@@ -1,8 +1,6 @@
-import { afterEach, describe, expect, spyOn, test } from "bun:test";
-import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { describe, expect, spyOn, test } from "bun:test";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { MutationState, useMutation } from "../src/hooks/use-mutation";
-
-afterEach(() => cleanup());
 
 const url = "http://example.com";
 

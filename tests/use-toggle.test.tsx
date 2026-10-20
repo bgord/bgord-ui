@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { extractUseToggle, useToggle } from "../src/hooks/use-toggle";
 
 describe("useToggle", () => {
@@ -126,8 +126,6 @@ describe("useToggle", () => {
 
     expect(message.style.display).toEqual("none");
     expect(button.getAttribute("aria-expanded")).toEqual("false");
-
-    cleanup();
   });
 
   test("integration - toggle", () => {
@@ -164,8 +162,6 @@ describe("useToggle", () => {
 
     expect(button.getAttribute("aria-expanded")).toEqual("false");
     expect(message.style.display).toEqual("none");
-
-    cleanup();
   });
 
   test("integration - enable/disable", () => {
@@ -209,7 +205,5 @@ describe("useToggle", () => {
     fireEvent.click(hide);
 
     expect(message.style.display).toEqual("none");
-
-    cleanup();
   });
 });
