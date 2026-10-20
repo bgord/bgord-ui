@@ -1,12 +1,10 @@
-import { afterEach, describe, expect, setSystemTime, test } from "bun:test";
+import { describe, expect, setSystemTime, test } from "bun:test";
 import { renderHook } from "@testing-library/react";
 import { useDateTime } from "../src/hooks/use-date-time";
 import { TimeZoneContext } from "../src/hooks/use-time-zone";
 import { TranslationsContext } from "../src/services/translations";
 
 const value = { translations: {}, language: "en", supportedLanguages: { en: "en" } };
-
-afterEach(() => setSystemTime());
 
 describe("useDateTime", () => {
   test("calendar day", () => {

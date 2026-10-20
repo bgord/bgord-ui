@@ -1,7 +1,5 @@
-import { afterEach, describe, expect, setSystemTime, test } from "bun:test";
+import { describe, expect, setSystemTime, test } from "bun:test";
 import { Clock } from "../src/services/clock";
-
-afterEach(() => setSystemTime());
 
 describe("Clock", () => {
   test("now", () => {

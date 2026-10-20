@@ -1,8 +1,6 @@
 // cSpell:ignore Kiritimati
-import { afterEach, describe, expect, setSystemTime, test } from "bun:test";
+import { describe, expect, setSystemTime, test } from "bun:test";
 import { CalendarDay } from "../src/services/calendar-day";
-
-afterEach(() => setSystemTime());
 
 describe("CalendarDay", () => {
   test("from", () => {

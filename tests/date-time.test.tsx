@@ -1,17 +1,16 @@
-import { afterEach, describe, expect, setSystemTime, test } from "bun:test";
+import { describe, expect, setSystemTime, test } from "bun:test";
 import { render, screen } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { DateTime } from "../src/components/date-time";
 import { TimeZoneContext } from "../src/hooks/use-time-zone";
 import { TranslationsContext } from "../src/services/translations";
 
+const now = 1791374400000;
 const value = { translations: {}, language: "en", supportedLanguages: { en: "en" } };
-
-afterEach(() => setSystemTime());
 
 describe("DateTime", () => {
   test("dayLabel", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     render(
       <TranslationsContext.Provider value={value}>
@@ -24,7 +23,7 @@ describe("DateTime", () => {
   });
 
   test("freshness", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     render(
       <TranslationsContext.Provider value={value}>
@@ -36,7 +35,7 @@ describe("DateTime", () => {
   });
 
   test("relativeDay", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     render(
       <TranslationsContext.Provider value={value}>
@@ -48,7 +47,7 @@ describe("DateTime", () => {
   });
 
   test("list", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     render(
       <TranslationsContext.Provider value={value}>
@@ -56,11 +55,11 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(document.body.contains(screen.getByText("Tue, Oct 7, 2025"))).toEqual(true);
+    expect(screen.getByText("Tue, Oct 7, 2025").getAttribute("title")).toEqual("Oct 7, 2025");
   });
 
   test("short", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     render(
       <TranslationsContext.Provider value={value}>
@@ -68,11 +67,11 @@ describe("DateTime", () => {
       </TranslationsContext.Provider>,
     );
 
-    expect(document.body.contains(screen.getByText("Sep 12"))).toEqual(true);
+    expect(screen.getByText("Sep 12").getAttribute("title")).toEqual("Sep 12, 2026");
   });
 
   test("ago", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     render(
       <TranslationsContext.Provider value={value}>
@@ -85,7 +84,7 @@ describe("DateTime", () => {
   });
 
   test("props", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     render(
       <TranslationsContext.Provider value={value}>
@@ -97,7 +96,7 @@ describe("DateTime", () => {
   });
 
   test("server", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     const html = renderToString(
       <TranslationsContext.Provider value={value}>
@@ -109,7 +108,7 @@ describe("DateTime", () => {
   });
 
   test("server - ago", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
 
     const html = renderToString(
       <TranslationsContext.Provider value={value}>
@@ -123,7 +122,7 @@ describe("DateTime", () => {
   });
 
   test("server matches client", () => {
-    setSystemTime(1791374400000);
+    setSystemTime(now);
     const html = renderToString(
       <TranslationsContext.Provider value={value}>
         <TimeZoneContext.Provider value="Europe/Warsaw">
