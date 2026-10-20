@@ -19,7 +19,7 @@ export class TextField<T extends string = string> {
     return TextField.isEmpty(this.value);
   }
 
-  static isEmpty<V extends string>(value: TextFieldValueType<V>): boolean {
+  static isEmpty<V extends string>(value: TextFieldValueType<V> | null): boolean {
     return value === undefined || value === "" || value === null;
   }
 

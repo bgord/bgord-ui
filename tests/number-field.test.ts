@@ -37,6 +37,10 @@ describe("NumberField", () => {
     expect(result.isEmpty()).toEqual(false);
   });
 
+  test("isEmpty - null", () => {
+    expect(NumberField.isEmpty(null)).toEqual(true);
+  });
+
   test("compare - empty and empty", () => {
     expect(NumberField.compare(NumberField.EMPTY, NumberField.EMPTY)).toEqual(true);
   });

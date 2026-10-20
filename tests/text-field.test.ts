@@ -30,6 +30,10 @@ describe("TextField", () => {
     expect(result.isEmpty()).toEqual(false);
   });
 
+  test("isEmpty - null", () => {
+    expect(TextField.isEmpty(null)).toEqual(true);
+  });
+
   test("compare - empty and empty", () => {
     expect(TextField.compare(TextField.EMPTY, TextField.EMPTY)).toEqual(true);
   });
