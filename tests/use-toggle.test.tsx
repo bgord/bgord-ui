@@ -9,9 +9,6 @@ describe("useToggle", () => {
 
     expect(result.on).toEqual(false);
     expect(result.off).toEqual(true);
-    expect(typeof result.enable).toEqual("function");
-    expect(typeof result.disable).toEqual("function");
-    expect(typeof result.toggle).toEqual("function");
     expect(result.props.controller).toEqual({
       "aria-expanded": "false",
       "aria-controls": "test",
@@ -85,10 +82,9 @@ describe("useToggle", () => {
     const props = { className: "test-class", style: { color: "red" } };
     const hook = renderHook(() => useToggle({ name: "test" }));
 
-    const { toggle, rest } = extractUseToggle({ ...hook.result.current, ...props });
+    const { toggle, rest } = extractUseToggle<typeof props>({ ...hook.result.current, ...props });
 
     expect(toggle).toEqual(hook.result.current);
-    // @ts-expect-error
     expect(rest).toEqual(props);
     expect(rest).not.toHaveProperty("on");
     expect(rest).not.toHaveProperty("off");

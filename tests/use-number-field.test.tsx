@@ -9,14 +9,10 @@ describe("useNumberField", () => {
 
     expect(result.current.defaultValue).toEqual(undefined);
     expect(result.current.value).toEqual(undefined);
-    expect(typeof result.current.set).toEqual("function");
-    expect(typeof result.current.handleChange).toEqual("function");
-    expect(typeof result.current.clear).toEqual("function");
     expect(result.current.label).toEqual({ props: { htmlFor: "field" } });
     expect(result.current.input.props.id).toEqual("field");
     expect(result.current.input.props.name).toEqual("field");
     expect(result.current.input.props.value).toEqual("");
-    expect(typeof result.current.input.props.onChange).toEqual("function");
     expect(result.current.changed).toEqual(false);
     expect(result.current.unchanged).toEqual(true);
     expect(result.current.empty).toEqual(true);

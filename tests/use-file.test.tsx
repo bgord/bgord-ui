@@ -15,13 +15,10 @@ describe("useFile", () => {
     const result = hook.result.current;
 
     expect(result.state).toEqual(UseFileState.idle);
-    expect(typeof result.matches).toEqual("function");
     expect(result.isIdle).toEqual(true);
     expect(result.isSelected).toEqual(false);
     expect(result.isError).toEqual(false);
     expect(result.data).toEqual(null);
-    expect(typeof result.actions.selectFile).toEqual("function");
-    expect(typeof result.actions.clearFile).toEqual("function");
     expect(result.label).toEqual({ props: { htmlFor: "file" } });
     expect(result.input).toEqual({
       props: { id: "file", name: "file", multiple: false, accept: mimeTypes[0] },
@@ -51,8 +48,7 @@ describe("useFile", () => {
     expect(result.current.isIdle).toEqual(false);
     expect(result.current.isError).toEqual(false);
     expect(result.current.data).toEqual(png);
-    // @ts-expect-error
-    expect(result.current.preview).toEqual("blob:preview");
+    expect(result.current.isSelected && result.current.preview).toEqual("blob:preview");
 
     act(() => result.current.actions.clearFile());
 
