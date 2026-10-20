@@ -31,7 +31,7 @@ export function useMenu() {
 }
 
 export function Menu(props: React.JSX.IntrinsicElements["div"] & { name: string }) {
-  const { name, ...rest } = props;
+  const { name, onBlur, onKeyDown, ...rest } = props;
 
   const toggle = useToggle({ name });
   const root = useRef<HTMLDivElement>(null);
@@ -45,17 +45,20 @@ export function Menu(props: React.JSX.IntrinsicElements["div"] & { name: string 
       <div
         data-position="relative"
         data-shrink="0"
+        {...rest}
         onBlur={(event) => {
+          onBlur?.(event);
+          if (event.defaultPrevented) return;
           if (!root.current?.contains(event.relatedTarget)) toggle.disable();
         }}
         onKeyDown={(event) => {
-          if (event.key !== "Escape" || toggle.off) return;
+          onKeyDown?.(event);
+          if (event.defaultPrevented || event.key !== "Escape" || toggle.off) return;
           event.preventDefault();
           trigger.current?.focus();
           toggle.disable();
         }}
         ref={root}
-        {...rest}
       />
     </MenuContext.Provider>
   );
@@ -63,36 +66,47 @@ export function Menu(props: React.JSX.IntrinsicElements["div"] & { name: string 
 
 export function MenuTrigger(props: React.JSX.IntrinsicElements["button"]) {
   const menu = useMenu();
+  const { onClick, onKeyDown, ...rest } = props;
 
   return (
     <button
-      aria-controls={menu.toggle.props.controller["aria-controls"]}
-      aria-expanded={menu.toggle.on}
       aria-haspopup="menu"
       data-bg={menu.toggle.on ? "neutral-800" : undefined}
-      onClick={menu.toggle.on ? menu.close : menu.toggle.enable}
+      title={props["aria-label"]}
+      type="button"
+      {...rest}
+      aria-controls={menu.toggle.props.controller["aria-controls"]}
+      aria-expanded={menu.toggle.on}
+      onClick={(event) => {
+        onClick?.(event);
+        if (event.defaultPrevented) return;
+        if (menu.toggle.on) menu.close();
+        else menu.toggle.enable();
+      }}
       onKeyDown={(event) => {
-        if (event.key !== "ArrowDown") return;
+        onKeyDown?.(event);
+        if (event.defaultPrevented || event.key !== "ArrowDown") return;
         event.preventDefault();
         if (menu.toggle.on) items(menu.content.current)[0]?.focus();
         else menu.toggle.enable();
       }}
       ref={menu.trigger}
-      title={props["aria-label"]}
-      type="button"
-      {...props}
     />
   );
 }
 
 export function MenuContent(props: React.JSX.IntrinsicElements["div"]) {
   const menu = useMenu();
+  const { onKeyDown, style, ...rest } = props;
 
   useEffect(() => {
     if (menu.toggle.on) items(menu.content.current)[0]?.focus();
   }, [menu.toggle.on, menu.content]);
 
   const move = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    onKeyDown?.(event);
+    if (event.defaultPrevented) return;
+
     const list = items(menu.content.current);
     const current = list.indexOf(document.activeElement as HTMLElement);
 
@@ -119,19 +133,24 @@ export function MenuContent(props: React.JSX.IntrinsicElements["div"]) {
       data-br="md"
       data-bw="hairline"
       data-dir="column"
-      data-disp={menu.toggle.on ? "flex" : "none"}
       data-p="1"
       data-position="absolute"
       data-right="0"
       data-shadow="lg"
       data-z="1"
+      tabIndex={-1}
+      {...rest}
+      data-disp={menu.toggle.on ? "flex" : "none"}
       id={menu.toggle.props.target.id}
       onKeyDown={move}
       ref={menu.content}
       role="menu"
-      style={{ outline: "none", top: "calc(100% + var(--spacing-1-5))", ...Rhythm().times(17).minWidth }}
-      tabIndex={-1}
-      {...props}
+      style={{
+        outline: "none",
+        top: "calc(100% + var(--spacing-1-5))",
+        ...Rhythm().times(17).minWidth,
+        ...style,
+      }}
     />
   );
 }

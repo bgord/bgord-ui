@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from "bun:test";
+import { afterEach, describe, expect, jest, test } from "bun:test";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import {
   Menu,
@@ -177,6 +177,95 @@ describe("Menu component", () => {
     expect(screen.getByRole("button", { name: "More actions" }).getAttribute("title")).toEqual(
       "More actions",
     );
+  });
+
+  test("trigger - onClick", () => {
+    const onClick = jest.fn();
+    render(
+      <Menu name="demo">
+        <MenuTrigger aria-label="More actions" onClick={onClick}>
+          ...
+        </MenuTrigger>
+        <MenuContent>
+          <MenuItem>Copy</MenuItem>
+        </MenuContent>
+      </Menu>,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("menu").getAttribute("data-disp")).toEqual("flex");
+  });
+
+  test("trigger - onClick - preventDefault", () => {
+    render(
+      <Menu name="demo">
+        <MenuTrigger aria-label="More actions" onClick={(event) => event.preventDefault()}>
+          ...
+        </MenuTrigger>
+        <MenuContent>
+          <MenuItem>Copy</MenuItem>
+        </MenuContent>
+      </Menu>,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
+  });
+
+  test("menu - onKeyDown", () => {
+    const onKeyDown = jest.fn();
+    render(
+      <Menu name="demo" onKeyDown={onKeyDown}>
+        <MenuTrigger aria-label="More actions">...</MenuTrigger>
+        <MenuContent>
+          <MenuItem>Copy</MenuItem>
+        </MenuContent>
+      </Menu>,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+
+    fireEvent.keyDown(screen.getByRole("menuitem", { name: "Copy" }), { key: "Escape" });
+
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("menu", { hidden: true }).getAttribute("data-disp")).toEqual("none");
+  });
+
+  test("content - onKeyDown", () => {
+    const onKeyDown = jest.fn();
+    render(
+      <Menu name="demo">
+        <MenuTrigger aria-label="More actions">...</MenuTrigger>
+        <MenuContent onKeyDown={onKeyDown}>
+          <MenuItem>Copy</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </MenuContent>
+      </Menu>,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+
+    fireEvent.keyDown(screen.getByRole("menuitem", { name: "Copy" }), { key: "ArrowDown" });
+
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+    expect(document.activeElement).toBe(screen.getByRole("menuitem", { name: "Delete" }));
+  });
+
+  test("content - style", () => {
+    render(
+      <Menu name="demo">
+        <MenuTrigger aria-label="More actions">...</MenuTrigger>
+        <MenuContent style={{ color: "red" }}>
+          <MenuItem>Copy</MenuItem>
+        </MenuContent>
+      </Menu>,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+
+    expect(screen.getByRole("menu").style.color).toEqual("red");
+    expect(screen.getByRole("menu").style.top).toEqual("calc(100% + var(--spacing-1-5))");
   });
 
   test("item - tone", () => {

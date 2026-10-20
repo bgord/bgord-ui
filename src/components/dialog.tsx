@@ -6,7 +6,7 @@ export type DialogPropsType = UseToggleReturnType &
   React.JSX.IntrinsicElements["dialog"] & { locked?: boolean };
 
 export function Dialog(props: DialogPropsType) {
-  const { locked: _locked, ..._props } = props;
+  const { locked: _locked, onCancel, ..._props } = props;
   const locked = _locked ?? false;
 
   const { toggle: dialog, rest } = extractUseToggle(_props);
@@ -40,14 +40,15 @@ export function Dialog(props: DialogPropsType) {
       data-p="5"
       data-position="fixed"
       data-z="2"
-      onCancel={(event) => {
-        event.preventDefault();
-        if (!locked) dialog.disable();
-      }}
-      ref={ref}
       tabIndex={0}
       {...dialog.props.target}
       {...rest}
+      onCancel={(event) => {
+        onCancel?.(event);
+        if (!(event.defaultPrevented || locked)) dialog.disable();
+        event.preventDefault();
+      }}
+      ref={ref}
       style={{ outline: "none", ...rest.style }}
     />
   );
