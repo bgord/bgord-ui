@@ -24,6 +24,16 @@ describe("useMetaEnterSubmit", () => {
     expect(submitSpy).toHaveBeenCalledTimes(1);
   });
 
+  test("happy path - ctrl", () => {
+    const submitSpy = jest.fn();
+    render(<TestComponent onSubmit={submitSpy} />);
+    const result = screen.getByTestId("textarea");
+
+    fireEvent.keyDown(result, { key: "Enter", ctrlKey: true });
+
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+  });
+
   test("enter without meta", () => {
     const submitSpy = jest.fn();
     render(<TestComponent onSubmit={submitSpy} />);
@@ -44,14 +54,20 @@ describe("useMetaEnterSubmit", () => {
     expect(submitSpy).not.toHaveBeenCalled();
   });
 
-  test("ignores other modifiers", () => {
+  test("ctrl without enter", () => {
     const submitSpy = jest.fn();
     render(<TestComponent onSubmit={submitSpy} />);
     const result = screen.getByTestId("textarea");
 
-    fireEvent.keyDown(result, { key: "Enter", ctrlKey: true });
+    fireEvent.keyDown(result, { ctrlKey: true });
 
     expect(submitSpy).not.toHaveBeenCalled();
+  });
+
+  test("ignores other modifiers", () => {
+    const submitSpy = jest.fn();
+    render(<TestComponent onSubmit={submitSpy} />);
+    const result = screen.getByTestId("textarea");
 
     fireEvent.keyDown(result, { key: "Enter", shiftKey: true });
 
