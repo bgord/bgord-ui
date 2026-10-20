@@ -1,10 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useDateField } from "../src/hooks/use-date-field";
-
-function changeEvent(value: string, valid = true) {
-  return { currentTarget: { value, validity: { valid } } } as unknown as React.ChangeEvent<HTMLInputElement>;
-}
+import * as mocks from "./mocks";
 
 describe("useDateField", () => {
   test("idle", () => {
@@ -55,7 +52,7 @@ describe("useDateField", () => {
     const value = "2025-01-01";
     const { result } = renderHook(() => useDateField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent(value, true)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value })));
 
     expect(result.current.defaultValue).toEqual(undefined);
     expect(result.current.value).toEqual(value);
@@ -78,7 +75,7 @@ describe("useDateField", () => {
     const invalid = "2025/01/01";
     const { result } = renderHook(() => useDateField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent(invalid)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: invalid })));
 
     expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual(invalid);

@@ -1,16 +1,13 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { UseFileState, useFile } from "../src/hooks/use-file";
+import * as mocks from "./mocks";
 
 const mimeTypes = ["image/png"];
 
 const png = new File(["x"], "avatar.png", { type: "image/png" });
 const jpeg = new File(["x"], "avatar.png", { type: "image/jpeg" });
 const bigPng = new File(["xx"], "avatar.png", { type: "image/png" });
-
-function changeEvent(files: ReadonlyArray<File>) {
-  return { currentTarget: { files } } as unknown as React.ChangeEvent<HTMLInputElement>;
-}
 
 describe("useFile", () => {
   test("idle", () => {
@@ -35,7 +32,7 @@ describe("useFile", () => {
   test("idle - no file in the list", () => {
     const { result } = renderHook(() => useFile("file", { mimeTypes }));
 
-    act(() => result.current.actions.selectFile(changeEvent([])));
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([])));
 
     expect(result.current.state).toEqual(UseFileState.idle);
     expect(result.current.data).toEqual(null);
@@ -47,7 +44,7 @@ describe("useFile", () => {
     spies.use(spyOn(URL, "revokeObjectURL"));
     const { result } = renderHook(() => useFile("file", { mimeTypes }));
 
-    act(() => result.current.actions.selectFile(changeEvent([png])));
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([png])));
 
     expect(result.current.state).toEqual(UseFileState.selected);
     expect(result.current.isSelected).toEqual(true);
@@ -71,7 +68,7 @@ describe("useFile", () => {
     spies.use(spyOn(URL, "createObjectURL").mockReturnValue("blob:preview"));
     const revokeObjectURL = spies.use(spyOn(URL, "revokeObjectURL"));
     const { result } = renderHook(() => useFile("file", { mimeTypes }));
-    act(() => result.current.actions.selectFile(changeEvent([png])));
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([png])));
 
     act(() => result.current.actions.clearFile());
 
@@ -83,7 +80,7 @@ describe("useFile", () => {
     spies.use(spyOn(URL, "createObjectURL").mockReturnValue("blob:preview"));
     const revokeObjectURL = spies.use(spyOn(URL, "revokeObjectURL"));
     const { result, unmount } = renderHook(() => useFile("file", { mimeTypes }));
-    act(() => result.current.actions.selectFile(changeEvent([png])));
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([png])));
 
     unmount();
 
@@ -93,7 +90,7 @@ describe("useFile", () => {
   test("error - too big", () => {
     const { result } = renderHook(() => useFile("file", { maxSizeBytes: 1, mimeTypes }));
 
-    act(() => result.current.actions.selectFile(changeEvent([bigPng])));
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([bigPng])));
 
     expect(result.current.state).toEqual(UseFileState.error);
     expect(result.current.isIdle).toEqual(false);
@@ -105,7 +102,7 @@ describe("useFile", () => {
   test("error - invalid mime", () => {
     const { result } = renderHook(() => useFile("file", { maxSizeBytes: 1, mimeTypes }));
 
-    act(() => result.current.actions.selectFile(changeEvent([jpeg])));
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([jpeg])));
 
     expect(result.current.state).toEqual(UseFileState.error);
     expect(result.current.isIdle).toEqual(false);

@@ -1,14 +1,7 @@
 import { describe, expect, jest, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useExitAction } from "../src/hooks/use-exit-action";
-
-function mouseEvent(): any {
-  return { preventDefault: jest.fn() } as unknown as React.MouseEvent;
-}
-
-function animationEvent(name: string): any {
-  return { animationName: name } as unknown as React.AnimationEvent;
-}
+import * as mocks from "./mocks";
 
 const animation = "fade";
 
@@ -27,7 +20,7 @@ describe("useExitAction", () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(mouseEvent()));
+    act(() => result.current.trigger(mocks.mouseEvent()));
 
     expect(result.current.visible).toEqual(true);
     expect(result.current.attach).toMatchObject({
@@ -41,8 +34,8 @@ describe("useExitAction", () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(mouseEvent()));
-    await act(async () => result.current.attach?.onAnimationEnd(animationEvent(animation)));
+    act(() => result.current.trigger(mocks.mouseEvent()));
+    await act(async () => result.current.attach?.onAnimationEnd(mocks.animationEvent(animation)));
 
     expect(action).toHaveBeenCalledTimes(1);
     expect(result.current.visible).toEqual(false);
@@ -53,8 +46,8 @@ describe("useExitAction", () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(mouseEvent()));
-    await act(async () => result.current.attach?.onAnimationEnd(animationEvent("unrelated")));
+    act(() => result.current.trigger(mocks.mouseEvent()));
+    await act(async () => result.current.attach?.onAnimationEnd(mocks.animationEvent("unrelated")));
 
     expect(action).not.toHaveBeenCalled();
     expect(result.current.visible).toEqual(true);
@@ -64,10 +57,10 @@ describe("useExitAction", () => {
     const action = jest.fn();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(mouseEvent()));
-    await act(async () => result.current.attach?.onAnimationEnd(animationEvent(animation)));
-    act(() => result.current.trigger(mouseEvent()));
-    await act(async () => result.current.attach?.onAnimationEnd(animationEvent(animation)));
+    act(() => result.current.trigger(mocks.mouseEvent()));
+    await act(async () => result.current.attach?.onAnimationEnd(mocks.animationEvent(animation)));
+    act(() => result.current.trigger(mocks.mouseEvent()));
+    await act(async () => result.current.attach?.onAnimationEnd(mocks.animationEvent(animation)));
 
     expect(result.current.visible).toEqual(false);
     expect(action).toHaveBeenCalledTimes(1);

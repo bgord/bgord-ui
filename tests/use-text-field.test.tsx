@@ -1,10 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useTextField } from "../src/hooks/use-text-field";
-
-function changeEvent(value: string) {
-  return { currentTarget: { value } } as unknown as React.ChangeEvent<HTMLInputElement>;
-}
+import * as mocks from "./mocks";
 
 describe("useTextField", () => {
   test("idle", () => {
@@ -61,7 +58,7 @@ describe("useTextField", () => {
     const value = "abc";
     const { result } = renderHook(() => useTextField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent(value)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value })));
 
     expect(result.current.defaultValue).toEqual(undefined);
     expect(result.current.value).toEqual(value);

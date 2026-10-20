@@ -1,12 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useNumberField } from "../src/hooks/use-number-field";
-
-function changeEvent(value: string, valueAsNumber: number, valid = true) {
-  return {
-    currentTarget: { value, valueAsNumber, validity: { valid } },
-  } as unknown as React.ChangeEvent<HTMLInputElement>;
-}
+import * as mocks from "./mocks";
 
 describe("useNumberField", () => {
   test("idle", () => {
@@ -57,7 +52,9 @@ describe("useNumberField", () => {
     const value = 123;
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent(value.toString(), value, true)));
+    act(() =>
+      result.current.handleChange(mocks.changeEvent({ value: value.toString(), valueAsNumber: value })),
+    );
 
     expect(result.current.defaultValue).toEqual(undefined);
     expect(result.current.value).toEqual(value);
@@ -79,17 +76,17 @@ describe("useNumberField", () => {
   test("handleChange - fractions", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent("1", 1)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "1", valueAsNumber: 1 })));
 
     expect(result.current.value).toEqual(1);
     expect(result.current.input.props.value).toEqual("1");
 
-    act(() => result.current.handleChange(changeEvent("1.", Number.NaN)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "1.", valueAsNumber: Number.NaN })));
 
     expect(result.current.value).toEqual(1);
     expect(result.current.input.props.value).toEqual("1.");
 
-    act(() => result.current.handleChange(changeEvent("1.1", 1.1)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "1.1", valueAsNumber: 1.1 })));
 
     expect(result.current.value).toEqual(1.1);
     expect(result.current.input.props.value).toEqual("1.1");
@@ -98,12 +95,12 @@ describe("useNumberField", () => {
   test("handleChange - negative", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent("-", Number.NaN)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "-", valueAsNumber: Number.NaN })));
 
     expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual("-");
 
-    act(() => result.current.handleChange(changeEvent("-1", -1)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "-1", valueAsNumber: -1 })));
 
     expect(result.current.value).toEqual(-1);
     expect(result.current.input.props.value).toEqual("-1");
@@ -112,7 +109,7 @@ describe("useNumberField", () => {
   test("handleChange - invalid", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
-    act(() => result.current.handleChange(changeEvent("10.1.1", Number.NaN)));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "10.1.1", valueAsNumber: Number.NaN })));
 
     expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual("10.1.1");
