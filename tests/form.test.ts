@@ -14,19 +14,19 @@ describe("Form", () => {
   });
 
   test("input - min - required", () => {
-    expect(Form.input({ min: 1, required: true })).toEqual({ pattern: ".{1}", required: true });
+    expect(Form.input({ min: 1, required: true })).toEqual({ pattern: ".{1,}", required: true });
   });
 
   test("input - min - non required", () => {
-    expect(Form.input({ min: 1, required: false })).toEqual({ pattern: ".{1}", required: false });
+    expect(Form.input({ min: 1, required: false })).toEqual({ pattern: ".{1,}", required: false });
   });
 
   test("input - max - required", () => {
-    expect(Form.input({ max: 2, required: true })).toEqual({ pattern: ".{,2}", required: true });
+    expect(Form.input({ max: 2, required: true })).toEqual({ pattern: ".{0,2}", required: true });
   });
 
   test("input - max - non required", () => {
-    expect(Form.input({ max: 2, required: false })).toEqual({ pattern: ".{,2}", required: false });
+    expect(Form.input({ max: 2, required: false })).toEqual({ pattern: ".{0,2}", required: false });
   });
 
   test("input - min + max - required", () => {
