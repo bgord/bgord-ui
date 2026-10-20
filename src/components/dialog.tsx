@@ -1,11 +1,5 @@
 import { useEffect, useRef } from "react";
-import {
-  extractUseToggle,
-  type UseToggleReturnType,
-  useClickOutside,
-  useScrollLock,
-  useShortcuts,
-} from "../hooks";
+import { extractUseToggle, type UseToggleReturnType, useClickOutside, useScrollLock } from "../hooks";
 import { noop } from "../services/noop";
 
 export type DialogPropsType = UseToggleReturnType &
@@ -29,7 +23,6 @@ export function Dialog(props: DialogPropsType) {
       (document.activeElement as HTMLElement | null)?.blur();
   }, [props.on]);
 
-  useShortcuts({ Escape: locked ? noop : dialog.disable });
   useScrollLock(props.on);
   useClickOutside(ref, locked ? noop : dialog.disable);
 
@@ -47,6 +40,10 @@ export function Dialog(props: DialogPropsType) {
       data-p="5"
       data-position="fixed"
       data-z="2"
+      onCancel={(event) => {
+        event.preventDefault();
+        if (!locked) dialog.disable();
+      }}
       ref={ref}
       tabIndex={0}
       {...dialog.props.target}

@@ -53,7 +53,7 @@ describe("Dialog component", () => {
   test("close - ESC", async () => {
     const { getByTestId } = render(<Testcase defaultValue={true} />);
 
-    fireEvent.keyDown(window, { key: "Escape", code: "Escape" });
+    fireEvent(getByTestId("dialog"), new Event("cancel", { cancelable: true }));
 
     expect(closeSpy).toHaveBeenCalledTimes(1);
     expect(getByTestId("dialog").getAttribute("data-disp")).toEqual("none");
@@ -62,7 +62,7 @@ describe("Dialog component", () => {
   test("close - ESC - locked", async () => {
     const { getByTestId } = render(<Testcase defaultValue={true} locked={true} />);
 
-    fireEvent.keyDown(window, { key: "Escape", code: "Escape" });
+    fireEvent(getByTestId("dialog"), new Event("cancel", { cancelable: true }));
 
     expect(closeSpy).toHaveBeenCalledTimes(0);
     expect(getByTestId("dialog").getAttribute("data-disp")).toEqual("flex");
