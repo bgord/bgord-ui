@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { noop } from "../services/noop";
 
 export type UseSwipeDismissConfig = {
   onDismiss: () => void;
@@ -18,7 +19,7 @@ export type UseSwipeDismissReturnType = {
 type Drag = { element: HTMLElement; startY: number; startTime: number; distance: number };
 
 const FLICK_VELOCITY = 0.5;
-const SETTLE = "translate var(--motion-medium, 200ms) var(--ease-out, ease-out)";
+const SETTLE: KeyframeAnimationOptions = { duration: 200, easing: "ease-out" };
 
 function reducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -29,23 +30,13 @@ function reset(element: HTMLElement): void {
   element.style.transition = "";
 }
 
-function afterSettle(element: HTMLElement, callback: () => void): void {
-  function listener(event: TransitionEvent) {
-    if (event.target !== element || event.propertyName !== "translate") return;
-
-    element.removeEventListener("transitionend", listener);
-    callback();
-  }
-
-  element.addEventListener("transitionend", listener);
-}
-
 export function useSwipeDismiss(config: UseSwipeDismissConfig): UseSwipeDismissReturnType {
   const enabled = config.enabled ?? true;
   const threshold = config.threshold ?? 0.3;
   const target = config.target ?? "dialog";
 
   const drag = useRef<Drag | null>(null);
+  const animation = useRef<Animation | null>(null);
 
   function settle(event: React.PointerEvent<HTMLElement>, dismiss: boolean) {
     const current = drag.current;
@@ -63,19 +54,15 @@ export function useSwipeDismiss(config: UseSwipeDismissConfig): UseSwipeDismissR
       return;
     }
 
-    element.style.transition = SETTLE;
+    const from = element.style.translate || "0 0px";
+    const to = dismiss ? "0 100%" : "0 0px";
 
-    if (!dismiss) {
-      element.style.translate = "";
-      afterSettle(element, () => reset(element));
-      return;
-    }
-
-    element.style.translate = "0 100%";
-    afterSettle(element, () => {
-      config.onDismiss();
+    element.style.translate = to;
+    animation.current = element.animate([{ translate: from }, { translate: to }], SETTLE);
+    animation.current.finished.then(() => {
+      if (dismiss) config.onDismiss();
       reset(element);
-    });
+    }, noop);
   }
 
   return {
@@ -86,6 +73,7 @@ export function useSwipeDismiss(config: UseSwipeDismissConfig): UseSwipeDismissR
 
       if (!element) return;
 
+      animation.current?.cancel();
       event.currentTarget.setPointerCapture?.(event.pointerId);
       element.style.transition = "none";
       drag.current = { element, startY: event.clientY, startTime: performance.now(), distance: 0 };

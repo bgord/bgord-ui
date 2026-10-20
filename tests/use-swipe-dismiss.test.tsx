@@ -27,12 +27,6 @@ function at(ms: number) {
   spyOn(performance, "now").mockReturnValue(ms);
 }
 
-function settle(sheet: HTMLElement) {
-  const event = new Event("transitionend") as TransitionEvent;
-  Object.defineProperty(event, "propertyName", { value: "translate" });
-  sheet.dispatchEvent(event);
-}
-
 afterEach(() => jest.restoreAllMocks());
 
 describe("useSwipeDismiss", () => {
@@ -112,7 +106,7 @@ describe("useSwipeDismiss", () => {
     expect(sheet.style.translate).toEqual("");
   });
 
-  test("animates out before dismissing", () => {
+  test("animates out before dismissing", async () => {
     const onDismiss = jest.fn();
     const { sheet, handle } = setup({ onDismiss }, false);
 
@@ -125,13 +119,15 @@ describe("useSwipeDismiss", () => {
     expect(sheet.style.translate).toEqual("0 100%");
     expect(onDismiss).toHaveBeenCalledTimes(0);
 
-    settle(sheet);
+    const [animation] = sheet.getAnimations();
+    animation?.finish();
+    await animation?.finished;
 
     expect(onDismiss).toHaveBeenCalledTimes(1);
     expect(sheet.style.translate).toEqual("");
   });
 
-  test("animates back before resetting", () => {
+  test("animates back before resetting", async () => {
     const onDismiss = jest.fn();
     const { sheet, handle } = setup({ onDismiss }, false);
 
@@ -141,11 +137,30 @@ describe("useSwipeDismiss", () => {
     at(1000);
     fireEvent.pointerUp(handle, { clientY: 160 });
 
-    expect(sheet.style.transition).not.toEqual("");
+    expect(sheet.style.translate).toEqual("0 0px");
 
-    settle(sheet);
+    const [animation] = sheet.getAnimations();
+    animation?.finish();
+    await animation?.finished;
 
+    expect(sheet.style.translate).toEqual("");
     expect(sheet.style.transition).toEqual("");
+    expect(onDismiss).toHaveBeenCalledTimes(0);
+  });
+
+  test("animation cancelled by a new drag", () => {
+    const onDismiss = jest.fn();
+    const { sheet, handle } = setup({ onDismiss }, false);
+    at(0);
+    fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
+    fireEvent.pointerMove(handle, { clientY: 260 });
+    at(1000);
+    fireEvent.pointerUp(handle, { clientY: 260 });
+    const [animation] = sheet.getAnimations();
+
+    fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
+
+    expect(animation?.playState).toEqual("idle");
     expect(onDismiss).toHaveBeenCalledTimes(0);
   });
 
