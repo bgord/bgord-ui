@@ -42,7 +42,7 @@ describe("NumberField", () => {
   });
 
   test("compare - empty and empty", () => {
-    expect(NumberField.compare(NumberField.EMPTY, NumberField.EMPTY)).toEqual(true);
+    expect(NumberField.compare(NumberField.EMPTY, Number.NaN)).toEqual(true);
   });
 
   test("compare - empty and non-empty", () => {

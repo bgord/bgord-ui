@@ -232,6 +232,12 @@ describe("DateFormat", () => {
     expect(result).toEqual("29.09–05.10.2026");
   });
 
+  test("month", () => {
+    const result = en.month("2026-10-07");
+
+    expect(result).toEqual("October 2026");
+  });
+
   test("parts", () => {
     const result = en.parts("2026-10-07");
 

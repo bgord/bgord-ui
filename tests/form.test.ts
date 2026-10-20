@@ -38,7 +38,7 @@ describe("Form", () => {
   });
 
   test("textarea - default value", () => {
-    expect(Form.textarea({})).toEqual({ required: true });
+    expect(Form.textarea({})).toStrictEqual({ required: true });
   });
 
   test("textarea - default value - non required", () => {
@@ -54,7 +54,7 @@ describe("Form", () => {
   });
 
   test("textarea - max - required", () => {
-    expect(Form.textarea({ max: 2, required: true })).toEqual({ maxLength: 2, required: true });
+    expect(Form.textarea({ max: 2, required: true })).toStrictEqual({ maxLength: 2, required: true });
   });
 
   test("textarea - max - non required", () => {

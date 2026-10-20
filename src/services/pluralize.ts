@@ -24,6 +24,7 @@ export function pluralize(options: PluralizeOptionsType): PluralizeWordType {
     }
 
     case PluralizationSupportedLanguages.pl: {
+      // Stryker disable next-line ConditionalExpression: polishPlurals returns singular for 1, equivalent mutant
       if (options.value === 1) return options.singular;
       return polishPlurals(options.singular, options.plural, options.genitive, options.value ?? 1);
     }

@@ -35,7 +35,7 @@ describe("DateField", () => {
   });
 
   test("compare - empty and empty", () => {
-    expect(DateField.compare(DateField.EMPTY, DateField.EMPTY)).toEqual(true);
+    expect(DateField.compare(DateField.EMPTY, "")).toEqual(true);
   });
 
   test("compare - empty and non-empty", () => {

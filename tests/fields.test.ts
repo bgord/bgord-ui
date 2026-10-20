@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, jest, test } from "bun:test";
 import { Fields } from "../src/services/fields";
 
 describe("Fields", () => {
@@ -40,5 +40,15 @@ describe("Fields", () => {
 
   test("anyChanged - false", () => {
     expect(Fields.anyChanged([{ changed: false }, { changed: false }])).toEqual(false);
+  });
+
+  test("clearAll", () => {
+    const one = jest.fn();
+    const another = jest.fn();
+
+    Fields.clearAll([{ clear: one }, { clear: another }]);
+
+    expect(one).toHaveBeenCalledTimes(1);
+    expect(another).toHaveBeenCalledTimes(1);
   });
 });

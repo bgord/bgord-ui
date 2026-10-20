@@ -35,7 +35,7 @@ describe("TextField", () => {
   });
 
   test("compare - empty and empty", () => {
-    expect(TextField.compare(TextField.EMPTY, TextField.EMPTY)).toEqual(true);
+    expect(TextField.compare(TextField.EMPTY, "")).toEqual(true);
   });
 
   test("compare - empty and non-empty", () => {

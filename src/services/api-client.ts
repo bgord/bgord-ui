@@ -1,5 +1,6 @@
 type ServerFetcher = (request: Request) => Response | Promise<Response>;
 
+// Stryker disable next-line StringLiteral: Request drops the forbidden cookie header in tests
 const forwarded = ["cookie", "user-agent", "x-real-ip", "x-forwarded-for"];
 
 export class ApiClient {
