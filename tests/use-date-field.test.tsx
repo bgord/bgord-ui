@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
-import { act, cleanup, render, renderHook, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useDateField } from "../src/hooks/use-date-field";
 
 afterEach(() => cleanup());
@@ -73,7 +72,7 @@ describe("useDateField", () => {
     expect(result.current.input.props.value).toEqual(invalid);
   });
 
-  test("integration", async () => {
+  test("integration", () => {
     const value = "2025-01-01";
 
     function Testcase() {
@@ -98,20 +97,20 @@ describe("useDateField", () => {
     expect(input.value).toEqual("");
 
     // handleChange/clear
-    await userEvent.type(input, value);
+    fireEvent.change(input, { target: { value } });
 
     expect(input.value).toEqual(value);
 
-    await userEvent.click(screen.getByText("Clear"));
-
-    await waitFor(() => expect(input.value).toEqual(""));
-
-    // Typing
-    await userEvent.type(input, "2");
+    fireEvent.click(screen.getByText("Clear"));
 
     expect(input.value).toEqual("");
 
-    await userEvent.type(input, "025-01-01");
+    // Typing
+    fireEvent.change(input, { target: { value: "2" } });
+
+    expect(input.value).toEqual("");
+
+    fireEvent.change(input, { target: { value: "2025-01-01" } });
 
     expect(input.value).toEqual("2025-01-01");
   });

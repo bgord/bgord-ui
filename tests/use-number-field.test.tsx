@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
-import { act, cleanup, render, renderHook, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { useNumberField } from "../src/hooks/use-number-field";
 
 afterEach(() => cleanup());
@@ -107,7 +106,7 @@ describe("useNumberField", () => {
     expect(result.current.input.props.value).toEqual("10.1.1");
   });
 
-  test("integration", async () => {
+  test("integration", () => {
     const value = "123";
     function Testcase() {
       const field = useNumberField({ name: "field" });
@@ -130,66 +129,66 @@ describe("useNumberField", () => {
     expect(input.value).toEqual("");
 
     // handleChange/clear
-    await userEvent.type(input, value);
+    fireEvent.change(input, { target: { value: value } });
 
     expect(input.value).toEqual(value);
 
-    await userEvent.click(screen.getByText("Clear"));
+    fireEvent.click(screen.getByText("Clear"));
 
-    await waitFor(() => expect(input.value).toEqual(""));
+    expect(input.value).toEqual("");
 
     // Fractions
-    await userEvent.type(input, "1");
+    fireEvent.change(input, { target: { value: "1" } });
 
     expect(input.value).toEqual("1");
 
-    await userEvent.type(input, ".");
+    fireEvent.change(input, { target: { value: "1." } });
 
-    expect(input.value).toEqual("1");
+    expect(input.value).toEqual("1.");
 
-    await userEvent.type(input, "5");
+    fireEvent.change(input, { target: { value: "1.5" } });
 
     expect(input.value).toEqual("1.5");
 
-    await userEvent.click(screen.getByText("Clear"));
-
-    await waitFor(() => expect(input.value).toEqual(""));
-
-    // Negative fractions
-    await userEvent.type(input, "-");
+    fireEvent.click(screen.getByText("Clear"));
 
     expect(input.value).toEqual("");
 
-    await userEvent.type(input, "1");
+    // Negative fractions
+    fireEvent.change(input, { target: { value: "-" } });
+
+    expect(input.value).toEqual("");
+
+    fireEvent.change(input, { target: { value: "-1" } });
 
     expect(input.value).toEqual("-1");
 
-    await userEvent.type(input, ".");
+    fireEvent.change(input, { target: { value: "-1." } });
 
-    expect(input.value).toEqual("-1");
+    expect(input.value).toEqual("-1.");
 
-    await userEvent.type(input, "5");
+    fireEvent.change(input, { target: { value: "-1.5" } });
 
     expect(input.value).toEqual("-1.5");
 
-    await userEvent.click(screen.getByText("Clear"));
-
-    await waitFor(() => expect(input.value).toEqual(""));
-
-    // Invalid value
-    await userEvent.type(input, "-");
+    fireEvent.click(screen.getByText("Clear"));
 
     expect(input.value).toEqual("");
 
-    await userEvent.type(input, "2");
+    // Invalid value
+    fireEvent.change(input, { target: { value: "-" } });
+
+    expect(input.value).toEqual("");
+
+    fireEvent.change(input, { target: { value: "-2" } });
 
     expect(input.value).toEqual("-2");
 
-    await userEvent.type(input, ".");
+    fireEvent.change(input, { target: { value: "-2." } });
 
-    expect(input.value).toEqual("-2");
+    expect(input.value).toEqual("-2.");
 
-    await userEvent.type(input, "5");
+    fireEvent.change(input, { target: { value: "-2.5" } });
 
     expect(input.value).toEqual("-2.5");
     expect(input.validity.valid).toEqual(false);

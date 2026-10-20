@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, spyOn, test } from "bun:test";
-import { act, cleanup, render, renderHook, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, cleanup, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { MutationState, useMutation } from "../src/hooks/use-mutation";
 
 afterEach(() => cleanup());
@@ -132,11 +131,11 @@ describe("useTextField", () => {
 
     render(<Testcase />);
 
-    expect(screen.findByText("Fill the form"));
+    expect(document.body.contains(screen.getByText("Fill the form"))).toEqual(true);
 
-    await act(() => userEvent.click(screen.getByText("Send")));
+    await act(async () => fireEvent.click(screen.getByText("Send")));
 
-    expect(screen.findByText("Success"));
+    expect(document.body.contains(screen.getByText("Success"))).toEqual(true);
   });
 
   test("integration - error", async () => {
@@ -155,10 +154,10 @@ describe("useTextField", () => {
 
     render(<Testcase />);
 
-    expect(screen.findByText("Fill the form"));
+    expect(document.body.contains(screen.getByText("Fill the form"))).toEqual(true);
 
-    await act(() => userEvent.click(screen.getByText("Send")));
+    await act(async () => fireEvent.click(screen.getByText("Send")));
 
-    expect(screen.findByText("Error"));
+    expect(document.body.contains(screen.getByText("Error"))).toEqual(true);
   });
 });

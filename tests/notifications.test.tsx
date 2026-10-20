@@ -1,6 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { act, render, renderHook, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, fireEvent, render, renderHook, screen } from "@testing-library/react";
 import {
   NotificationProvider,
   useDismiss,
@@ -138,9 +137,7 @@ describe("Notifications", () => {
     );
   });
 
-  test("integration", async () => {
-    const user = userEvent.setup();
-
+  test("integration", () => {
     function TestComponent() {
       const notify = useNotify();
       const dismiss = useDismiss();
@@ -169,11 +166,11 @@ describe("Notifications", () => {
       </NotificationProvider>,
     );
 
-    await user.click(screen.getByText("notify"));
+    fireEvent.click(screen.getByText("notify"));
 
     expect(screen.getByTestId("message").textContent).toEqual(positive.message);
 
-    await user.click(screen.getByText("dismiss"));
+    fireEvent.click(screen.getByText("dismiss"));
 
     expect(screen.queryByTestId("message")).toBeNull();
   });
