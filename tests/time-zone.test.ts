@@ -1,10 +1,6 @@
 // cSpell:ignore Kiritimati
-import { afterAll, afterEach, beforeAll, describe, expect, jest, spyOn, test } from "bun:test";
+import { afterEach, describe, expect, jest, spyOn, test } from "bun:test";
 import { TimeZone } from "../src/services/time-zone";
-
-beforeAll(() => window.happyDOM.setURL("http://localhost/"));
-
-afterAll(() => window.happyDOM.setURL("about:blank"));
 
 afterEach(() => {
   document.cookie = "time-zone=; path=/; max-age=0";

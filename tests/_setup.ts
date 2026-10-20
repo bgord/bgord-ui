@@ -2,7 +2,7 @@
 import { afterEach, setSystemTime } from "bun:test";
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 
-GlobalRegistrator.register();
+GlobalRegistrator.register({ url: "http://localhost/" });
 
 const { cleanup } = await import("@testing-library/react");
 

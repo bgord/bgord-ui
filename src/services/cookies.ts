@@ -1,5 +1,7 @@
 export class Cookies {
   static set(name: string, value: string) {
-    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+    const cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+
+    document.cookie = `${cookie}; path=/; max-age=31536000; samesite=lax`;
   }
 }
