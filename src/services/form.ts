@@ -1,3 +1,5 @@
+import { CalendarDay } from "./calendar-day";
+
 type PatternTextConfigType = {
   min?: number;
   max?: number;
@@ -7,6 +9,12 @@ type PatternTextConfigType = {
 type PatternExactConfigType = {
   text: string;
   required?: React.JSX.IntrinsicElements["input"]["required"];
+};
+
+const dates = {
+  today: (timeZone?: string): string => CalendarDay.today(timeZone).toString(),
+  tomorrow: (timeZone?: string): string => CalendarDay.today(timeZone).add(1).toString(),
+  yesterday: (timeZone?: string): string => CalendarDay.today(timeZone).add(-1).toString(),
 };
 
 export class Form {
@@ -34,46 +42,5 @@ export class Form {
     return { pattern: config.text, required };
   }
 
-  static date = {
-    min: {
-      // biome-ignore lint: lint/style/noRestrictedGlobals
-      today: () => new Date().toISOString().split("T")[0],
-      tomorrow: () => {
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const today = new Date();
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const tomorrow = new Date(today.setDate(today.getDate() + 1));
-
-        return tomorrow.toISOString().split("T")[0];
-      },
-      yesterday: () => {
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const today = new Date();
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const yesterday = new Date(today.setDate(today.getDate() - 1));
-
-        return yesterday.toISOString().split("T")[0];
-      },
-    },
-    max: {
-      // biome-ignore lint: lint/style/noRestrictedGlobals
-      today: () => new Date().toISOString().split("T")[0],
-      tomorrow: () => {
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const today = new Date();
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const tomorrow = new Date(today.setDate(today.getDate() + 1));
-
-        return tomorrow.toISOString().split("T")[0];
-      },
-      yesterday: () => {
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const today = new Date();
-        // biome-ignore lint: lint/style/noRestrictedGlobals
-        const yesterday = new Date(today.setDate(today.getDate() - 1));
-
-        return yesterday.toISOString().split("T")[0];
-      },
-    },
-  };
+  static date = { ...dates, min: dates, max: dates };
 }

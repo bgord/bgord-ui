@@ -1,7 +1,8 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, setSystemTime, test } from "bun:test";
 import { Form } from "../src/services/form";
 
-const date = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+const now = 1791412200000;
+const timeZone = "Europe/Warsaw";
 
 describe("Form", () => {
   test("input -default value", () => {
@@ -84,27 +85,45 @@ describe("Form", () => {
     expect(Form.exact({ text: "delete", required: false })).toEqual({ pattern: "delete", required: false });
   });
 
-  test("date - min - today", () => {
-    expect(Form.date.min.today()).toMatch(date);
+  test("date - today", () => {
+    setSystemTime(now);
+
+    expect(Form.date.today()).toEqual("2026-10-07");
   });
 
-  test("date - max - today", () => {
-    expect(Form.date.max.today()).toMatch(date);
+  test("date - today - time zone", () => {
+    setSystemTime(now);
+
+    expect(Form.date.today(timeZone)).toEqual("2026-10-08");
   });
 
-  test("date - min - tomorrow", () => {
-    expect(Form.date.min.tomorrow()).toMatch(date);
+  test("date - tomorrow", () => {
+    setSystemTime(now);
+
+    expect(Form.date.tomorrow()).toEqual("2026-10-08");
   });
 
-  test("date - max - tomorrow", () => {
-    expect(Form.date.max.tomorrow()).toMatch(date);
+  test("date - tomorrow - time zone", () => {
+    setSystemTime(now);
+
+    expect(Form.date.tomorrow(timeZone)).toEqual("2026-10-09");
   });
 
-  test("date - min - yesterday", () => {
-    expect(Form.date.min.yesterday()).toMatch(date);
+  test("date - yesterday", () => {
+    setSystemTime(now);
+
+    expect(Form.date.yesterday()).toEqual("2026-10-06");
   });
 
-  test("date - max - yesterday", () => {
-    expect(Form.date.max.yesterday()).toMatch(date);
+  test("date - yesterday - time zone", () => {
+    setSystemTime(now);
+
+    expect(Form.date.yesterday(timeZone)).toEqual("2026-10-07");
+  });
+
+  test("date - min/max aliases", () => {
+    setSystemTime(now);
+
+    expect([Form.date.min.today(), Form.date.max.today()]).toEqual(["2026-10-07", "2026-10-07"]);
   });
 });
