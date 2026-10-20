@@ -5,23 +5,20 @@ import { pluralize } from "../src/services/pluralize";
 const singular = "kot";
 const plural = "koty";
 const genitive = "kotów";
+const person = { singular: "person", plural: "people", genitive: "people" };
 
 describe("pluralize", () => {
   test("en - singular", () => {
-    expect(pluralize({ value: 1, singular: "apple", language: "en" })).toEqual("apple");
+    expect(pluralize({ value: 1, ...person, language: "en" })).toEqual("person");
   });
 
-  test("en - plural - fallback", () => {
-    expect(pluralize({ value: 3, singular: "car", language: "en" })).toEqual("cars");
-  });
-
-  test("en - plural - explicit", () => {
-    expect(pluralize({ value: 2, singular: "person", plural: "people", language: "en" })).toEqual("people");
+  test("en - plural", () => {
+    expect(pluralize({ value: 2, ...person, language: "en" })).toEqual("people");
   });
 
   test("en - non-numeric", () => {
-    expect(pluralize({ value: undefined, singular: "cat", language: "en" })).toEqual("cats");
-    expect(pluralize({ value: null, singular: "dog", language: "en" })).toEqual("dogs");
+    expect(pluralize({ value: undefined, ...person, language: "en" })).toEqual("people");
+    expect(pluralize({ value: null, ...person, language: "en" })).toEqual("people");
   });
 
   test("pl - singular", () => {
@@ -47,7 +44,7 @@ describe("pluralize", () => {
   test("unsupported language", () => {
     using consoleWarn = spyOn(console, "warn").mockImplementation(jest.fn());
 
-    expect(pluralize({ value: 7, singular: "item", language: "fr" })).toEqual("item");
+    expect(pluralize({ value: 7, ...person, language: "fr" })).toEqual("person");
     expect(consoleWarn).toHaveBeenCalledWith("[@bgord/ui] missing pluralization function for language: fr.");
   });
 });

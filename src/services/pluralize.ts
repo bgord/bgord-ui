@@ -6,8 +6,8 @@ type PluralizeValueType = number | null | undefined;
 export type PluralizeOptionsType = {
   value: PluralizeValueType;
   singular: PluralizeWordType;
-  plural?: PluralizeWordType;
-  genitive?: PluralizeWordType;
+  plural: PluralizeWordType;
+  genitive: PluralizeWordType;
   language: string;
 };
 
@@ -20,17 +20,12 @@ export function pluralize(options: PluralizeOptionsType): PluralizeWordType {
   switch (options.language) {
     case PluralizationSupportedLanguages.en: {
       if (options.value === 1) return options.singular;
-      return options.plural ?? `${options.singular}s`;
+      return options.plural;
     }
 
     case PluralizationSupportedLanguages.pl: {
       if (options.value === 1) return options.singular;
-      return polishPlurals(
-        options.singular,
-        String(options.plural),
-        String(options.genitive),
-        options.value ?? 1,
-      );
+      return polishPlurals(options.singular, options.plural, options.genitive, options.value ?? 1);
     }
 
     default: {
