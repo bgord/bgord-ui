@@ -33,15 +33,10 @@ describe("useTextField", () => {
   test("defaultValue change", () => {
     const initialDefaultValue = "abc";
     const nextDefaultValue = "xyz";
-
     const { result, rerender } = renderHook(
       ({ defaultValue }) => useTextField({ name: "field", defaultValue }),
       { initialProps: { defaultValue: initialDefaultValue } },
     );
-
-    expect(result.current.defaultValue).toEqual(initialDefaultValue);
-    expect(result.current.value).toEqual(initialDefaultValue);
-    expect(result.current.input.props.value).toEqual(initialDefaultValue);
 
     act(() => rerender({ defaultValue: nextDefaultValue }));
 
@@ -50,7 +45,7 @@ describe("useTextField", () => {
     expect(result.current.input.props.value).toEqual(nextDefaultValue);
   });
 
-  test("handleChange / clear", () => {
+  test("handleChange", () => {
     const value = "abc";
     const { result } = renderHook(() => useTextField({ name: "field" }));
 
@@ -62,6 +57,12 @@ describe("useTextField", () => {
     expect(result.current.changed).toEqual(true);
     expect(result.current.unchanged).toEqual(false);
     expect(result.current.empty).toEqual(false);
+  });
+
+  test("clear", () => {
+    const value = "abc";
+    const { result } = renderHook(() => useTextField({ name: "field" }));
+    act(() => result.current.handleChange(mocks.changeEvent({ value })));
 
     act(() => result.current.clear());
 

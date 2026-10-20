@@ -24,12 +24,9 @@ describe("useOnlineStatus", () => {
     expect(result.current).toEqual(OnlineStatus.offline);
   });
 
-  test("transitions", () => {
+  test("transitions - offline", () => {
     Object.defineProperty(window.navigator, "onLine", { configurable: true, value: true });
-
     const { result } = renderHook(() => useOnlineStatus());
-
-    expect(result.current).toEqual(OnlineStatus.online);
 
     act(() => {
       Object.defineProperty(window.navigator, "onLine", { configurable: true, value: false });
@@ -37,6 +34,11 @@ describe("useOnlineStatus", () => {
     });
 
     expect(result.current).toEqual(OnlineStatus.offline);
+  });
+
+  test("transitions - online", () => {
+    Object.defineProperty(window.navigator, "onLine", { configurable: true, value: false });
+    const { result } = renderHook(() => useOnlineStatus());
 
     act(() => {
       Object.defineProperty(window.navigator, "onLine", { configurable: true, value: true });

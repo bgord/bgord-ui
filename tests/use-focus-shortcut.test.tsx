@@ -13,28 +13,34 @@ describe("useFocusKeyboardShortcut", () => {
     render(<Testcase shortcut="k" />);
     const field = screen.getByTestId("field");
 
-    expect(document.activeElement).not.toBe(field);
-
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
-
-    expect(document.activeElement).toBe(field);
-
-    fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
     expect(document.activeElement).toBe(field);
   });
 
-  test("shortcut change", () => {
-    const { rerender } = render(<Testcase shortcut="k" />);
-
+  test("other key", () => {
+    render(<Testcase shortcut="k" />);
     const field = screen.getByTestId("field");
 
-    expect(document.activeElement).not.toBe(field);
+    fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
+    expect(document.activeElement).not.toBe(field);
+  });
+
+  test("shortcut change - old shortcut", () => {
+    const { rerender } = render(<Testcase shortcut="k" />);
+    const field = screen.getByTestId("field");
     rerender(<Testcase shortcut="x" />);
+
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(document.activeElement).not.toBe(field);
+  });
+
+  test("shortcut change - new shortcut", () => {
+    const { rerender } = render(<Testcase shortcut="k" />);
+    const field = screen.getByTestId("field");
+    rerender(<Testcase shortcut="x" />);
 
     fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
@@ -50,6 +56,13 @@ describe("useFocusKeyboardShortcut", () => {
     hook.rerender({ shortcut: "k" });
 
     expect(hook.result.current.ref).toBe(ref);
+  });
+
+  test("ref keeps the identity - shortcut change", () => {
+    const hook = renderHook(({ shortcut }) => useFocusKeyboardShortcut<HTMLInputElement>(shortcut), {
+      initialProps: { shortcut: "k" },
+    });
+    const ref = hook.result.current.ref;
 
     hook.rerender({ shortcut: "x" });
 

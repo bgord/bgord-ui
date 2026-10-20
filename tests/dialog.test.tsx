@@ -118,6 +118,10 @@ describe("Dialog", () => {
     render(<Testcase />);
 
     expect(document.body.style.overflow).toEqual("hidden");
+  });
+
+  test("body scroll lock - close", () => {
+    render(<Testcase />);
 
     fireEvent.click(screen.getByText("Close"));
 

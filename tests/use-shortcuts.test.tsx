@@ -12,10 +12,15 @@ describe("useKeyboardShortcuts", () => {
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test("other key", () => {
+    using handlerSpy = spyOn(handlers, "k");
+    renderHook(() => useShortcuts(handlers));
 
     fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
-    expect(handlerSpy).toHaveBeenCalledTimes(1);
+    expect(handlerSpy).toHaveBeenCalledTimes(0);
   });
 
   test("disabled", () => {
@@ -27,40 +32,41 @@ describe("useKeyboardShortcuts", () => {
     expect(handlerSpy).toHaveBeenCalledTimes(0);
   });
 
-  test("toggle", () => {
+  test("toggle - disabled", () => {
     using handlerSpy = spyOn(handlers, "k");
     const { rerender } = renderHook(
       ({ enabled }: { enabled: boolean }) => useShortcuts(handlers, { enabled }),
       { initialProps: { enabled: true } },
     );
-
-    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
-
-    expect(handlerSpy).toHaveBeenCalledTimes(1);
-
     rerender({ enabled: false });
+
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
+
+    expect(handlerSpy).toHaveBeenCalledTimes(0);
+  });
+
+  test("toggle - enabled again", () => {
+    using handlerSpy = spyOn(handlers, "k");
+    const { rerender } = renderHook(
+      ({ enabled }: { enabled: boolean }) => useShortcuts(handlers, { enabled }),
+      { initialProps: { enabled: true } },
+    );
+    rerender({ enabled: false });
+    rerender({ enabled: true });
+
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
     expect(handlerSpy).toHaveBeenCalledTimes(1);
-
-    rerender({ enabled: true });
-    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
-
-    expect(handlerSpy).toHaveBeenCalledTimes(2);
   });
 
   test("cleanup", () => {
     using handlerSpy = spyOn(handlers, "k");
     const { unmount } = renderHook(() => useShortcuts(handlers, { enabled: true }));
-
-    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
-
-    expect(handlerSpy).toHaveBeenCalledTimes(1);
-
     unmount();
+
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(handlerSpy).toHaveBeenCalledTimes(1);
+    expect(handlerSpy).toHaveBeenCalledTimes(0);
   });
 
   test("ignores non-matching keys", () => {
@@ -80,16 +86,11 @@ describe("useKeyboardShortcuts", () => {
     const { rerender } = renderHook(({ callback }) => useShortcuts({ k: callback }, { enabled: true }), {
       initialProps: { callback: old.k },
     });
-
-    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
-
-    expect(oldHandlerSpy).toHaveBeenCalledTimes(1);
-    expect(updatedHandlerSpy).toHaveBeenCalledTimes(0);
-
     rerender({ callback: updated.k });
+
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(oldHandlerSpy).toHaveBeenCalledTimes(1);
+    expect(oldHandlerSpy).toHaveBeenCalledTimes(0);
     expect(updatedHandlerSpy).toHaveBeenCalledTimes(1);
   });
 });

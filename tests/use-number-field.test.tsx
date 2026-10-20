@@ -44,7 +44,7 @@ describe("useNumberField", () => {
     expect(result.current.unchanged).toEqual(true);
   });
 
-  test("handleChange / clear", () => {
+  test("handleChange", () => {
     const value = 123;
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
@@ -58,6 +58,14 @@ describe("useNumberField", () => {
     expect(result.current.changed).toEqual(true);
     expect(result.current.unchanged).toEqual(false);
     expect(result.current.empty).toEqual(false);
+  });
+
+  test("clear", () => {
+    const value = 123;
+    const { result } = renderHook(() => useNumberField({ name: "field" }));
+    act(() =>
+      result.current.handleChange(mocks.changeEvent({ value: value.toString(), valueAsNumber: value })),
+    );
 
     act(() => result.current.clear());
 
@@ -69,18 +77,20 @@ describe("useNumberField", () => {
     expect(result.current.empty).toEqual(true);
   });
 
-  test("handleChange - fractions", () => {
+  test("handleChange - fractions - trailing dot", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
-
     act(() => result.current.handleChange(mocks.changeEvent({ value: "1", valueAsNumber: 1 })));
-
-    expect(result.current.value).toEqual(1);
-    expect(result.current.input.props.value).toEqual("1");
 
     act(() => result.current.handleChange(mocks.changeEvent({ value: "1.", valueAsNumber: Number.NaN })));
 
     expect(result.current.value).toEqual(1);
     expect(result.current.input.props.value).toEqual("1.");
+  });
+
+  test("handleChange - fractions", () => {
+    const { result } = renderHook(() => useNumberField({ name: "field" }));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "1", valueAsNumber: 1 })));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "1.", valueAsNumber: Number.NaN })));
 
     act(() => result.current.handleChange(mocks.changeEvent({ value: "1.1", valueAsNumber: 1.1 })));
 
@@ -88,13 +98,18 @@ describe("useNumberField", () => {
     expect(result.current.input.props.value).toEqual("1.1");
   });
 
-  test("handleChange - negative", () => {
+  test("handleChange - negative - sign only", () => {
     const { result } = renderHook(() => useNumberField({ name: "field" }));
 
     act(() => result.current.handleChange(mocks.changeEvent({ value: "-", valueAsNumber: Number.NaN })));
 
     expect(result.current.value).toEqual(undefined);
     expect(result.current.input.props.value).toEqual("-");
+  });
+
+  test("handleChange - negative", () => {
+    const { result } = renderHook(() => useNumberField({ name: "field" }));
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "-", valueAsNumber: Number.NaN })));
 
     act(() => result.current.handleChange(mocks.changeEvent({ value: "-1", valueAsNumber: -1 })));
 

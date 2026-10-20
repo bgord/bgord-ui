@@ -65,13 +65,18 @@ describe("usePersistedToggle", () => {
     expect(localStorage.getItem("toggle:test")).toEqual("off");
   });
 
-  test("toggle persists value", () => {
+  test("toggle persists value - on", () => {
     const hook = renderHook(() => usePersistedToggle({ name: "test" }));
 
     act(() => hook.result.current.toggle());
 
     expect(hook.result.current.on).toEqual(true);
     expect(localStorage.getItem("toggle:test")).toEqual("on");
+  });
+
+  test("toggle persists value - off", () => {
+    const hook = renderHook(() => usePersistedToggle({ name: "test" }));
+    act(() => hook.result.current.toggle());
 
     act(() => hook.result.current.toggle());
 

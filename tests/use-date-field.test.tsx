@@ -44,7 +44,7 @@ describe("useDateField", () => {
     expect(result.current.unchanged).toEqual(true);
   });
 
-  test("handleChange / clear", () => {
+  test("handleChange", () => {
     const value = "2025-01-01";
     const { result } = renderHook(() => useDateField({ name: "field" }));
 
@@ -56,6 +56,12 @@ describe("useDateField", () => {
     expect(result.current.changed).toEqual(true);
     expect(result.current.unchanged).toEqual(false);
     expect(result.current.empty).toEqual(false);
+  });
+
+  test("clear", () => {
+    const value = "2025-01-01";
+    const { result } = renderHook(() => useDateField({ name: "field" }));
+    act(() => result.current.handleChange(mocks.changeEvent({ value })));
 
     act(() => result.current.clear());
 

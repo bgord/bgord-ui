@@ -49,6 +49,14 @@ describe("useFile", () => {
     expect(result.current.isError).toEqual(false);
     expect(result.current.data).toEqual(png);
     expect(result.current.isSelected && result.current.preview).toEqual("blob:preview");
+  });
+
+  test("clearFile", () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(URL, "createObjectURL").mockReturnValue("blob:preview"));
+    spies.use(spyOn(URL, "revokeObjectURL"));
+    const { result } = renderHook(() => useFile("file", { mimeTypes }));
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([png])));
 
     act(() => result.current.actions.clearFile());
 

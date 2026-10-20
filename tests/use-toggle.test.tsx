@@ -33,16 +33,19 @@ describe("useToggle", () => {
     expect(result.props.target).toEqual({ id: "test", "aria-hidden": "false" });
   });
 
-  test("toggle", () => {
+  test("toggle - on", () => {
     const hook = renderHook(() => useToggle({ name: "test" }));
-
-    expect(hook.result.current.on).toEqual(false);
 
     act(() => hook.result.current.toggle());
 
     expect(hook.result.current.on).toEqual(true);
     expect(hook.result.current.off).toEqual(false);
     expect(hook.result.current.props.controller["aria-expanded"]).toEqual("true");
+  });
+
+  test("toggle - off", () => {
+    const hook = renderHook(() => useToggle({ name: "test" }));
+    act(() => hook.result.current.toggle());
 
     act(() => hook.result.current.toggle());
 
@@ -58,10 +61,15 @@ describe("useToggle", () => {
 
     expect(hook.result.current.on).toEqual(true);
     expect(hook.result.current.off).toEqual(false);
+  });
+
+  test("enable - already enabled", () => {
+    const hook = renderHook(() => useToggle({ name: "test", defaultValue: true }));
 
     act(() => hook.result.current.enable());
 
     expect(hook.result.current.on).toEqual(true);
+    expect(hook.result.current.off).toEqual(false);
   });
 
   test("disable", () => {
@@ -71,6 +79,10 @@ describe("useToggle", () => {
 
     expect(hook.result.current.on).toEqual(false);
     expect(hook.result.current.off).toEqual(true);
+  });
+
+  test("disable - already disabled", () => {
+    const hook = renderHook(() => useToggle({ name: "test" }));
 
     act(() => hook.result.current.disable());
 

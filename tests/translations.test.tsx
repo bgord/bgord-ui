@@ -83,8 +83,6 @@ describe("Translations", () => {
       wrapper: ({ children }) => wrapper({ children, value }),
     });
 
-    expect(result.current).toEqual("en");
-
     rerender();
     wrapper({
       children: result.current,

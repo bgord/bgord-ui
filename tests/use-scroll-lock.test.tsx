@@ -25,11 +25,17 @@ describe("useScrollLock", () => {
 
   test("two locks - out of order", () => {
     const first = renderHook(() => useScrollLock(true));
-    const second = renderHook(() => useScrollLock(true));
+    renderHook(() => useScrollLock(true));
 
     first.unmount();
 
     expect(document.body.style.overflow).toEqual("hidden");
+  });
+
+  test("two locks - all released", () => {
+    const first = renderHook(() => useScrollLock(true));
+    const second = renderHook(() => useScrollLock(true));
+    first.unmount();
 
     second.unmount();
 
@@ -45,16 +51,21 @@ describe("useScrollLock", () => {
     expect(document.body.style.overflow).toEqual("hidden");
   });
 
-  test("toggle", () => {
+  test("toggle - disable", () => {
     const { rerender } = renderHook(({ enabled }) => useScrollLock(enabled), {
       initialProps: { enabled: true },
     });
 
-    expect(document.body.style.overflow).toEqual("hidden");
-
     rerender({ enabled: false });
 
-    expect(document.body.style.overflow).not.toEqual("hidden");
+    expect(document.body.style.overflow).toEqual("");
+  });
+
+  test("toggle - enable", () => {
+    const { rerender } = renderHook(({ enabled }) => useScrollLock(enabled), {
+      initialProps: { enabled: true },
+    });
+    rerender({ enabled: false });
 
     rerender({ enabled: true });
 

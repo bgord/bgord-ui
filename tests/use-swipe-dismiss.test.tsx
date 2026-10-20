@@ -118,7 +118,7 @@ describe("useSwipeDismiss", () => {
     expect(sheet.style.translate).toEqual("");
   });
 
-  test("animates out before dismissing", async () => {
+  test("animates out before dismissing", () => {
     using spies = new DisposableStack();
     spies.use(spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList));
     const now = spies.use(spyOn(performance, "now").mockReturnValue(0));
@@ -135,8 +135,23 @@ describe("useSwipeDismiss", () => {
 
     expect(sheet.style.translate).toEqual("0 100%");
     expect(onDismiss).toHaveBeenCalledTimes(0);
+  });
 
+  test("dismisses after animating out", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList));
+    const now = spies.use(spyOn(performance, "now").mockReturnValue(0));
+    const onDismiss = jest.fn();
+    render(<Sheet onDismiss={onDismiss} />);
+    const sheet = screen.getByTestId("sheet");
+    Object.defineProperty(sheet, "offsetHeight", { value: 400 });
+    const handle = screen.getByTestId("handle");
+    fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
+    fireEvent.pointerMove(handle, { clientY: 260 });
+    now.mockReturnValue(1000);
+    fireEvent.pointerUp(handle, { clientY: 260 });
     const [animation] = sheet.getAnimations();
+
     animation?.finish();
     await animation?.finished;
 
@@ -144,7 +159,7 @@ describe("useSwipeDismiss", () => {
     expect(sheet.style.translate).toEqual("");
   });
 
-  test("animates back before resetting", async () => {
+  test("animates back before resetting", () => {
     using spies = new DisposableStack();
     spies.use(spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList));
     const now = spies.use(spyOn(performance, "now").mockReturnValue(0));
@@ -160,8 +175,23 @@ describe("useSwipeDismiss", () => {
     fireEvent.pointerUp(handle, { clientY: 160 });
 
     expect(sheet.style.translate).toEqual("0 0px");
+  });
 
+  test("resets after animating back", async () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList));
+    const now = spies.use(spyOn(performance, "now").mockReturnValue(0));
+    const onDismiss = jest.fn();
+    render(<Sheet onDismiss={onDismiss} />);
+    const sheet = screen.getByTestId("sheet");
+    Object.defineProperty(sheet, "offsetHeight", { value: 400 });
+    const handle = screen.getByTestId("handle");
+    fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
+    fireEvent.pointerMove(handle, { clientY: 160 });
+    now.mockReturnValue(1000);
+    fireEvent.pointerUp(handle, { clientY: 160 });
     const [animation] = sheet.getAnimations();
+
     animation?.finish();
     await animation?.finished;
 
