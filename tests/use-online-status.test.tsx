@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, spyOn, test } from "bun:test";
 import { act, renderHook } from "@testing-library/react";
 import { renderToString } from "react-dom/server";
 import { OnlineStatus, useOnlineStatus } from "../src/hooks/use-online-status";
@@ -46,6 +46,16 @@ describe("useOnlineStatus", () => {
     });
 
     expect(result.current).toEqual(OnlineStatus.online);
+  });
+
+  test("unmount", () => {
+    using removeEventListener = spyOn(window, "removeEventListener");
+    const { unmount } = renderHook(() => useOnlineStatus());
+
+    unmount();
+
+    expect(removeEventListener).toHaveBeenCalledWith("online", expect.any(Function));
+    expect(removeEventListener).toHaveBeenCalledWith("offline", expect.any(Function));
   });
 
   test("server", () => {

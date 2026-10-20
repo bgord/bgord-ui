@@ -94,6 +94,15 @@ describe("usePersistedToggle", () => {
     expect(second.result.current.on).toEqual(false);
   });
 
+  test("reads stored value when the name changes", () => {
+    localStorage.setItem("toggle:second", "on");
+    const hook = renderHook(({ name }) => usePersistedToggle({ name }), { initialProps: { name: "first" } });
+
+    hook.rerender({ name: "second" });
+
+    expect(hook.result.current.on).toEqual(true);
+  });
+
   test("stored value from another instance is picked up on mount", () => {
     localStorage.setItem("toggle:shared", "on");
 

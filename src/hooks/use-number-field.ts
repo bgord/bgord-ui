@@ -37,6 +37,7 @@ export function useNumberField<T extends number = number>(
 
   const [value, setValue] = useState<NumberFieldValueType<T>>(defaultValue.get());
   const [dom, setDom] = useState<string>(
+    // Stryker disable next-line StringLiteral: overwritten by the mount effect
     NumberField.isEmpty(defaultValue.get()) ? "" : String(defaultValue.get()),
   );
 

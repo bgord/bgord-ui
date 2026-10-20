@@ -126,6 +126,26 @@ describe("useNumberField", () => {
     expect(result.current.input.props.value).toEqual("10.1.1");
   });
 
+  test("handleChange - empty", () => {
+    const { result } = renderHook(() => useNumberField({ name: "field", defaultValue: 123 }));
+
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "" })));
+
+    expect(result.current.value).toEqual(undefined);
+    expect(result.current.input.props.value).toEqual("");
+  });
+
+  test("handleChange - not valid", () => {
+    const { result } = renderHook(() => useNumberField({ name: "field" }));
+
+    act(() =>
+      result.current.handleChange(mocks.changeEvent({ value: "-2.5", valueAsNumber: -2.5, valid: false })),
+    );
+
+    expect(result.current.value).toEqual(undefined);
+    expect(result.current.input.props.value).toEqual("-2.5");
+  });
+
   test("integration", () => {
     const value = "123";
     function Testcase() {

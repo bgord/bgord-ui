@@ -24,6 +24,9 @@ describe("useFile", () => {
       props: { id: "file", name: "file", multiple: false, accept: mimeTypes[0] },
       key: 0,
     });
+    expect(result.matches([UseFileState.idle])).toEqual(true);
+    expect(result.matches([UseFileState.error, UseFileState.idle])).toEqual(true);
+    expect(result.matches([UseFileState.error])).toEqual(false);
   });
 
   test("idle - no file in the list", () => {
@@ -39,7 +42,7 @@ describe("useFile", () => {
     using spies = new DisposableStack();
     spies.use(spyOn(URL, "createObjectURL").mockReturnValue("blob:preview"));
     spies.use(spyOn(URL, "revokeObjectURL"));
-    const { result } = renderHook(() => useFile("file", { mimeTypes }));
+    const { result } = renderHook(() => useFile("file", { maxSizeBytes: 1, mimeTypes }));
 
     act(() => result.current.actions.selectFile(mocks.fileChangeEvent([png])));
 
@@ -61,10 +64,31 @@ describe("useFile", () => {
     act(() => result.current.actions.clearFile());
 
     expect(result.current.state).toEqual(UseFileState.idle);
+    expect(result.current.input.key).toEqual(1);
     expect(result.current.isIdle).toEqual(true);
     expect(result.current.isSelected).toEqual(false);
     expect(result.current.isError).toEqual(false);
     expect(result.current.data).toEqual(null);
+  });
+
+  test("clearFile - resets preview", () => {
+    using spies = new DisposableStack();
+    spies.use(
+      spyOn(URL, "createObjectURL").mockReturnValueOnce("blob:first").mockReturnValueOnce("blob:second"),
+    );
+    spies.use(spyOn(URL, "revokeObjectURL"));
+    const previews: Array<string | undefined> = [];
+    const { result } = renderHook(() => {
+      const file = useFile("file", { mimeTypes });
+      if (file.isSelected) previews.push(file.preview);
+      return file;
+    });
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([png])));
+    act(() => result.current.actions.clearFile());
+
+    act(() => result.current.actions.selectFile(mocks.fileChangeEvent([png])));
+
+    expect(previews).toEqual([undefined, "blob:first", undefined, "blob:second"]);
   });
 
   test("clearFile - revokes preview", () => {

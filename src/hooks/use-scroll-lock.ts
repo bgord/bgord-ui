@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 const ScrollLockStore = {
   count: 0,
+  // Stryker disable next-line StringLiteral: overwritten by acquire before any read
   original: "",
 
   acquire(): void {

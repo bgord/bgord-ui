@@ -95,6 +95,7 @@ export function useSwipeDismiss(config: UseSwipeDismissConfig): UseSwipeDismissR
 
       const elapsed = Math.max(1, performance.now() - current.startTime);
       const far = current.distance > current.element.offsetHeight * threshold;
+      // Stryker disable next-line ConditionalExpression,EqualityOperator: zero distance never exceeds the velocity
       const flick = current.distance > 0 && current.distance / elapsed > FLICK_VELOCITY;
 
       settle(event, far || flick);

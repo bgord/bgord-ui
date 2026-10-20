@@ -43,7 +43,9 @@ function mutationReducer(
   if (action.type === "START") return { state: MutationState.loading, error: null };
   if (action.type === "ERROR") return { state: MutationState.error, error: action.error };
   if (action.type === "DONE") return { state: MutationState.done, error: null };
+  // Stryker disable next-line ConditionalExpression: last action type, the throw below is unreachable
   if (action.type === "RESET") return { state: MutationState.idle, error: null };
+  // Stryker disable next-line StringLiteral: unreachable
   throw new Error("Unknown useMutation action type");
 }
 

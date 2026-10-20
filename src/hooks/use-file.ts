@@ -65,6 +65,7 @@ type UseFileError = {
 export type UseFileReturnType = UseFileIdle | UseFileSelected | UseFileError;
 
 export function useFile(name: UseFileNameType, config: UseFileConfigType): UseFileReturnType {
+  // Stryker disable next-line OptionalChaining: config is required, mimeTypes is read right after
   const maxSizeBytes = config?.maxSizeBytes ?? Number.POSITIVE_INFINITY;
 
   const [key, setKey] = useState(0);

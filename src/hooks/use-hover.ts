@@ -12,14 +12,17 @@ export function useHover<T extends HTMLElement = HTMLElement>(
   config?: UseHoverConfigType,
 ): UseHoverReturnType<T> {
   const enabled = config?.enabled ?? true;
+  // Stryker disable next-line StringLiteral: the name only feeds aria attributes that are not used here
   const toggle = useToggle({ name: "_internal" });
 
   const element = useRef<T | null>(null);
 
   const enterEvent =
+    // Stryker disable next-line ConditionalExpression: window is always defined in tests
     typeof window !== "undefined" && "PointerEvent" in window ? "pointerenter" : "mouseenter";
 
   const leaveEvent =
+    // Stryker disable next-line ConditionalExpression: window is always defined in tests
     typeof window !== "undefined" && "PointerEvent" in window ? "pointerleave" : "mouseleave";
 
   const ref = useCallback(

@@ -19,8 +19,9 @@ describe("useMetaEnterSubmit", () => {
     render(<TestComponent onSubmit={submitSpy} />);
     const result = screen.getByTestId("textarea");
 
-    fireEvent.keyDown(result, { key: "Enter", metaKey: true });
+    const notPrevented = fireEvent.keyDown(result, { key: "Enter", metaKey: true });
 
+    expect(notPrevented).toEqual(false);
     expect(submitSpy).toHaveBeenCalledTimes(1);
   });
 

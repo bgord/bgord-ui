@@ -18,10 +18,12 @@ describe("useExitAction", () => {
 
   test("exiting", () => {
     const action = jest.fn();
+    const event = mocks.mouseEvent();
     const { result } = renderHook(() => useExitAction({ action, animation }));
 
-    act(() => result.current.trigger(mocks.mouseEvent()));
+    act(() => result.current.trigger(event));
 
+    expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(result.current.visible).toEqual(true);
     expect(result.current.attach).toMatchObject({
       "data-animation": animation,

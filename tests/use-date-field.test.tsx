@@ -83,6 +83,45 @@ describe("useDateField", () => {
     expect(result.current.input.props.value).toEqual(invalid);
   });
 
+  test("handleChange - invalid format - prefix", () => {
+    const invalid = "x2025-01-01";
+    const { result } = renderHook(() => useDateField({ name: "field" }));
+
+    act(() => result.current.handleChange(mocks.changeEvent({ value: invalid })));
+
+    expect(result.current.value).toEqual(undefined);
+    expect(result.current.input.props.value).toEqual(invalid);
+  });
+
+  test("handleChange - invalid format - suffix", () => {
+    const invalid = "2025-01-01x";
+    const { result } = renderHook(() => useDateField({ name: "field" }));
+
+    act(() => result.current.handleChange(mocks.changeEvent({ value: invalid })));
+
+    expect(result.current.value).toEqual(undefined);
+    expect(result.current.input.props.value).toEqual(invalid);
+  });
+
+  test("handleChange - empty", () => {
+    const { result } = renderHook(() => useDateField({ name: "field", defaultValue: "2025-01-01" }));
+
+    act(() => result.current.handleChange(mocks.changeEvent({ value: "" })));
+
+    expect(result.current.value).toEqual(undefined);
+    expect(result.current.input.props.value).toEqual("");
+  });
+
+  test("handleChange - not valid", () => {
+    const value = "2025-01-01";
+    const { result } = renderHook(() => useDateField({ name: "field" }));
+
+    act(() => result.current.handleChange(mocks.changeEvent({ value, valid: false })));
+
+    expect(result.current.value).toEqual(undefined);
+    expect(result.current.input.props.value).toEqual(value);
+  });
+
   test("integration", () => {
     const value = "2025-01-01";
 

@@ -39,6 +39,7 @@ export function useDateField<T extends string = string>(
 
   const [value, setValue] = useState<DateFieldValueType<T>>(defaultValue.get());
   const [dom, setDom] = useState<string>(
+    // Stryker disable next-line StringLiteral: overwritten by the mount effect
     DateField.isEmpty(defaultValue.get()) ? "" : String(defaultValue.get()),
   );
 

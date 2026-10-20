@@ -33,11 +33,14 @@ describe("useMutation", () => {
 
   test("mutate - error - response.ok", async () => {
     using fetchSpy = spyOn(global, "fetch").mockResolvedValue(new Response(null, { status: 500 }));
-    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+    const onError = jest.fn();
+    const form = document.createElement("form");
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url), onError }));
 
-    await act(() => result.current.mutate());
+    await act(() => result.current.mutate(form));
 
     expect(fetchSpy).toHaveBeenCalledWith(url);
+    expect(onError).toHaveBeenCalledWith(null, { form });
     expect(result.current.state).toEqual(MutationState.error);
     expect(result.current.error).toEqual(null);
     expect(result.current.isIdle).toEqual(false);
@@ -49,17 +52,79 @@ describe("useMutation", () => {
   test("mutate - error", async () => {
     const error = "Failure";
     using fetchSpy = spyOn(global, "fetch").mockRejectedValue(error);
-    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+    const onError = jest.fn();
+    const form = document.createElement("form");
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url), onError }));
 
-    await act(() => result.current.mutate());
+    await act(() => result.current.mutate(form));
 
     expect(fetchSpy).toHaveBeenCalledWith(url);
+    expect(onError).toHaveBeenCalledWith(error, { form });
     expect(result.current.state).toEqual(MutationState.error);
     expect(result.current.error).toEqual(error);
     expect(result.current.isIdle).toEqual(false);
     expect(result.current.isLoading).toEqual(false);
     expect(result.current.isError).toEqual(true);
     expect(result.current.isDone).toEqual(false);
+  });
+
+  test("mutate - loading", () => {
+    using _ = spyOn(global, "fetch").mockReturnValue(new Promise(() => {}));
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+
+    act(() => {
+      result.current.mutate();
+    });
+
+    expect(result.current.state).toEqual(MutationState.loading);
+    expect(result.current.isLoading).toEqual(true);
+  });
+
+  test("mutate - after error", async () => {
+    using fetchSpy = spyOn(global, "fetch").mockRejectedValue("Failure");
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+    await act(() => result.current.mutate());
+
+    await act(() => result.current.mutate());
+
+    expect(fetchSpy).toHaveBeenCalledTimes(2);
+  });
+
+  test("mutate - autoResetDelayMs", async () => {
+    using _ = spyOn(global, "fetch").mockResolvedValue(Response.json({}));
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url), autoResetDelayMs: 50 }));
+    await act(() => result.current.mutate());
+    expect(result.current.state).toEqual(MutationState.done);
+
+    await act(() => new Promise((resolve) => setTimeout(resolve, 100)));
+
+    expect(result.current.state).toEqual(MutationState.idle);
+  });
+
+  test("mutate - no autoResetDelayMs", async () => {
+    using _ = spyOn(global, "fetch").mockResolvedValue(Response.json({}));
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
+    await act(() => result.current.mutate());
+
+    await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
+
+    expect(result.current.state).toEqual(MutationState.done);
+  });
+
+  test("handleSubmit", async () => {
+    using _ = spyOn(global, "fetch").mockResolvedValue(Response.json({}));
+    const onSuccess = jest.fn();
+    const form = document.createElement("form");
+    const event = {
+      preventDefault: jest.fn(),
+      currentTarget: form,
+    } as unknown as React.FormEvent<HTMLFormElement>;
+    const { result } = renderHook(() => useMutation({ perform: () => fetch(url), onSuccess }));
+
+    await act(() => result.current.handleSubmit(event));
+
+    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    expect(onSuccess).toHaveBeenCalledWith(expect.any(Response), { form });
   });
 
   test("reset", async () => {

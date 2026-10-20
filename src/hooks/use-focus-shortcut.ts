@@ -8,13 +8,16 @@ export function useFocusKeyboardShortcut<T extends FocusableElement = HTMLInputE
 ): { ref: Ref<T> } {
   const ref = useRef<T>(null);
 
+  // Stryker disable ArrayDeclaration: any constant dependency list keeps the identity
   const handleFocus = useCallback(() => {
     if (ref.current) {
       ref.current.focus();
     }
   }, []);
+  // Stryker restore ArrayDeclaration
 
   useShortcuts({ [shortcut]: handleFocus });
 
+  // Stryker disable next-line ArrayDeclaration: any constant dependency list keeps the identity
   return useMemo(() => ({ ref }), []);
 }

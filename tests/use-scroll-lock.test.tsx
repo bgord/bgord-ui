@@ -4,7 +4,7 @@ import { useScrollLock } from "../src/hooks/use-scroll-lock";
 
 describe("useScrollLock", () => {
   test("enabled", () => {
-    renderHook(() => useScrollLock(true));
+    renderHook(() => useScrollLock());
 
     expect(document.body.style.overflow).toEqual("hidden");
   });

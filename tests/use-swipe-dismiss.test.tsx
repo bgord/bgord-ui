@@ -27,6 +27,7 @@ describe("useSwipeDismiss", () => {
     fireEvent.pointerMove(handle, { clientY: 160 });
 
     expect(sheet.style.translate).toEqual("0 60px");
+    expect(sheet.style.transition).toEqual("none");
   });
 
   test("ignores dragging up", () => {
@@ -54,6 +55,8 @@ describe("useSwipeDismiss", () => {
     const sheet = screen.getByTestId("sheet");
     Object.defineProperty(sheet, "offsetHeight", { value: 400 });
     const handle = screen.getByTestId("handle");
+    Object.defineProperty(handle, "setPointerCapture", { value: undefined });
+    Object.defineProperty(handle, "releasePointerCapture", { value: undefined });
 
     fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
     fireEvent.pointerMove(handle, { clientY: 260 });
@@ -67,7 +70,7 @@ describe("useSwipeDismiss", () => {
   test("dismisses on a flick", () => {
     using spies = new DisposableStack();
     spies.use(spyOn(window, "matchMedia").mockReturnValue({ matches: true } as MediaQueryList));
-    const now = spies.use(spyOn(performance, "now").mockReturnValue(0));
+    const now = spies.use(spyOn(performance, "now").mockReturnValue(100));
     const onDismiss = jest.fn();
     render(<Sheet onDismiss={onDismiss} />);
     Object.defineProperty(screen.getByTestId("sheet"), "offsetHeight", { value: 400 });
@@ -75,7 +78,7 @@ describe("useSwipeDismiss", () => {
 
     fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
     fireEvent.pointerMove(handle, { clientY: 160 });
-    now.mockReturnValue(50);
+    now.mockReturnValue(150);
     fireEvent.pointerUp(handle, { clientY: 160 });
 
     expect(onDismiss).toHaveBeenCalledTimes(1);
@@ -92,9 +95,28 @@ describe("useSwipeDismiss", () => {
     const handle = screen.getByTestId("handle");
 
     fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
-    fireEvent.pointerMove(handle, { clientY: 160 });
+    fireEvent.pointerMove(handle, { clientY: 220 });
     now.mockReturnValue(1000);
-    fireEvent.pointerUp(handle, { clientY: 160 });
+    fireEvent.pointerUp(handle, { clientY: 220 });
+
+    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(sheet.style.translate).toEqual("");
+  });
+
+  test("springs back at the flick velocity", () => {
+    using spies = new DisposableStack();
+    spies.use(spyOn(window, "matchMedia").mockReturnValue({ matches: true } as MediaQueryList));
+    const now = spies.use(spyOn(performance, "now").mockReturnValue(0));
+    const onDismiss = jest.fn();
+    render(<Sheet onDismiss={onDismiss} />);
+    const sheet = screen.getByTestId("sheet");
+    Object.defineProperty(sheet, "offsetHeight", { value: 400 });
+    const handle = screen.getByTestId("handle");
+
+    fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
+    fireEvent.pointerMove(handle, { clientY: 150 });
+    now.mockReturnValue(100);
+    fireEvent.pointerUp(handle, { clientY: 150 });
 
     expect(onDismiss).toHaveBeenCalledTimes(0);
     expect(sheet.style.translate).toEqual("");
@@ -120,12 +142,15 @@ describe("useSwipeDismiss", () => {
 
   test("animates out before dismissing", () => {
     using spies = new DisposableStack();
-    spies.use(spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList));
+    const matchMedia = spies.use(
+      spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList),
+    );
     const now = spies.use(spyOn(performance, "now").mockReturnValue(0));
     const onDismiss = jest.fn();
     render(<Sheet onDismiss={onDismiss} />);
     const sheet = screen.getByTestId("sheet");
     Object.defineProperty(sheet, "offsetHeight", { value: 400 });
+    const animate = spies.use(spyOn(sheet, "animate"));
     const handle = screen.getByTestId("handle");
 
     fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
@@ -133,6 +158,11 @@ describe("useSwipeDismiss", () => {
     now.mockReturnValue(1000);
     fireEvent.pointerUp(handle, { clientY: 260 });
 
+    expect(matchMedia).toHaveBeenCalledWith("(prefers-reduced-motion: reduce)");
+    expect(animate).toHaveBeenCalledWith([{ translate: "0 160px" }, { translate: "0 100%" }], {
+      duration: 200,
+      easing: "ease-out",
+    });
     expect(sheet.style.translate).toEqual("0 100%");
     expect(onDismiss).toHaveBeenCalledTimes(0);
   });
@@ -167,13 +197,14 @@ describe("useSwipeDismiss", () => {
     render(<Sheet onDismiss={onDismiss} />);
     const sheet = screen.getByTestId("sheet");
     Object.defineProperty(sheet, "offsetHeight", { value: 400 });
+    const animate = spies.use(spyOn(sheet, "animate"));
     const handle = screen.getByTestId("handle");
 
     fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
-    fireEvent.pointerMove(handle, { clientY: 160 });
     now.mockReturnValue(1000);
-    fireEvent.pointerUp(handle, { clientY: 160 });
+    fireEvent.pointerUp(handle, { clientY: 100 });
 
+    expect(animate.mock.calls[0]?.[0]).toEqual([{ translate: "0 0px" }, { translate: "0 0px" }]);
     expect(sheet.style.translate).toEqual("0 0px");
   });
 
