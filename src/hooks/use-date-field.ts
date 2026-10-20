@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateField, type DateFieldValueType } from "../services/date-field";
 
 type DateFieldNameType = string;
@@ -48,6 +48,10 @@ export function useDateField<T extends string = string>(
     setValue(date);
     setDom(DateField.isEmpty(date) ? "" : String(date));
   };
+
+  useEffect(() => {
+    setCurrentValue(defaultValue.get());
+  }, [config.defaultValue]);
 
   const onChange = (event: React.ChangeEvent<DateFieldElementType>) => {
     const element = event.currentTarget;

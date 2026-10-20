@@ -37,6 +37,20 @@ describe("useDateField", () => {
     expect(result.current.empty).toEqual(false);
   });
 
+  test("defaultValue change", () => {
+    const { result, rerender } = renderHook(
+      ({ defaultValue }) => useDateField({ name: "field", defaultValue }),
+      { initialProps: { defaultValue: "2025-01-01" } },
+    );
+
+    act(() => rerender({ defaultValue: "2025-02-02" }));
+
+    expect(result.current.defaultValue).toEqual("2025-02-02");
+    expect(result.current.value).toEqual("2025-02-02");
+    expect(result.current.input.props.value).toEqual("2025-02-02");
+    expect(result.current.unchanged).toEqual(true);
+  });
+
   test("handleChange / clear", () => {
     const value = "2025-01-01";
     const { result } = renderHook(() => useDateField({ name: "field" }));

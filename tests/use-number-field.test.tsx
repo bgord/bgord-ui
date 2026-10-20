@@ -39,6 +39,20 @@ describe("useNumberField", () => {
     expect(result.current.empty).toEqual(false);
   });
 
+  test("defaultValue change", () => {
+    const { result, rerender } = renderHook(
+      ({ defaultValue }) => useNumberField({ name: "field", defaultValue }),
+      { initialProps: { defaultValue: 123 } },
+    );
+
+    act(() => rerender({ defaultValue: 456 }));
+
+    expect(result.current.defaultValue).toEqual(456);
+    expect(result.current.value).toEqual(456);
+    expect(result.current.input.props.value).toEqual("456");
+    expect(result.current.unchanged).toEqual(true);
+  });
+
   test("handleChange / clear", () => {
     const value = 123;
     const { result } = renderHook(() => useNumberField({ name: "field" }));

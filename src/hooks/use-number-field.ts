@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NumberField, type NumberFieldValueType } from "../services/number-field";
 
 type NumberFieldNameType = string;
@@ -46,6 +46,10 @@ export function useNumberField<T extends number = number>(
     setValue(number);
     setDom(NumberField.isEmpty(number) ? "" : String(number));
   };
+
+  useEffect(() => {
+    setCurrentValue(defaultValue.get());
+  }, [config.defaultValue]);
 
   const onChange = (event: React.ChangeEvent<NumberFieldElementType>) => {
     const element = event.currentTarget;
