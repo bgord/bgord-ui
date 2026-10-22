@@ -31,10 +31,7 @@ type UseMutationReturnType = {
 };
 
 type MutationActionType =
-  | { type: "START" }
-  | { type: "ERROR"; error: MutationErrorType }
-  | { type: "DONE" }
-  | { type: "RESET" };
+  { type: "START" } | { type: "ERROR"; error: MutationErrorType } | { type: "DONE" } | { type: "RESET" };
 
 function mutationReducer(
   _state: { state: MutationState; error: MutationErrorType },
