@@ -7,6 +7,7 @@ export * from "./use-file";
 export * from "./use-focus-shortcut";
 export * from "./use-hover";
 export * from "./use-hydrated";
+export * from "./use-load-more";
 export * from "./use-meta-enter-submit";
 export * from "./use-mutation";
 export * from "./use-number-field";
