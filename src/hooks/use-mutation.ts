@@ -18,7 +18,7 @@ type UseMutationOptions = {
   autoResetDelayMs?: number;
 };
 
-type UseMutationReturnType = {
+export type UseMutationReturnType = {
   state: MutationState;
   error: MutationErrorType;
   isIdle: boolean;
