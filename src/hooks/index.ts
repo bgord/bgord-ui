@@ -11,6 +11,7 @@ export * from "./use-load-more";
 export * from "./use-meta-enter-submit";
 export * from "./use-mutation";
 export * from "./use-number-field";
+export * from "./use-on-visible";
 export * from "./use-online-status";
 export * from "./use-persisted-toggle";
 export * from "./use-scroll-lock";

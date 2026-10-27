@@ -42,6 +42,7 @@ src/
 │   ├── use-meta-enter-submit.ts
 │   ├── use-mutation.ts
 │   ├── use-number-field.ts
+│   ├── use-on-visible.ts
 │   ├── use-online-status.ts
 │   ├── use-persisted-toggle.ts
 │   ├── use-scroll-lock.ts
