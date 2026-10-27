@@ -2,6 +2,7 @@ export * from "./use-click-outside";
 export * from "./use-date-field";
 export * from "./use-date-format";
 export * from "./use-date-time";
+export * from "./use-debounced-value";
 export * from "./use-exit-action";
 export * from "./use-file";
 export * from "./use-focus-shortcut";
