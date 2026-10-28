@@ -17,8 +17,10 @@ export class SearchParam {
       typeof value === "string" && value.length >= min && value.length <= max ? value : undefined;
   }
 
-  static oneOf<const T extends string>(options: ReadonlyArray<T>): SearchParamParser<T> {
-    return (value) => (options.includes(value as T) ? (value as T) : undefined);
+  static oneOf<const Options extends ReadonlyArray<string>>(
+    options: Options,
+  ): SearchParamParser<Options[number]> {
+    return (value) => (options.includes(value as Options[number]) ? (value as Options[number]) : undefined);
   }
 
   static matches<T extends string = string>(pattern: RegExp): SearchParamParser<T> {
