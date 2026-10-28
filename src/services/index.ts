@@ -17,6 +17,7 @@ export * from "./notifications";
 export * from "./number-field";
 export * from "./pluralize";
 export * from "./rhythm";
+export * from "./search-param";
 export * from "./text-field";
 export * from "./time-zone";
 export * from "./time-zone-offset";

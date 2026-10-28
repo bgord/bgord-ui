@@ -74,6 +74,7 @@ src/
     ├── number-field.ts
     ├── pluralize.ts
     ├── rhythm.ts
+    ├── search-param.ts
     ├── text-field.ts
     ├── time-zone-offset.ts
     ├── time-zone.ts
