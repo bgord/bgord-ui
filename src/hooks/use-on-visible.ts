@@ -13,5 +13,6 @@ export function useOnVisible(handler: () => void): void {
     document.addEventListener("visibilitychange", listener);
 
     return () => document.removeEventListener("visibilitychange", listener);
+    // Stryker disable next-line ArrayDeclaration: a constant non-empty deps array behaves identically to []
   }, []);
 }

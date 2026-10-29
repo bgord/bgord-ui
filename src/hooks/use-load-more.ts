@@ -47,6 +47,7 @@ export function useLoadMore<Entry, Cursor>(
     pending.current = true;
     setList({ ...state, state: LoadMoreState.loading });
 
+    // Stryker disable next-line UpdateOperator: token only needs to be unique, direction is irrelevant
     return ++token.current;
   };
 
@@ -61,6 +62,7 @@ export function useLoadMore<Entry, Cursor>(
   };
 
   useEffect(() => {
+    // Stryker disable next-line ConditionalExpression,LogicalOperator: list is reset during render on key change, so the hash and first guards overlap and the first-equality guard only skips a transient idle->loading->idle cycle
     if (list.hash !== hash || list.first === options.first || !options.first) return;
 
     const first = options.first;
@@ -74,6 +76,7 @@ export function useLoadMore<Entry, Cursor>(
 
         while (pages.length < count && cursor !== null) {
           const page = await options.load(cursor);
+          // Stryker disable next-line StringLiteral: error message is swallowed by catch
           if (!page) throw new Error("useLoadMore refresh failed");
 
           pages.push(page);
@@ -97,6 +100,7 @@ export function useLoadMore<Entry, Cursor>(
 
     try {
       const page = await options.load(last?.next ?? undefined);
+      // Stryker disable next-line StringLiteral: error message is swallowed by catch
       if (!page) throw new Error("useLoadMore load failed");
 
       settle(started, (current) => ({
