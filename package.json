@@ -38,7 +38,6 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
-    "polish-plurals": "1.1.0",
     "tinykeys": "4.0.1"
   },
   "peerDependencies": {

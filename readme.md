@@ -72,7 +72,6 @@ src/
     ├── noop.ts
     ├── notifications.tsx
     ├── number-field.ts
-    ├── pluralize.ts
     ├── rhythm.ts
     ├── search-param.ts
     ├── text-field.ts

@@ -1,5 +1,4 @@
-import { createContext, use, useCallback } from "react";
-import { type PluralizeOptionsType, pluralize } from "./pluralize";
+import { createContext, use, useCallback, useMemo } from "react";
 
 export type TranslationsKeyType = string;
 
@@ -27,8 +26,12 @@ export const TranslationsContext = createContext<TranslationsContextValueType>({
   supportedLanguages: { en: "en" },
 });
 
+const TranslationPluralBlock = /\{\{(\w+)\|([^{}]*)\}\}/g;
+
 export function useTranslations(): TranslateType {
   const value = use(TranslationsContext);
+
+  const plurals = useMemo(() => new Intl.PluralRules(value.language), [value.language]);
 
   const translate = useCallback<TranslateType>(
     (key, variables) => {
@@ -42,12 +45,33 @@ export function useTranslations(): TranslateType {
 
       if (!variables) return translation;
 
+      const pluralized = translation.replaceAll(
+        TranslationPluralBlock,
+        (block, placeholder: TranslationPlaceholderType, forms: string) => {
+          const variable = variables[placeholder];
+
+          if (variable === undefined) return block;
+
+          const category = plurals.select(Number(variable));
+          const candidates = new Map(forms.split("|").map((form) => form.split("=") as [string, string]));
+          const form = candidates.get(category) ?? candidates.get("other");
+
+          if (form === undefined) {
+            // biome-ignore lint: lint/suspicious/noConsole
+            console.warn(`[@bgord/ui] missing plural form: ${category} for key: ${key}`);
+            return block;
+          }
+
+          return form;
+        },
+      );
+
       return Object.entries(variables).reduce(
         (result, [placeholder, value]) => result.replaceAll(`{{${placeholder}}}`, () => String(value)),
-        translation,
+        pluralized,
       );
     },
-    [value.translations],
+    [value.translations, plurals],
   );
 
   return translate;
@@ -59,10 +83,4 @@ export function useLanguage(): TranslationsContextValueType["language"] {
 
 export function useSupportedLanguages(): TranslationsContextValueType["supportedLanguages"] {
   return use(TranslationsContext).supportedLanguages;
-}
-
-export function usePluralize() {
-  const language = useLanguage();
-
-  return (options: Omit<PluralizeOptionsType, "language">) => pluralize({ ...options, language });
 }

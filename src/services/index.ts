@@ -15,7 +15,6 @@ export * from "./head";
 export * from "./noop";
 export * from "./notifications";
 export * from "./number-field";
-export * from "./pluralize";
 export * from "./rhythm";
 export * from "./search-param";
 export * from "./text-field";
