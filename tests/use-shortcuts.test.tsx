@@ -1,5 +1,6 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import { fireEvent, renderHook } from "@testing-library/react";
+import { useLayoutEffect } from "react";
 import { useShortcuts } from "../src/hooks/use-shortcuts";
 
 const handlers = { k: (_event: KeyboardEvent) => {} };
@@ -92,5 +93,55 @@ describe("useKeyboardShortcuts", () => {
 
     expect(oldHandlerSpy).toHaveBeenCalledTimes(0);
     expect(updatedHandlerSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test("changed callbacks - before effects", () => {
+    const old = { k: (_event: KeyboardEvent) => {} };
+    const updated = { k: (_event: KeyboardEvent) => {} };
+    using oldHandlerSpy = spyOn(old, "k");
+    using updatedHandlerSpy = spyOn(updated, "k");
+    const { rerender } = renderHook(
+      ({ callback, press }) => {
+        useShortcuts({ k: callback });
+        useLayoutEffect(() => {
+          if (press) fireEvent.keyDown(window, { key: "k", code: "KeyK" });
+        });
+      },
+      { initialProps: { callback: old.k, press: false } },
+    );
+
+    rerender({ callback: updated.k, press: true });
+
+    expect(oldHandlerSpy).toHaveBeenCalledTimes(0);
+    expect(updatedHandlerSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test("toggle - enabled before effects", () => {
+    using handlerSpy = spyOn(handlers, "k");
+    const { rerender } = renderHook(
+      ({ enabled }: { enabled: boolean }) => {
+        useShortcuts(handlers, { enabled });
+        useLayoutEffect(() => {
+          if (enabled) fireEvent.keyDown(window, { key: "k", code: "KeyK" });
+        });
+      },
+      { initialProps: { enabled: false } },
+    );
+
+    rerender({ enabled: true });
+
+    expect(handlerSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test("changed keys", () => {
+    using handlerSpy = spyOn(handlers, "k");
+    const { rerender } = renderHook(({ config }) => useShortcuts(config), {
+      initialProps: { config: {} as Record<string, (event: KeyboardEvent) => void> },
+    });
+    rerender({ config: handlers });
+
+    fireEvent.keyDown(window, { key: "k", code: "KeyK" });
+
+    expect(handlerSpy).toHaveBeenCalledTimes(1);
   });
 });
