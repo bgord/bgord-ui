@@ -19,7 +19,7 @@
     "build": "bash scripts/package-build.sh"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
+    "@biomejs/biome": "2.6.6",
     "@happy-dom/global-registrator": "21.0.4",
     "@stryker-mutator/core": "10.1.1",
     "@stryker-mutator/typescript-checker": "10.1.1",
