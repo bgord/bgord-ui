@@ -26,7 +26,7 @@ export type UseMutationReturnType = {
   isError: boolean;
   isDone: boolean;
   mutate: (formElement?: HTMLFormElement) => Promise<Response | undefined>;
-  handleSubmit: React.FormEventHandler<HTMLFormElement>;
+  handleSubmit: React.SubmitEventHandler<HTMLFormElement>;
   reset: () => void;
 };
 
@@ -82,7 +82,7 @@ export function useMutation(options: UseMutationOptions): UseMutationReturnType 
     }
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     await mutate(event.currentTarget);
   };
