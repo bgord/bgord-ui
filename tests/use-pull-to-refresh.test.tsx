@@ -186,7 +186,7 @@ describe("usePullToRefresh", () => {
 
     fireEvent.touchEnd(feed);
 
-    expect(onRefresh).toHaveBeenCalledTimes(0);
+    expect(onRefresh).not.toHaveBeenCalled();
     expect(feed.dataset.kind).toEqual("idle");
     expect(feed.dataset.distance).toEqual("0");
   });
@@ -200,7 +200,7 @@ describe("usePullToRefresh", () => {
 
     fireEvent.touchCancel(feed);
 
-    expect(onRefresh).toHaveBeenCalledTimes(0);
+    expect(onRefresh).not.toHaveBeenCalled();
     expect(feed.dataset.kind).toEqual("idle");
     expect(feed.dataset.distance).toEqual("0");
   });

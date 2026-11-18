@@ -21,7 +21,7 @@ describe("useKeyboardShortcuts", () => {
 
     fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
-    expect(handlerSpy).toHaveBeenCalledTimes(0);
+    expect(handlerSpy).not.toHaveBeenCalled();
   });
 
   test("disabled", () => {
@@ -30,7 +30,7 @@ describe("useKeyboardShortcuts", () => {
 
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(handlerSpy).toHaveBeenCalledTimes(0);
+    expect(handlerSpy).not.toHaveBeenCalled();
   });
 
   test("toggle - disabled", () => {
@@ -43,7 +43,7 @@ describe("useKeyboardShortcuts", () => {
 
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(handlerSpy).toHaveBeenCalledTimes(0);
+    expect(handlerSpy).not.toHaveBeenCalled();
   });
 
   test("toggle - enabled again", () => {
@@ -67,7 +67,7 @@ describe("useKeyboardShortcuts", () => {
 
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(handlerSpy).toHaveBeenCalledTimes(0);
+    expect(handlerSpy).not.toHaveBeenCalled();
   });
 
   test("ignores non-matching keys", () => {
@@ -76,7 +76,7 @@ describe("useKeyboardShortcuts", () => {
 
     fireEvent.keyDown(window, { key: "x", code: "KeyX" });
 
-    expect(handlerSpy).toHaveBeenCalledTimes(0);
+    expect(handlerSpy).not.toHaveBeenCalled();
   });
 
   test("changed callbacks", () => {
@@ -91,7 +91,7 @@ describe("useKeyboardShortcuts", () => {
 
     fireEvent.keyDown(window, { key: "k", code: "KeyK" });
 
-    expect(oldHandlerSpy).toHaveBeenCalledTimes(0);
+    expect(oldHandlerSpy).not.toHaveBeenCalled();
     expect(updatedHandlerSpy).toHaveBeenCalledTimes(1);
   });
 
@@ -112,7 +112,7 @@ describe("useKeyboardShortcuts", () => {
 
     rerender({ callback: updated.k, press: true });
 
-    expect(oldHandlerSpy).toHaveBeenCalledTimes(0);
+    expect(oldHandlerSpy).not.toHaveBeenCalled();
     expect(updatedHandlerSpy).toHaveBeenCalledTimes(1);
   });
 

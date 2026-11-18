@@ -66,7 +66,7 @@ describe("useClickOutside", () => {
 
     fireEvent.mouseDown(screen.getByTestId("box"));
 
-    expect(clickHandlerSpy).toHaveBeenCalledTimes(0);
+    expect(clickHandlerSpy).not.toHaveBeenCalled();
   });
 
   test.each([
@@ -116,7 +116,7 @@ describe("useClickOutside", () => {
 
     fireEvent.mouseDown(screen.getByTestId("dlg-inner"), { clientX: 0, clientY: 0 });
 
-    expect(clickHandlerSpy).toHaveBeenCalledTimes(0);
+    expect(clickHandlerSpy).not.toHaveBeenCalled();
   });
 
   test("handler change", () => {
@@ -127,7 +127,7 @@ describe("useClickOutside", () => {
 
     fireEvent.mouseDown(document.body);
 
-    expect(first).toHaveBeenCalledTimes(0);
+    expect(first).not.toHaveBeenCalled();
     expect(second).toHaveBeenCalledTimes(1);
   });
 

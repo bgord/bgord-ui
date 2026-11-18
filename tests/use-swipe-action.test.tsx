@@ -191,7 +191,7 @@ describe("useSwipeAction", () => {
     fireEvent.pointerMove(row, { ...touch, clientX: 250 });
     fireEvent.pointerUp(row, touch);
 
-    expect(onSwipe).toHaveBeenCalledTimes(0);
+    expect(onSwipe).not.toHaveBeenCalled();
     expect(row.dataset.kind).toEqual("idle");
     expect(row.style.translate).toEqual("0px");
   });
@@ -205,7 +205,7 @@ describe("useSwipeAction", () => {
 
     fireEvent.pointerUp(row, touch);
 
-    expect(onSwipe).toHaveBeenCalledTimes(0);
+    expect(onSwipe).not.toHaveBeenCalled();
     expect(row.dataset.kind).toEqual("idle");
     expect(row.style.translate).toEqual("0px");
   });
@@ -218,7 +218,7 @@ describe("useSwipeAction", () => {
 
     fireEvent.pointerUp(row, touch);
 
-    expect(onSwipe).toHaveBeenCalledTimes(0);
+    expect(onSwipe).not.toHaveBeenCalled();
     expect(row.dataset.kind).toEqual("idle");
   });
 
@@ -231,7 +231,7 @@ describe("useSwipeAction", () => {
 
     fireEvent.pointerCancel(row, touch);
 
-    expect(onSwipe).toHaveBeenCalledTimes(0);
+    expect(onSwipe).not.toHaveBeenCalled();
     expect(row.dataset.kind).toEqual("idle");
     expect(row.style.translate).toEqual("0px");
   });

@@ -99,7 +99,7 @@ describe("useSwipeDismiss", () => {
     now.mockReturnValue(1000);
     fireEvent.pointerUp(handle, { clientY: 220 });
 
-    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(onDismiss).not.toHaveBeenCalled();
     expect(sheet.style.translate).toEqual("");
   });
 
@@ -118,7 +118,7 @@ describe("useSwipeDismiss", () => {
     now.mockReturnValue(100);
     fireEvent.pointerUp(handle, { clientY: 150 });
 
-    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(onDismiss).not.toHaveBeenCalled();
     expect(sheet.style.translate).toEqual("");
   });
 
@@ -136,7 +136,7 @@ describe("useSwipeDismiss", () => {
     fireEvent.pointerMove(handle, { clientY: 300 });
     fireEvent.pointerCancel(handle);
 
-    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(onDismiss).not.toHaveBeenCalled();
     expect(sheet.style.translate).toEqual("");
   });
 
@@ -164,7 +164,7 @@ describe("useSwipeDismiss", () => {
       easing: "ease-out",
     });
     expect(sheet.style.translate).toEqual("0 100%");
-    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(onDismiss).not.toHaveBeenCalled();
   });
 
   test("dismisses after animating out", async () => {
@@ -228,7 +228,7 @@ describe("useSwipeDismiss", () => {
 
     expect(sheet.style.translate).toEqual("");
     expect(sheet.style.transition).toEqual("");
-    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(onDismiss).not.toHaveBeenCalled();
   });
 
   test("animation cancelled by a new drag", () => {
@@ -249,7 +249,7 @@ describe("useSwipeDismiss", () => {
     fireEvent.pointerDown(handle, { clientY: 100, isPrimary: true });
 
     expect(animation?.playState).toEqual("idle");
-    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(onDismiss).not.toHaveBeenCalled();
   });
 
   test("disabled", () => {
@@ -267,7 +267,7 @@ describe("useSwipeDismiss", () => {
     now.mockReturnValue(50);
     fireEvent.pointerUp(handle, { clientY: 300 });
 
-    expect(onDismiss).toHaveBeenCalledTimes(0);
+    expect(onDismiss).not.toHaveBeenCalled();
     expect(sheet.style.translate).toEqual("");
     expect(handle.style.touchAction).toEqual("");
   });
