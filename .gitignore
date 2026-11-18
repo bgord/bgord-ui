@@ -1,5 +1,4 @@
 *.tsbuildinfo
-.cspellcache
 .stryker-tmp
 dist
 node_modules

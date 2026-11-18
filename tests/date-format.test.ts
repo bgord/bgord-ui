@@ -1,4 +1,3 @@
-// cspell:disable
 import { describe, expect, test } from "bun:test";
 import { CalendarDay } from "../src/services/calendar-day";
 import { DateFormat } from "../src/services/date-format";

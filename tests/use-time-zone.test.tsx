@@ -1,4 +1,3 @@
-// cSpell:ignore Kiritimati
 import { describe, expect, setSystemTime, test } from "bun:test";
 import { renderHook } from "@testing-library/react";
 import { TimeZoneContext, useTimeZone, useToday } from "../src/hooks/use-time-zone";

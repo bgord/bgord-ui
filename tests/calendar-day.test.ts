@@ -1,4 +1,3 @@
-// cSpell:ignore Kiritimati
 import { describe, expect, setSystemTime, test } from "bun:test";
 import { CalendarDay } from "../src/services/calendar-day";
 

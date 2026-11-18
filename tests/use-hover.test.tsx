@@ -1,4 +1,3 @@
-// cspell:disable
 import { describe, expect, spyOn, test } from "bun:test";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { useHover } from "../src/hooks/use-hover";

@@ -1,4 +1,3 @@
-// cspell:disable
 import { describe, expect, jest, test } from "bun:test";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { useMetaEnterSubmit } from "../src/hooks/use-meta-enter-submit";

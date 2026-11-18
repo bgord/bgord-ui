@@ -1,4 +1,3 @@
-// cSpell:ignore Kiritimati
 import { afterEach, describe, expect, jest, spyOn, test } from "bun:test";
 import { TimeZone } from "../src/services/time-zone";
 

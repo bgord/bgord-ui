@@ -1,4 +1,3 @@
-/* cSpell:disable */
 import { describe, expect, jest, spyOn, test } from "bun:test";
 import { render, renderHook, screen } from "@testing-library/react";
 import {

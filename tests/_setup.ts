@@ -1,4 +1,3 @@
-// cspell:ignore registrator
 import { afterEach, jest, setSystemTime } from "bun:test";
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 
