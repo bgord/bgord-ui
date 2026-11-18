@@ -91,22 +91,24 @@ describe("useMutation", () => {
   });
 
   test("mutate - autoResetDelayMs", async () => {
+    jest.useFakeTimers();
     using _ = spyOn(global, "fetch").mockResolvedValue(Response.json({}));
     const { result } = renderHook(() => useMutation({ perform: () => fetch(url), autoResetDelayMs: 50 }));
     await act(() => result.current.mutate());
     expect(result.current.state).toEqual(MutationState.done);
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 100)));
+    act(() => jest.advanceTimersByTime(100));
 
     expect(result.current.state).toEqual(MutationState.idle);
   });
 
   test("mutate - no autoResetDelayMs", async () => {
+    jest.useFakeTimers();
     using _ = spyOn(global, "fetch").mockResolvedValue(Response.json({}));
     const { result } = renderHook(() => useMutation({ perform: () => fetch(url) }));
     await act(() => result.current.mutate());
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 50)));
+    act(() => jest.advanceTimersByTime(50));
 
     expect(result.current.state).toEqual(MutationState.done);
   });

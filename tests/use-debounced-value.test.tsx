@@ -1,4 +1,4 @@
-import { describe, expect, spyOn, test } from "bun:test";
+import { describe, expect, jest, spyOn, test } from "bun:test";
 import { act, renderHook } from "@testing-library/react";
 import { useDebouncedValue } from "../src/hooks/use-debounced-value";
 
@@ -9,49 +9,53 @@ describe("useDebouncedValue", () => {
     expect(result.current).toEqual("a");
   });
 
-  test("change - before delay", async () => {
+  test("change - before delay", () => {
+    jest.useFakeTimers();
     const { result, rerender } = renderHook(({ value }) => useDebouncedValue(value, 20), {
       initialProps: { value: "a" },
     });
     rerender({ value: "b" });
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 5)));
+    act(() => jest.advanceTimersByTime(5));
 
     expect(result.current).toEqual("a");
   });
 
-  test("change - after delay", async () => {
+  test("change - after delay", () => {
+    jest.useFakeTimers();
     const { result, rerender } = renderHook(({ value }) => useDebouncedValue(value, 20), {
       initialProps: { value: "a" },
     });
     rerender({ value: "b" });
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 40)));
+    act(() => jest.advanceTimersByTime(40));
 
     expect(result.current).toEqual("b");
   });
 
-  test("change - restarts delay", async () => {
+  test("change - restarts delay", () => {
+    jest.useFakeTimers();
     const { result, rerender } = renderHook(({ value }) => useDebouncedValue(value, 20), {
       initialProps: { value: "a" },
     });
     rerender({ value: "b" });
-    await act(() => new Promise((resolve) => setTimeout(resolve, 10)));
+    act(() => jest.advanceTimersByTime(10));
     rerender({ value: "c" });
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 15)));
+    act(() => jest.advanceTimersByTime(15));
 
     expect(result.current).toEqual("a");
   });
 
-  test("change - settles on last value", async () => {
+  test("change - settles on last value", () => {
+    jest.useFakeTimers();
     const { result, rerender } = renderHook(({ value }) => useDebouncedValue(value, 20), {
       initialProps: { value: "a" },
     });
     rerender({ value: "b" });
     rerender({ value: "c" });
 
-    await act(() => new Promise((resolve) => setTimeout(resolve, 40)));
+    act(() => jest.advanceTimersByTime(40));
 
     expect(result.current).toEqual("c");
   });
