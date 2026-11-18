@@ -16,14 +16,14 @@ export type SwipeActionState =
   | { kind: SwipeActionStateKind.idle; offset: 0 }
   | {
       kind: SwipeActionStateKind.pulling | SwipeActionStateKind.armed;
-      start: number;
+      start: { x: number; y: number };
       offset: number;
     }
   | { kind: SwipeActionStateKind.committed; offset: number };
 
 type SwipeActionEvent =
-  | { type: "press"; x: number }
-  | { type: "move"; x: number; threshold: number }
+  | { type: "press"; x: number; y: number }
+  | { type: "move"; x: number; y: number; threshold: number }
   | { type: "release" }
   | { type: "cancel" };
 
@@ -52,7 +52,7 @@ function transition(state: SwipeActionState, event: SwipeActionEvent): SwipeActi
     case SwipeActionStateKind.idle:
       switch (event.type) {
         case "press":
-          return { kind: SwipeActionStateKind.pulling, start: event.x, offset: 0 };
+          return { kind: SwipeActionStateKind.pulling, start: { x: event.x, y: event.y }, offset: 0 };
         default:
           return state;
       }
@@ -60,9 +60,13 @@ function transition(state: SwipeActionState, event: SwipeActionEvent): SwipeActi
     case SwipeActionStateKind.armed:
       switch (event.type) {
         case "move": {
-          const offset = event.x - state.start;
+          const offset = event.x - state.start.x;
+          const drift = event.y - state.start.y;
 
-          if (state.offset === 0 && Math.abs(offset) <= DEAD_ZONE) return state;
+          if (state.offset === 0) {
+            if (Math.max(Math.abs(offset), Math.abs(drift)) <= DEAD_ZONE) return state;
+            if (Math.abs(drift) >= Math.abs(offset)) return { kind: SwipeActionStateKind.idle, offset: 0 };
+          }
 
           const kind =
             Math.abs(offset) >= event.threshold ? SwipeActionStateKind.armed : SwipeActionStateKind.pulling;
@@ -108,10 +112,10 @@ export function useSwipeAction(config: UseSwipeActionConfig): UseSwipeActionRetu
       onPointerDown(event) {
         if (!(enabled && event.isPrimary && event.pointerType === "touch")) return;
 
-        send({ type: "press", x: event.clientX });
+        send({ type: "press", x: event.clientX, y: event.clientY });
       },
       onPointerMove(event) {
-        send({ type: "move", x: event.clientX, threshold });
+        send({ type: "move", x: event.clientX, y: event.clientY, threshold });
       },
       async onPointerUp() {
         send({ type: "release" });

@@ -112,6 +112,54 @@ describe("useSwipeAction", () => {
     expect(row.style.translate).toEqual("50px");
   });
 
+  test("pulling - ignores another touch", () => {
+    render(<Row onSwipe={jest.fn()} />);
+    const row = screen.getByTestId("row");
+    fireEvent.pointerDown(row, { ...touch, clientX: 100 });
+    fireEvent.pointerMove(row, { ...touch, clientX: 150 });
+
+    fireEvent.pointerDown(row, { ...touch, clientX: 300 });
+    fireEvent.pointerMove(row, { ...touch, clientX: 160 });
+
+    expect(row.dataset.kind).toEqual("pulling");
+    expect(row.style.translate).toEqual("60px");
+  });
+
+  test("ignores a vertical drag", () => {
+    render(<Row onSwipe={jest.fn()} />);
+    const row = screen.getByTestId("row");
+
+    fireEvent.pointerDown(row, { ...touch, clientX: 100, clientY: 100 });
+    fireEvent.pointerMove(row, { ...touch, clientX: 104, clientY: 160 });
+    fireEvent.pointerMove(row, { ...touch, clientX: 250, clientY: 160 });
+
+    expect(row.dataset.kind).toEqual("idle");
+    expect(row.style.translate).toEqual("0px");
+  });
+
+  test("ignores a diagonal drag", () => {
+    render(<Row onSwipe={jest.fn()} />);
+    const row = screen.getByTestId("row");
+
+    fireEvent.pointerDown(row, { ...touch, clientX: 100, clientY: 100 });
+    fireEvent.pointerMove(row, { ...touch, clientX: 120, clientY: 120 });
+
+    expect(row.dataset.kind).toEqual("idle");
+    expect(row.style.translate).toEqual("0px");
+  });
+
+  test("keeps swiping after vertical drift", () => {
+    render(<Row onSwipe={jest.fn()} />);
+    const row = screen.getByTestId("row");
+    fireEvent.pointerDown(row, { ...touch, clientX: 100, clientY: 100 });
+    fireEvent.pointerMove(row, { ...touch, clientX: 150, clientY: 100 });
+
+    fireEvent.pointerMove(row, { ...touch, clientX: 160, clientY: 300 });
+
+    expect(row.dataset.kind).toEqual("pulling");
+    expect(row.style.translate).toEqual("60px");
+  });
+
   test("ignores mouse", () => {
     render(<Row onSwipe={jest.fn()} />);
     const row = screen.getByTestId("row");
